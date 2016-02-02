@@ -9,8 +9,15 @@ public class Player {
     private int m_id;
     private Socket m_socket;
     private boolean m_isBlack;
-    public Player(){
+    public Player(Socket socket, int id){
 
+    }
+
+    public int GetID(){
+        return m_id;
+    }
+    public Socket GetSocket(){
+        return m_socket;
     }
 
 
