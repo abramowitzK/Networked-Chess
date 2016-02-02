@@ -8,7 +8,7 @@ import java.io.IOException;
 public class Main {
     /**
      * Server.Main entry point
-     * @param args
+     * @param args arguments to main program
      */
     public static void main(String [] args){
         Server mainServer;
