@@ -1,6 +1,4 @@
-package Moves;
-
-import Game.Position;
+package Game;
 
 import java.io.Serializable;
 

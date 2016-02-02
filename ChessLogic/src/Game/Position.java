@@ -4,8 +4,8 @@ package Game;
  * Created by Kyle on 2/1/2016.
  */
 public class Position {
-    int m_xPosition;
-    int m_yPosition;
+    private int m_xPosition;
+    private int m_yPosition;
     public int GetX() {
         return m_xPosition;
     }
