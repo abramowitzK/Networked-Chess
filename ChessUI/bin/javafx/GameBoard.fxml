@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.GameBoardController">
+   
+   <center>
+      <GridPane fx:id="gameBoard" alignment="CENTER" gridLinesVisible="true" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints minWidth="30.0" prefWidth="60.0" />
+          <ColumnConstraints minWidth="30.0" prefWidth="60.0" />
+          <ColumnConstraints minWidth="30.0" prefWidth="60.0" />
+          <ColumnConstraints minWidth="30.0" prefWidth="60.0" />
+          <ColumnConstraints minWidth="30.0" prefWidth="60.0" />
+          <ColumnConstraints minWidth="30.0" prefWidth="60.0" />
+          <ColumnConstraints minWidth="30.0" prefWidth="60.0" />
+          <ColumnConstraints minWidth="30.0" prefWidth="60.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="30.0" prefHeight="60.0" />
+          <RowConstraints minHeight="30.0" prefHeight="60.0" />
+          <RowConstraints minHeight="30.0" prefHeight="60.0" />
+          <RowConstraints minHeight="30.0" prefHeight="60.0" />
+          <RowConstraints minHeight="30.0" prefHeight="60.0" />
+          <RowConstraints minHeight="30.0" prefHeight="60.0" />
+          <RowConstraints minHeight="30.0" prefHeight="60.0" />
+          <RowConstraints minHeight="30.0" prefHeight="60.0" />
+        </rowConstraints>
+         
+         <children>
+            
+            <Region id="light" fx:id="A0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <Region id="dark"  fx:id="B0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            <Region id="light" fx:id="C0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+            <Region id="dark"  fx:id="D0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+            <Region id="light" fx:id="E0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="0"/>
+            <Region id="dark"  fx:id="F0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="0"/>
+            <Region id="light" fx:id="G0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="0"/>
+            <Region id="dark"  fx:id="H0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="0"/>
+            
+            <Region id="dark"  fx:id="A1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <Region id="light" fx:id="B1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            <Region id="dark"  fx:id="C1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+            <Region id="light" fx:id="D1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+            <Region id="dark"  fx:id="E1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1"/>
+            <Region id="light" fx:id="F1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="1"/>
+            <Region id="dark"  fx:id="G1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="1"/>
+            <Region id="light" fx:id="H1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="1"/>
+            
+            <Region id="light" fx:id="A2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <Region id="dark"  fx:id="B2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+            <Region id="light" fx:id="C2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+            <Region id="dark"  fx:id="D2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+            <Region id="light" fx:id="E2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2"/>
+            <Region id="dark"  fx:id="F2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="2"/>
+            <Region id="light" fx:id="G2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="2"/>
+            <Region id="dark"  fx:id="H2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="2"/>
+            
+            <Region id="dark"  fx:id="A3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+            <Region id="light" fx:id="B3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+            <Region id="dark"  fx:id="C3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+            <Region id="light" fx:id="D3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3"/>
+            <Region id="dark"  fx:id="E3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="3"/>
+            <Region id="light" fx:id="F3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="3"/>
+            <Region id="dark"  fx:id="G3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="3"/>
+            <Region id="light" fx:id="H3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="3"/>
+            
+            <Region id="light" fx:id="A4" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+            <Region id="dark"  fx:id="B4" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+            <Region id="light" fx:id="C4" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4"/>
+            <Region id="dark"  fx:id="D4" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4"/>
+            <Region id="light" fx:id="E4" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="4"/>
+            <Region id="dark"  fx:id="F4" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="4"/>
+            <Region id="light" fx:id="G4" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="4"/>
+            <Region id="dark"  fx:id="H4" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="4"/>
+            
+            <Region id="dark"  fx:id="A5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+            <Region id="light" fx:id="B5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+            <Region id="dark"  fx:id="C5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5"/>
+            <Region id="light" fx:id="D5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="5"/>
+            <Region id="dark"  fx:id="E5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="5"/>
+            <Region id="light" fx:id="F5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="5"/>
+            <Region id="dark"  fx:id="G5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="5"/>
+            <Region id="light" fx:id="H5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="5"/>
+         
+         	<Region id="light" fx:id="A6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+            <Region id="dark"  fx:id="B6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+            <Region id="light" fx:id="C6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="6"/>
+            <Region id="dark"  fx:id="D6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="6"/>
+            <Region id="light" fx:id="E6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="6"/>
+            <Region id="dark"  fx:id="F6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="6"/>
+            <Region id="light" fx:id="G6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="6"/>
+            <Region id="dark"  fx:id="H6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="6"/>
+         
+         	<Region id="dark"  fx:id="A7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
+            <Region id="light" fx:id="B7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+            <Region id="dark"  fx:id="C7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="7"/>
+            <Region id="light" fx:id="D7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="7"/>
+            <Region id="dark"  fx:id="E7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="7"/>
+            <Region id="light" fx:id="F7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="7"/>
+            <Region id="dark"  fx:id="G7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="7"/>
+            <Region id="light" fx:id="H7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="7"/>
+         </children>
+         
+      </GridPane>
+   </center>
+   
+   <top>
+      <Label text="Your Turn" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="5.0" />
+         </padding>
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin>
+      </Label>
+   </top>
+   <bottom>
+      <BorderPane prefHeight="38.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <left>
+            <Button fx:id="forfeitButton" onAction="#handleForfeitClick" text="Forfeit" BorderPane.alignment="CENTER" />
+         </left>
+         <center>
+            <Button fx:id="submitMoveButton" onAction="#handleSubmitMoveClick" text="Submit Move" BorderPane.alignment="CENTER" />
+         </center>
+         <right>
+            <Button text="Undo" BorderPane.alignment="CENTER" />
+         </right>
+      </BorderPane>
+   </bottom>
+</BorderPane>
