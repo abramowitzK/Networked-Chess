@@ -8,6 +8,10 @@ import java.io.Serializable;
 public class Position implements Serializable {
     private int m_xPosition;
     private int m_yPosition;
+    public Position(int x, int y){
+        m_xPosition = x;
+        m_yPosition = y;
+    }
     public int GetX() {
         return m_xPosition;
     }

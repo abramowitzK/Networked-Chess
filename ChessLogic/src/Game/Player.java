@@ -17,13 +17,10 @@ public class Player {
         m_in = in;
         m_out = out;
     }
-
     public int GetID(){
         return m_id;
     }
-    public ObjectInputStream GetIn(){
-        return m_in;
-    }
+    public ObjectInputStream GetIn(){ return m_in; }
     public ObjectOutputStream GetOut(){
         return m_out;
     }

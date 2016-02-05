@@ -7,10 +7,10 @@ import java.io.Serializable;
  */
 public enum OpCode implements Serializable{
     UpdateBoard,
+    UpdatedBoard,
     JoinQueue,
-    JoinGame,
-    QuitGame,
     JoinedQueue,
+    JoinGame,
     JoinedGame,
-    UpdatedBoard
+    QuitGame,
 }

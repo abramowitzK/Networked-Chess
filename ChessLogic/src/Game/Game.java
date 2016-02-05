@@ -30,13 +30,13 @@ public class Game {
     public void ApplyMove(int playerID, Move move){
         m_board.ApplyMove(move);
         try{
-            if(playerID == m_p1ID){
+            if(playerID == m_p1ID && !IsOver()){
                 //Send to player2
                 System.out.println("Sending move to player 2");
                 m_player2.GetOut().writeObject(new Packet(OpCode.UpdateBoard, m_p2ID, move));
                 //Also let player 1 know that the update went through
                 m_player1.GetOut().writeObject(new Packet(OpCode.UpdatedBoard, m_p1ID, move));
-            }else{
+            } else if (playerID == m_p2ID && !IsOver()){
                 //Send to Player1
                 System.out.println("Sending move to player 1");
                 m_player1.GetOut().writeObject(new Packet(OpCode.UpdateBoard, m_p1ID, move));

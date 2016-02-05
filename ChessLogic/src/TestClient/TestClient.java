@@ -6,7 +6,6 @@ import Networking.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -23,7 +22,7 @@ public class TestClient {
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
             Packet inObj = (Packet)in.readObject();
             System.out.println(inObj);
-            out.writeObject(new Packet(OpCode.UpdateBoard, inObj.GetID(), new Move(new Position(), new Position())));
+            out.writeObject(new Packet(OpCode.UpdateBoard, inObj.GetID(), new Move(new Position(0,0), new Position(0,0))));
             Packet up  = (Packet)in.readObject();
             out.writeObject(new Packet(OpCode.QuitGame, inObj.GetID(), null));
             socket.close();
