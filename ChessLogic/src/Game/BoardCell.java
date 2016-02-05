@@ -16,4 +16,18 @@ public class BoardCell {
         m_pos = new Position(x, y);
         m_piece = piece;
     }
+    public Piece GetPiece(){
+        return m_piece;
+    }
+    public void SetPiece(Piece piece){
+        m_piece = piece;
+    }
+    @Override
+    public String toString(){
+        if(null != m_piece){
+            return m_piece.GetName();
+        } else{
+            return "N";
+        }
+    }
 }

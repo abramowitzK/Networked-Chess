@@ -45,6 +45,8 @@ public class ServerThread extends Thread{
                 }
                 break;
             case QuitGame:
+                //Set flag in game struct that lets us know game is over and can be made null in server so a new one can
+                //be created if there are more people in the queue
                 m_game.Quit(packet.GetID());
                 break;
             default:
