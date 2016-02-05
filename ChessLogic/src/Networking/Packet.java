@@ -41,6 +41,11 @@ public class Packet implements Serializable {
     public Move GetMove(){
         return m_move;
     }
-
+    @Override
+    public String toString(){
+        if(m_code == OpCode.JoinedQueue)
+            return "Joined Queue";
+        return "Null";
+    }
 
 }

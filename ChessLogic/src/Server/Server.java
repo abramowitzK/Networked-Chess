@@ -7,6 +7,7 @@ import Networking.Packet;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Queue;
@@ -36,14 +37,11 @@ public class Server {
         m_gameQueue = new ConcurrentLinkedQueue<>();
         m_game = null;
         try {
-            m_serverSocket = new ServerSocket(4444);
+            m_serverSocket = new ServerSocket(4444,0, InetAddress.getByName("127.0.0.1"));
         }
         catch (IOException ex) {
             System.err.println("Failed to bind server to port!");
             System.exit(-1);
-        }
-        finally {
-            m_serverSocket.close();
         }
     }
 
@@ -51,13 +49,14 @@ public class Server {
      * Process a packet from a player. Logic in here decides what kind of packet it is and what to do with it.
      * @param packet
      */
-    public void ProcessPacket(Packet packet, ObjectOutputStream out, Socket socket){
+    public void ProcessPacket(Packet packet, ObjectOutputStream out, ObjectInputStream in){
         try {
             switch (packet.GetOpCode()) {
                 case JoinQueue:
                     //Check if client is sending a duplicate join queue packet.
                     if(packet.GetID() == -1) {
-                        m_gameQueue.add(new Player(socket, m_currentID));
+                        System.out.println("Adding new client to the queue!");
+                        m_gameQueue.add(new Player(m_currentID, in, out));
                         //Send confirmation that client is in queue
                         out.writeObject(new Packet(OpCode.JoinedQueue, m_currentID, null ));
                         //Increment current ID. We don't reuse IDs
@@ -68,6 +67,8 @@ public class Server {
                         out.writeObject(new Packet(OpCode.JoinedQueue, packet.GetID(), null ));
                     }
                     break;
+                case QuitGame:
+                    //Let player leave queue
                 default:
                     System.err.println("Unknown packet opcode. Can only join queue from main server thread");
                     break;
@@ -99,28 +100,32 @@ public class Server {
                 ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
                 Packet receivedPacket = (Packet) in.readObject();
                 //Encapsulate all packet processing
-                ProcessPacket(receivedPacket, out, clientSocket);
-                StartGame();
+                ProcessPacket(receivedPacket, out, in);
+                Game(in, out);
             }
             catch (IOException ex){
-
+                ex.printStackTrace();
             }
             catch (ClassNotFoundException ex){
-
+                ex.printStackTrace();
             }
             finally {
 
             }
         }
     }
-    public boolean StartGame(){
-        if(m_gameQueue.size() >= 2){
+    public boolean Game(ObjectInputStream in, ObjectOutputStream out){
+        if(m_gameQueue.size() >= 2 && (m_game == null)){
+            System.out.println("Starting new game");
             Player p1 = m_gameQueue.remove();
             Player p2 = m_gameQueue.remove();
             m_game = new Game(p1, p2);
-            new ServerThread(p1, m_game).run();
-            new ServerThread(p2, m_game).run();
+            new ServerThread(p1, m_game, p1.GetOut(), p1.GetIn()).run();
+            new ServerThread(p2, m_game, p2.GetOut(), p2.GetIn()).run();
             return true;
+        }
+        else if (null != m_game && m_game.IsOver()) {
+            m_game = null;
         }
         return false;
     }

@@ -3,6 +3,7 @@ package Server;
 import Game.*;
 import Networking.Packet;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -12,13 +13,17 @@ import java.net.Socket;
  * Created by Kyle on 2/1/2016.
  */
 public class ServerThread extends Thread{
-    private Socket m_socket;
     private Player m_player;
+    private ObjectOutputStream m_out;
+    private ObjectInputStream m_in;
     private boolean m_quit;
     private Game m_game;
-    public ServerThread(Player player, Game game){
+    public ServerThread(Player player, Game game, ObjectOutputStream out, ObjectInputStream in){
         m_player = player;
         m_quit = false;
+        m_out = out;
+        m_in = in;
+        m_game = game;
     }
     /**
      * Process a packet from a player. Logic in here decides what kind of packet it is and what to do with it.
@@ -32,6 +37,7 @@ public class ServerThread extends Thread{
                 //
                 //Apply the move to the server board
                 //This needs to be synchronized since both threads work with this game.
+                System.out.println("recieved an update board packet from: " + packet.GetID());
                 synchronized(m_game) {
                     //This method should update the game board on the server and then send a packet to
                     //the other player updating the board.
@@ -52,18 +58,23 @@ public class ServerThread extends Thread{
      */
     @Override
     public void run(){
-        try (
-            ObjectInputStream in = (ObjectInputStream)m_socket.getInputStream();
-            ObjectOutputStream out = (ObjectOutputStream)m_socket.getOutputStream();
-        ){
+        try {
             while (!m_quit){
-                ProcessPacket((Packet)in.readObject(), out);
+                ProcessPacket((Packet)m_in.readObject(), m_out);
             }
-            m_socket.close();
+        }
+        catch (EOFException ex){
+            //Client disconnected!
+            //Handle disconnection
+            //Return to kill thread
+            System.out.println("Client disconnected");
+            return;
         }
         catch (IOException ex){
+            ex.printStackTrace();
         }
         catch (ClassNotFoundException ex){
+            ex.printStackTrace();
         }
     }
 

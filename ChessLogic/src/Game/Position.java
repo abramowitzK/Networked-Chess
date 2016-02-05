@@ -1,9 +1,11 @@
 package Game;
 
+import java.io.Serializable;
+
 /**
  * Created by Kyle on 2/1/2016.
  */
-public class Position {
+public class Position implements Serializable {
     private int m_xPosition;
     private int m_yPosition;
     public int GetX() {
