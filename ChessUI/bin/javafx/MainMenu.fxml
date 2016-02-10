@@ -11,6 +11,6 @@
    <children>
       <Text id="titleText" text="Play Chess!"/>
       <Button fx:id="playGameButton" onAction="#handleClick" text="Play Game"/>
-      <Button fx:id="quitGameButton" onAction="#handleQuit" text="Quit Game"/>
+      <Button fx:id="quitGameButton" onAction="#handleQuit" text="Exit Application"/>
    </children>
 </VBox>

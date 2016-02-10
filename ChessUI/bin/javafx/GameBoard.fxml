@@ -34,85 +34,244 @@
         </rowConstraints>
          
          <children>
+         <!-- Squares on the board that have light or dark coloring. They are ordered by row -->
+	        
+	        <!-- Row 0 -->    
+            <Region id="light" fx:id="A0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <Region id="dark" fx:id="B0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <Region id="light" fx:id="C0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+            <Region id="dark" fx:id="D0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+            <Region id="light" fx:id="E0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+            <Region id="dark" fx:id="F0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="0" />
+            <Region id="light" fx:id="G0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="0" />
+            <Region id="dark" fx:id="H0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="0" />
+	        
+	        <!-- Row 1 -->    
+            <Region id="dark" fx:id="A1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <Region id="light" fx:id="B1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Region id="dark" fx:id="C1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Region id="light" fx:id="D1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Region id="dark" fx:id="E1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <Region id="light" fx:id="F1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+            <Region id="dark" fx:id="G1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+            <Region id="light" fx:id="H1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="1" />
             
-            <Region id="light" fx:id="A0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-            <Region id="dark"  fx:id="B0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-            <Region id="light" fx:id="C0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
-            <Region id="dark"  fx:id="D0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
-            <Region id="light" fx:id="E0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="0"/>
-            <Region id="dark"  fx:id="F0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="0"/>
-            <Region id="light" fx:id="G0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="0"/>
-            <Region id="dark"  fx:id="H0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="0"/>
+            <!-- Row 2 -->
+            <Region id="light" fx:id="A2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <Region id="dark" fx:id="B2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Region id="light" fx:id="C2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Region id="dark" fx:id="D2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Region id="light" fx:id="E2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <Region id="dark" fx:id="F2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+            <Region id="light" fx:id="G2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+            <Region id="dark" fx:id="H2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="2" />
             
-            <Region id="dark"  fx:id="A1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-            <Region id="light" fx:id="B1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-            <Region id="dark"  fx:id="C1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
-            <Region id="light" fx:id="D1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
-            <Region id="dark"  fx:id="E1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1"/>
-            <Region id="light" fx:id="F1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="1"/>
-            <Region id="dark"  fx:id="G1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="1"/>
-            <Region id="light" fx:id="H1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="1"/>
+            <!-- Row 3 -->
+            <Region id="dark" fx:id="A3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+            <Region id="light" fx:id="B3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Region id="dark" fx:id="C3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Region id="light" fx:id="D3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <Region id="dark" fx:id="E3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+            <Region id="light" fx:id="F3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+            <Region id="dark" fx:id="G3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+            <Region id="light" fx:id="H3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="3" />
             
-            <Region id="light" fx:id="A2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-            <Region id="dark"  fx:id="B2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-            <Region id="light" fx:id="C2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
-            <Region id="dark"  fx:id="D2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
-            <Region id="light" fx:id="E2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2"/>
-            <Region id="dark"  fx:id="F2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="2"/>
-            <Region id="light" fx:id="G2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="2"/>
-            <Region id="dark"  fx:id="H2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="2"/>
+            <!-- Row 4 -->
+            <Region id="light" fx:id="A4" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+            <Region id="dark" fx:id="B4" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Region id="light" fx:id="C4" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Region id="dark" fx:id="D4" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <Region id="light" fx:id="E4" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+            <Region id="dark" fx:id="F4" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+            <Region id="light" fx:id="G4" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="4" />
+            <Region id="dark" fx:id="H4" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="4" />
             
-            <Region id="dark"  fx:id="A3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-            <Region id="light" fx:id="B3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-            <Region id="dark"  fx:id="C3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
-            <Region id="light" fx:id="D3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3"/>
-            <Region id="dark"  fx:id="E3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="3"/>
-            <Region id="light" fx:id="F3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="3"/>
-            <Region id="dark"  fx:id="G3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="3"/>
-            <Region id="light" fx:id="H3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="3"/>
+            <!-- Row 5 -->
+            <Region id="dark" fx:id="A5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+            <Region id="light" fx:id="B5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Region id="dark" fx:id="C5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <Region id="light" fx:id="D5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+            <Region id="dark" fx:id="E5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+            <Region id="light" fx:id="F5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+            <Region id="dark" fx:id="G5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="5" />
+            <Region id="light" fx:id="H5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="5" />
             
-            <Region id="light" fx:id="A4" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-            <Region id="dark"  fx:id="B4" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-            <Region id="light" fx:id="C4" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4"/>
-            <Region id="dark"  fx:id="D4" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4"/>
-            <Region id="light" fx:id="E4" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="4"/>
-            <Region id="dark"  fx:id="F4" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="4"/>
-            <Region id="light" fx:id="G4" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="4"/>
-            <Region id="dark"  fx:id="H4" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="4"/>
-            
-            <Region id="dark"  fx:id="A5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
-            <Region id="light" fx:id="B5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-            <Region id="dark"  fx:id="C5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5"/>
-            <Region id="light" fx:id="D5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="5"/>
-            <Region id="dark"  fx:id="E5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="5"/>
-            <Region id="light" fx:id="F5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="5"/>
-            <Region id="dark"  fx:id="G5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="5"/>
-            <Region id="light" fx:id="H5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="5"/>
+            <!-- Row 6 -->      
+         	<Region id="light" fx:id="A6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+            <Region id="dark" fx:id="B6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Region id="light" fx:id="C6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <Region id="dark" fx:id="D6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <Region id="light" fx:id="E6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+            <Region id="dark" fx:id="F6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="6" />
+            <Region id="light" fx:id="G6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="6" />
+            <Region id="dark" fx:id="H6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="6" />
          
-         	<Region id="light" fx:id="A6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
-            <Region id="dark"  fx:id="B6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
-            <Region id="light" fx:id="C6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="6"/>
-            <Region id="dark"  fx:id="D6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="6"/>
-            <Region id="light" fx:id="E6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="6"/>
-            <Region id="dark"  fx:id="F6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="6"/>
-            <Region id="light" fx:id="G6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="6"/>
-            <Region id="dark"  fx:id="H6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="6"/>
-         
-         	<Region id="dark"  fx:id="A7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
-            <Region id="light" fx:id="B7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
-            <Region id="dark"  fx:id="C7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="7"/>
-            <Region id="light" fx:id="D7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="7"/>
-            <Region id="dark"  fx:id="E7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="7"/>
-            <Region id="light" fx:id="F7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="7"/>
-            <Region id="dark"  fx:id="G7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="7"/>
-            <Region id="light" fx:id="H7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="7"/>
+         	<!-- Row 7 -->
+         	<Region id="dark" fx:id="A7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+            <Region id="light" fx:id="B7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Region id="dark" fx:id="C7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+            <Region id="light" fx:id="D7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+            <Region id="dark" fx:id="E7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+            <Region id="light" fx:id="F7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="7" />
+            <Region id="dark" fx:id="G7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="7" />
+            <Region id="light" fx:id="H7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="7" />
+         <!-- End region declarations -->
+            
+         <!-- ImageView for the display of the piece image on the board -->
+            
+            <!-- Row 0 -->
+            <ImageView fx:id="A0i" fitHeight="81.0" fitWidth="60.0" onMouseClicked="#handleClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <image><Image url="@../images/black_rook.png" /></image>
+            </ImageView>
+            <ImageView fx:id="B0i" fitHeight="81.0" fitWidth="60.0" onMouseClicked="#handleClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <image><Image url="@../images/black_knight.png" /></image>
+            </ImageView>
+            <ImageView fx:id="C0i" fitHeight="81.0" fitWidth="60.0" onMouseClicked="#handleClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="0">
+            <image><Image url="@../images/black_bishop.png" /></image>
+            </ImageView>
+            <ImageView fx:id="D0i" fitHeight="81.0" fitWidth="60.0" onMouseClicked="#handleClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="0">
+            <image><Image url="@../images/black_queen.png" /></image>
+            </ImageView>
+            <ImageView fx:id="E0i" fitHeight="81.0" fitWidth="60.0" onMouseClicked="#handleClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="0">
+            <image><Image url="@../images/black_king.png" /></image>
+            </ImageView>
+            <ImageView fx:id="F0i" fitHeight="81.0" fitWidth="60.0" onMouseClicked="#handleClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="0">
+            <image><Image url="@../images/black_bishop.png" /></image>
+            </ImageView>
+            <ImageView fx:id="G0i" fitHeight="81.0" fitWidth="60.0" onMouseClicked="#handleClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="0">
+            <image><Image url="@../images/black_knight.png" /></image>
+            </ImageView>
+            <ImageView fx:id="H0i" fitHeight="81.0" fitWidth="60.0" onMouseClicked="#handleClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.rowIndex="0">
+            <image><Image url="@../images/black_rook.png" /></image>
+            </ImageView>
+            
+            <!-- Row 1 -->
+            <ImageView fx:id="A1i" fitHeight="81.0" fitWidth="60.0" onMouseClicked="#handleClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <image><Image url="@../images/black_pawn.png" /></image>
+            </ImageView>
+            <ImageView fx:id="B1i" fitHeight="81.0" fitWidth="60.0" onMouseClicked="#handleClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <image><Image url="@../images/black_pawn.png" /></image>
+            </ImageView>
+            <ImageView fx:id="C1i" fitHeight="81.0" fitWidth="60.0" onMouseClicked="#handleClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <image><Image url="@../images/black_pawn.png" /></image>
+            </ImageView>
+            <ImageView fx:id="D1i" fitHeight="81.0" fitWidth="60.0" onMouseClicked="#handleClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <image><Image url="@../images/black_pawn.png" /></image>
+            </ImageView>
+            <ImageView fx:id="E1i" fitHeight="81.0" fitWidth="60.0" onMouseClicked="#handleClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="1">
+            <image><Image url="@../images/black_pawn.png" /></image>
+            </ImageView>
+            <ImageView fx:id="F1i" fitHeight="81.0" fitWidth="60.0" onMouseClicked="#handleClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="1">
+            <image><Image url="@../images/black_pawn.png" /></image>
+            </ImageView>
+            <ImageView fx:id="G1i" fitHeight="81.0" fitWidth="60.0" onMouseClicked="#handleClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="1">
+            <image><Image url="@../images/black_pawn.png" /></image>
+            </ImageView>
+            <ImageView fx:id="H1i" fitHeight="81.0" fitWidth="60.0" onMouseClicked="#handleClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.rowIndex="1">
+            <image><Image url="@../images/black_pawn.png" /></image>
+            </ImageView>
+            
+            <!-- Row 2 -->
+            <ImageView fx:id="A2i" fitHeight="81.0" fitWidth="60.0" onMouseClicked="#handleClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <ImageView fx:id="B2i" fitHeight="81.0" fitWidth="60.0" onMouseClicked="#handleClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ImageView fx:id="C2i" fitHeight="81.0" fitWidth="60.0" onMouseClicked="#handleClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <ImageView fx:id="D2i" fitHeight="81.0" fitWidth="60.0" onMouseClicked="#handleClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <ImageView fx:id="E2i" fitHeight="81.0" fitWidth="60.0" onMouseClicked="#handleClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <ImageView fx:id="F2i" fitHeight="81.0" fitWidth="60.0" onMouseClicked="#handleClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+            <ImageView fx:id="G2i" fitHeight="81.0" fitWidth="60.0" onMouseClicked="#handleClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+            <ImageView fx:id="H2i" fitHeight="81.0" fitWidth="60.0" onMouseClicked="#handleClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.rowIndex="2" />
+            
+            <!-- Row 3 -->
+            <ImageView fx:id="A3i" fitHeight="81.0" fitWidth="60.0" onMouseClicked="#handleClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+            <ImageView fx:id="B3i" fitHeight="81.0" fitWidth="60.0" onMouseClicked="#handleClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ImageView fx:id="C3i" fitHeight="81.0" fitWidth="60.0" onMouseClicked="#handleClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <ImageView fx:id="D3i" fitHeight="81.0" fitWidth="60.0" onMouseClicked="#handleClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <ImageView fx:id="E3i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+            <ImageView fx:id="F3i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+            <ImageView fx:id="G3i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+            <ImageView fx:id="H3i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.rowIndex="3" />
+            
+            <!-- Row 4 -->
+            <ImageView fx:id="A4i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+            <ImageView fx:id="B4i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ImageView fx:id="C4i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <ImageView fx:id="D4i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <ImageView fx:id="E4i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+            <ImageView fx:id="F4i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+            <ImageView fx:id="G4i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="4" />
+            <ImageView fx:id="H4i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.rowIndex="4" />
+            
+            <!-- Row 5 -->
+            <ImageView fx:id="A5i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+            <ImageView fx:id="B5i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <ImageView fx:id="C5i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <ImageView fx:id="D5i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+            <ImageView fx:id="E5i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+            <ImageView fx:id="F5i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+            <ImageView fx:id="G5i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="5" />
+            <ImageView fx:id="H5i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.rowIndex="5" />
+            
+            <!-- Row 6 -->
+            <ImageView fx:id="A6i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="6">
+            <image><Image url="@../images/white_pawn.png" /></image>
+            </ImageView>
+            <ImageView fx:id="B6i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <image><Image url="@../images/white_pawn.png" /></image>
+            </ImageView>
+            <ImageView fx:id="C6i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="6">
+            <image><Image url="@../images/white_pawn.png" /></image>
+            </ImageView>
+            <ImageView fx:id="D6i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="6">
+            <image><Image url="@../images/white_pawn.png" /></image>
+            </ImageView>
+            <ImageView fx:id="E6i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="6">
+            <image><Image url="@../images/white_pawn.png" /></image>
+            </ImageView>
+            <ImageView fx:id="F6i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="6">
+            <image><Image url="@../images/white_pawn.png" /></image>
+            </ImageView>
+            <ImageView fx:id="G6i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="6">
+            <image><Image url="@../images/white_pawn.png" /></image>
+            </ImageView>
+            <ImageView fx:id="H6i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.rowIndex="6">
+            <image><Image url="@../images/white_pawn.png" /></image>
+            </ImageView>
+            
+            <!-- Row 7 -->
+            <ImageView fx:id="A7i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="7">
+            <image><Image url="@../images/white_rook.png" /></image>
+            </ImageView>
+            <ImageView fx:id="B7i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="7">
+            <image><Image url="@../images/white_knight.png" /></image>
+            </ImageView>
+            <ImageView fx:id="C7i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="7">
+            <image><Image url="@../images/white_bishop.png" /></image>
+            </ImageView>
+            <ImageView fx:id="D7i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="7">
+            <image><Image url="@../images/white_queen.png" /></image>
+            </ImageView>
+            <ImageView fx:id="E7i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="7">
+            <image><Image url="@../images/white_king.png" /></image>
+            </ImageView>
+            <ImageView fx:id="F7i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="7">
+            <image><Image url="@../images/white_bishop.png" /></image>
+            </ImageView>
+            <ImageView fx:id="G7i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="7">
+            <image><Image url="@../images/white_knight.png" /></image>
+            </ImageView>
+            <ImageView fx:id="H7i" fitHeight="81.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.rowIndex="7">
+            <image><Image url="@../images/white_rook.png" /></image>
+            </ImageView>            
+			
+		<!-- End ImageView declarations -->
          </children>
          
       </GridPane>
    </center>
    
+   <!-- Label at the top of the screen that displays whether it is the player's or opponent's turn -->
    <top>
-      <Label text="Your Turn" BorderPane.alignment="CENTER">
+      <Label id="turnLabel" fx:id="turnIndicator" text="Your Turn" BorderPane.alignment="CENTER">
          <padding>
             <Insets bottom="5.0" />
          </padding>
@@ -121,6 +280,8 @@
          </BorderPane.margin>
       </Label>
    </top>
+   
+   <!-- Forfeit and Submit Move buttons at bottom of the screen -->
    <bottom>
       <BorderPane prefHeight="38.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <left>
@@ -129,9 +290,6 @@
          <center>
             <Button fx:id="submitMoveButton" onAction="#handleSubmitMoveClick" text="Submit Move" BorderPane.alignment="CENTER" />
          </center>
-         <right>
-            <Button text="Undo" BorderPane.alignment="CENTER" />
-         </right>
       </BorderPane>
    </bottom>
 </BorderPane>

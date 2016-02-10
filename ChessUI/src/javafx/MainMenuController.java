@@ -24,8 +24,8 @@ public class MainMenuController {
 	 */
 	public void handleClick(){
 		try{
-			System.out.println("You clicked me");
-			/*
+			System.out.println("You Play Game");
+			
 			// Create cancel button
 			ButtonType cancelButtonType = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
 			
@@ -50,8 +50,10 @@ public class MainMenuController {
 			a.setTitle("Play Chess");
 			
 			//show dialog box
-			a.showAndWait();*/
+			a.showAndWait();
 			
+			
+			// Transitions the UI to the GameBoard and loads the GameBoard FXML and CSS file
 			Stage getstage = (Stage) playGameButton.getScene().getWindow();
 			Parent root = FXMLLoader.load(getClass().getResource("GameBoard.fxml"));
 			

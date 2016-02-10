@@ -10,6 +10,11 @@
 	-fx-background-color:peru;
 }
 
+#turnLabel{
+	-fx-font-size:18pt;
+	-fx-font-weight:bold;
+}
+
 .button{
 	-fx-font-size:14pt;
 	-fx-font-weight:bold;
