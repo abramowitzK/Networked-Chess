@@ -1,5 +1,12 @@
 package javafx;
 
+import java.io.IOException;
+import java.util.Optional;
+
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,14 +25,12 @@ import javafx.stage.Stage;
 public class MainMenuController {
 	@FXML private Button playGameButton;
 	@FXML private Button quitGameButton;
-	
+	private Service<Void> backgroundTask;
 	/**
 	 * Initiate pop-up to show searching and send request to server to place player in queue 
 	 */
 	public void handleClick(){
 		try{
-			System.out.println("You Play Game");
-			
 			// Create cancel button
 			ButtonType cancelButtonType = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
 			
@@ -49,19 +54,83 @@ public class MainMenuController {
 			a.getDialogPane().setContent(vbox);
 			a.setTitle("Play Chess");
 			
+			
+			//Create background task to communicate with server
+			backgroundTask = new Service<Void>() {
+				@Override
+				protected Task<Void> createTask() {
+					
+					return new Task<Void>(){
+						
+						@Override
+						protected Void call() throws Exception 
+						{
+							//TODO implement code  to send packet to server	
+							
+							int i =0;
+							while(i<6){
+								if(isCancelled()){
+									break;
+								}
+								System.out.println("Doing something");
+								i++;
+							 try {
+					                Thread.sleep(1000);
+					            } catch (InterruptedException interrupted) {
+					                if (isCancelled()) {
+					                    updateMessage("Cancelled");
+					                    break;
+					                }
+					            }							
+							}
+							return null;
+						}	
+					};
+				}
+			};
+			
+			//Remove player from queue when Cancel button is pressed while searching
+			backgroundTask.setOnCancelled(new EventHandler<WorkerStateEvent>(){
+
+				@Override
+				public void handle(WorkerStateEvent event) {
+					System.out.println("Handeled Cancel");
+				}
+			});
+			
+			//Close the dialog box and transition to the game board
+			backgroundTask.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
+
+				@Override
+				public void handle(WorkerStateEvent event) {
+					
+					a.close();
+					
+					// Transitions the UI to the GameBoard and loads the GameBoard FXML and CSS file
+					Stage getstage = (Stage) playGameButton.getScene().getWindow();
+					Parent root;
+					try {
+						root = FXMLLoader.load(getClass().getResource("GameBoard.fxml"));
+						Scene scene = new Scene(root,800,600);
+						scene.getStylesheets().add(getClass().getResource("GameBoard.css").toExternalForm());
+						
+						getstage.setScene(scene);
+						getstage.show();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}	
+				}
+				
+			});
+			
+			backgroundTask.start();
+			
 			//show dialog box
-			a.showAndWait();
-			
-			
-			// Transitions the UI to the GameBoard and loads the GameBoard FXML and CSS file
-			Stage getstage = (Stage) playGameButton.getScene().getWindow();
-			Parent root = FXMLLoader.load(getClass().getResource("GameBoard.fxml"));
-			
-			Scene scene = new Scene(root,800,600);
-			scene.getStylesheets().add(getClass().getResource("GameBoard.css").toExternalForm());
-			
-			getstage.setScene(scene);
-			getstage.show();
+			Optional<ButtonType> result = a.showAndWait();
+			 if (result.isPresent()) {
+				 System.out.println("You clicked Cancel");
+				 backgroundTask.cancel();
+			 }
 		}
 		catch (Exception e){
 			e.printStackTrace();
