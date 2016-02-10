@@ -1,6 +1,6 @@
-package Networking;
+package networking;
 
-import Game.Move;
+import game.Move;
 
 import java.io.Serializable;
 /**

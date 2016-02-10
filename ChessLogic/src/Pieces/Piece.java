@@ -1,4 +1,4 @@
-package Pieces;
+package pieces;
 
 
 /**

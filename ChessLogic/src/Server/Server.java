@@ -1,8 +1,8 @@
-package Server;
+package server;
 
-import Game.*;
-import Networking.OpCode;
-import Networking.Packet;
+import game.*;
+import networking.OpCode;
+import networking.Packet;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

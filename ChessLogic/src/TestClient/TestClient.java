@@ -1,7 +1,7 @@
-package TestClient;
-import Game.Move;
-import Game.Position;
-import Networking.*;
+package testClient;
+import game.Move;
+import game.Position;
+import networking.*;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

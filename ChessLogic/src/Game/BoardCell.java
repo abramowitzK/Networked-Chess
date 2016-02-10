@@ -1,6 +1,6 @@
-package Game;
+package game;
 
-import Pieces.Piece;
+import pieces.Piece;
 import com.sun.istack.internal.Nullable;
 
 /**

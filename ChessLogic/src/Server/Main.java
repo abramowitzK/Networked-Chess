@@ -1,4 +1,4 @@
-package Server;
+package server;
 
 import java.io.IOException;
 
@@ -7,13 +7,13 @@ import java.io.IOException;
  */
 public class Main {
     /**
-     * Server.Main entry point
+     * server.Main entry point
      * @param args arguments to main program
      */
     public static void main(String [] args){
         Server mainServer;
         try {
-            //Create a Server.Server
+            //Create a server.server
             mainServer = new Server();
             //Start the server
             mainServer.Start();
