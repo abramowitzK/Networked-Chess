@@ -1,6 +1,4 @@
-package Game;
-
-import javafx.geometry.Pos;
+package game;
 
 import java.io.Serializable;
 
@@ -11,6 +9,8 @@ public class Move implements Serializable{
     private Position m_start;
     private Position m_end;
     public Move(Position start, Position end){
+        m_start = start;
+        m_end = end;
     }
     public int GetStartX(){
         return m_start.GetX();

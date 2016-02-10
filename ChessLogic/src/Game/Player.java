@@ -1,8 +1,7 @@
-package Game;
+package game;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.Socket;
 
 /**
  * Created by Kyle on 2/1/2016.
