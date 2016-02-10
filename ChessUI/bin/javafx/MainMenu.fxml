@@ -10,7 +10,7 @@
 	prefHeight="400.0" prefWidth="600.0" spacing="30.0" >
    <children>
       <Text id="titleText" text="Play Chess!"/>
-      <Button fx:id="playGameButton" onAction="#handleClick" text="Play game"/>
-      <Button fx:id="quitGameButton" onAction="#handleQuit" text="Quit game"/>
+      <Button fx:id="playGameButton" onAction="#handleClick" text="Play Game"/>
+      <Button fx:id="quitGameButton" onAction="#handleQuit" text="Exit Application"/>
    </children>
 </VBox>

@@ -2,14 +2,12 @@ package javafx;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 public class GameBoardController {
@@ -17,6 +15,11 @@ public class GameBoardController {
 	@FXML Button forfeitButton;
 	@FXML Button submitMoveButton;
     @FXML GridPane gameBoard;
+    
+    public void handleClick(MouseEvent e){
+    	Node source = (Node) e.getSource();
+    	System.out.println( source.getId() );
+    }
     
 	public void handleForfeitClick(){	
 		try{
