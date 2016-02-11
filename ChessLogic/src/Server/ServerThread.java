@@ -8,11 +8,15 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.SocketException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by Kyle on 2/1/2016.
  */
 public class ServerThread extends Thread{
+    private static final Logger log = Logger.getLogger(ServerThread.class.getName());
+    private Object lock = new Object();
     private Server m_server;
     private Player m_player;
     private ObjectOutputStream m_out;
@@ -40,24 +44,22 @@ public class ServerThread extends Thread{
                 //Apply the move to the server board
                 //This needs to be synchronized since both threads work with this game.
                 System.out.println("recieved an update board packet from: " + packet.GetID());
-                synchronized(m_game) {
+                synchronized(lock) {
                     //This method should update the game board on the server and then send a packet to
                     //the other player updating the board.
-                    m_game.ApplyMove(packet.GetID(), packet.GetMove());
+                    ApplyMove(packet.GetMove());
                 }
                 break;
             case QuitGame:
                 //Set flag in game struct that lets us know game is over and can be made null in server so a new one can
                 //be created if there are more people in the queue
-                System.out.println("Quitting game. ID: " + packet.GetID());
-                m_game.Quit(packet.GetID());
+                System.out.println("Quitting game. ID: " + packet.GetID() + " From inside thread");
+                m_server.notifyServerOfQuit(packet.GetID());
                 m_quit = true;
-                try{
-                    m_in.close();
-                    m_out.close();
-                }
-                catch(IOException ex){
-                    ex.printStackTrace();
+                try {
+                    m_player.GetSocket().close();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
                 break;
             default:
@@ -75,26 +77,34 @@ public class ServerThread extends Thread{
             while (!m_quit){
                 ProcessPacket((Packet)m_in.readObject(), m_out);
             }
-            return;
         }
         catch (SocketException ex){
-            System.out.println("Client Disconnected");
-            return;
+            log.log(Level.FINE, "Client Disconnected from inside ServerThread");
         }
         catch (EOFException ex){
-            //Client disconnected!
-            //Handle disconnection
-            //Return to kill thread
-            System.out.println("Client disconnected");
-            System.out.println("Caught EOF");
-            return;
+            log.log(Level.FINE, "Caught EOF, client has disconnected from inside ServerThread");
         }
         catch (IOException ex){
-            //Should be better about this here
-            ex.printStackTrace();
+            log.log(Level.FINE, "Caught unknown IOException");
         }
         catch (ClassNotFoundException ex){
-            //Also need this? But need to handle better
+            log.log(Level.FINE, "Caught class not found exception. Client sent something that wasn't a packet");
+        }
+    }
+    public void ApplyMove(Move move){
+        try{
+            //Send move to other player
+            if(!m_game.IsOver()){
+                Player other = m_game.getOtherPlayer(m_player.GetID());
+                other.GetOut().writeObject(new Packet(OpCode.UpdateBoard, other.GetID(), move));
+                m_player.GetOut().writeObject(new Packet(OpCode.UpdatedBoard, m_player.GetID(), move));
+                m_game.ApplyMove(move);
+            }
+            else {
+                System.out.println("Game is over. Not forwarding packet");
+            }
+        }
+        catch (IOException ex){
             ex.printStackTrace();
         }
 

@@ -28,10 +28,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 public class GameBoardController implements Initializable {
 
@@ -56,23 +58,32 @@ public class GameBoardController implements Initializable {
     	System.out.println( source.getId() );
 		if(otherPlayerQuit){
 			try {
+				synchronized (lock) {
+					out.writeObject(new Packet(OpCode.QuitGame, id, null));
+				}
+			}
+			catch (IOException ex){
+				System.out.println("Socket already closed by server");
+			}
 				Alert a = new Alert(Alert.AlertType.INFORMATION);
 				a.setTitle("Warning!");
 				a.setContentText("Other Player quit game! Returning to main menu");
 				a.showAndWait();
 				Stage getstage = (Stage) forfeitButton.getScene().getWindow();
-				Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+				Parent root = null;
+			try {
+				 root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+			}
+			catch (IOException ex){
+				ex.printStackTrace();
+			}
 				Scene scene = new Scene(root, 600, 400);
 				scene.getStylesheets().add(getClass().getResource("MainMenu.css").toExternalForm());
 
 				getstage.setScene(scene);
 				getstage.show();
 			}
-			catch (IOException ex){
-				ex.printStackTrace();
-			}
 		}
-    }
     
 	public void handleForfeitClick(){	
 		try{
@@ -115,6 +126,9 @@ public class GameBoardController implements Initializable {
 			
 			getstage.setScene(scene);
 			getstage.show();
+		}
+		catch (SocketException ex){
+			System.out.println("Socket closed");
 		}
 		catch (Exception e){
 			e.printStackTrace();

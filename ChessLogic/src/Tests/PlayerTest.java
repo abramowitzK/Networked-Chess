@@ -17,7 +17,7 @@ public class PlayerTest {
     
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-        p1 = new Player(1, null, null);
+        p1 = new Player(1, null, null, null);
     }
     
     

@@ -45,12 +45,12 @@ public class ServerTest {
     
     @Test
     public void processPacketJoinTest() throws IOException {
-        s.ProcessPacket(p, new ObjectOutputStream(out) ,  null);
+        s.ProcessPacket(p, new ObjectOutputStream(out) ,  null, null);
         assertEquals(s.getQueueSize(), 1);
         assertEquals("Adding new client to the queue!", outContent.toString().replaceAll("\r\n", ""));
         
         p = new Packet(OpCode.JoinQueue, 1, null);
-        s.ProcessPacket(p, new ObjectOutputStream(out) ,  null);
+        s.ProcessPacket(p, new ObjectOutputStream(out) ,  null, null);
         
     }
  
@@ -58,7 +58,7 @@ public class ServerTest {
     @Test
     public void processPacketDefaultTest() throws IOException {
         p = new Packet(OpCode.UpdateBoard, 1, null);
-        s.ProcessPacket(p, null,  null);
+        s.ProcessPacket(p, null,  null, null);
         String err = "Unknown packet opcode. Can only join queue from main server thread";
         assertEquals(err, errContent.toString().replaceAll("\r\n", ""));
     }

@@ -1,9 +1,9 @@
 package game;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 import networking.*;
 
 import java.io.IOException;
+import java.net.SocketException;
 
 /**
  * Created by Kyle on 2/1/2016.
@@ -34,31 +34,10 @@ public class Game {
      * is shared between the two ServerThreads. The game object is sycnhronized so concurrent access
      * shouldn't be a problem. It then determines which player sent the update and sends an update to
      * the other client accordingly.
-     * @param playerID ID of player that made the move
      * @param move Cannot be null. Move to be applied to the game.
      */
-    public void ApplyMove(int playerID, Move move){
+    public void ApplyMove(Move move){
         m_board.ApplyMove(move);
-        try{
-            if(playerID == m_p1ID && !IsOver()){
-                //Send to player2
-                System.out.println("Sending move to player 2");
-                m_player2.GetOut().writeObject(new Packet(OpCode.UpdateBoard, m_p2ID, move));
-                //Also let player 1 know that the update went through
-                m_player1.GetOut().writeObject(new Packet(OpCode.UpdatedBoard, m_p1ID, move));
-            } else if (playerID == m_p2ID && !IsOver()){
-                //Send to Player1
-                System.out.println("Sending move to player 1");
-                m_player1.GetOut().writeObject(new Packet(OpCode.UpdateBoard, m_p1ID, move));
-                m_player2.GetOut().writeObject(new Packet(OpCode.UpdatedBoard, m_p2ID, move));
-            }
-            else {
-                System.out.println("Game is over. Not forwarding packet");
-            }
-        }
-        catch (Exception ex){
-            ex.printStackTrace();
-        }
     }
     /**
      * Function used to quit them game. Sets a boolean flag that is used to determine when game is over.
@@ -67,21 +46,15 @@ public class Game {
      */
     public int Quit(int playerID){
         m_isOver = true;
-        try {
-            if (playerID == m_p1ID) {
-                System.out.println("Player 1 quit");
-                m_player2.GetOut().writeObject(new Packet(OpCode.QuitGame, m_p2ID, null));
-                return m_p2ID;
-            } else {
-                System.out.println("Player 2 quit");
-                m_player1.GetOut().writeObject(new Packet(OpCode.QuitGame, m_p1ID, null));
-                return m_p1ID;
-            }
+        if (playerID == m_p1ID) {
+            System.out.println("Player 1 quit");
+            return m_p2ID;
         }
-        catch (IOException ex){
+        else {
+            System.out.println("Player 2 quit");
+            return m_p1ID;
+        }
 
-        }
-        return -1;
     }
 
     /**
@@ -90,5 +63,19 @@ public class Game {
      */
     public boolean IsOver(){
         return m_isOver;
+    }
+
+    /**
+     * Given a player ID returns the other player ID
+     * @param playerID
+     * @return
+     */
+    public Player getOtherPlayer(int playerID){
+        if(playerID == m_p1ID)
+            return m_player2;
+        else if (playerID == m_p2ID)
+            return m_player1;
+        else
+            return null;
     }
 }
