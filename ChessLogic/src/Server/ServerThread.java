@@ -1,12 +1,16 @@
 package server;
 
 import game.*;
+import networking.OpCode;
 import networking.Packet;
 
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
+import java.util.concurrent.TimeoutException;
 
 /**
  * Created by Kyle on 2/1/2016.
@@ -46,6 +50,7 @@ public class ServerThread extends Thread{
             case QuitGame:
                 //Set flag in game struct that lets us know game is over and can be made null in server so a new one can
                 //be created if there are more people in the queue
+                System.out.println("Quitting game");
                 m_game.Quit(packet.GetID());
                 break;
             default:
@@ -69,14 +74,20 @@ public class ServerThread extends Thread{
             //Handle disconnection
             //Return to kill thread
             System.out.println("Client disconnected");
+            System.out.println("Caught EOF");
             return;
+
         }
         catch (IOException ex){
+            //Should be better about this here
             ex.printStackTrace();
+
         }
         catch (ClassNotFoundException ex){
+            //Also need this? But need to handle better
             ex.printStackTrace();
         }
+
     }
 
 }
