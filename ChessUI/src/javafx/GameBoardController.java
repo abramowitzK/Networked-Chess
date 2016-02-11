@@ -10,6 +10,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 public class GameBoardController {
 
 	@FXML Button forfeitButton;

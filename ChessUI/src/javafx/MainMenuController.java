@@ -1,6 +1,10 @@
 package javafx;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.util.Optional;
 
 import javafx.concurrent.Service;
@@ -22,10 +26,17 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+
+import networking.*;
+
 public class MainMenuController {
 	@FXML private Button playGameButton;
 	@FXML private Button quitGameButton;
 	private Service<Void> backgroundTask;
+	private Socket socket;
+	private ObjectInputStream in;
+	private ObjectOutputStream out;
+    private int id;
 	/**
 	 * Initiate pop-up to show searching and send request to server to place player in queue 
 	 */
@@ -53,8 +64,7 @@ public class MainMenuController {
 			a.getButtonTypes().add(cancelButtonType);
 			a.getDialogPane().setContent(vbox);
 			a.setTitle("Play Chess");
-			
-			
+
 			//Create background task to communicate with server
 			backgroundTask = new Service<Void>() {
 				@Override
@@ -63,68 +73,76 @@ public class MainMenuController {
 					return new Task<Void>(){
 						
 						@Override
-						protected Void call() throws Exception 
-						{
-							//TODO implement code  to send packet to server	
-							
-							int i =0;
-							while(i<6){
-								if(isCancelled()){
-									break;
-								}
-								System.out.println("Doing something");
-								i++;
-							 try {
-					                Thread.sleep(1000);
-					            } catch (InterruptedException interrupted) {
-					                if (isCancelled()) {
-					                    updateMessage("Cancelled");
-					                    break;
-					                }
-					            }							
-							}
+						protected Void call() throws Exception {
+							//Connect to server. Local host for now
+							socket = new Socket("127.0.0.1", 4444);
+							out = new ObjectOutputStream(socket.getOutputStream());
+							in = new ObjectInputStream(socket.getInputStream());
+							//Send a join queue packet which should put us in the queue
+                            //The -1 signfies we're a new client
+							Packet p = new Packet(OpCode.JoinQueue, -1, null);
+							out.writeObject(p);
+							//Server should send a confirmation with our player id
+							Packet confirm = (Packet) in.readObject();
+							//Should be a joined queue packet. Let's check to make sure
+							assert (confirm.GetOpCode() == OpCode.JoinedQueue);
+                            id = confirm.GetID();
+                            //Set timeout for checking cancelation
+							socket.setSoTimeout(100);
+							//If we got here. We joined the queue. Now we need to wait for the server to tell us to do something
+                            Packet joinGame;
+							while(true){
+                                if(isCancelled()) {
+                                    System.out.println("Cancelling task...");
+                                    return null;
+                                }
+                                try {
+                                    joinGame = (Packet) in.readObject();
+                                    //If we don't time out. We succeeded. Break out of loop
+                                    break;
+                                }
+                                catch (SocketTimeoutException e){
+                                    //Okay this is expected if we wait a while.
+                                }
+                            }
+							//Expecting the server to tell us to join game. We'll block until we do. This is a thread so it won't
+							//block the UI
+							assert (null != joinGame && joinGame.GetOpCode() == OpCode.JoinGame);
+							//If we're here we joined the game and need to continue.
 							return null;
 						}	
 					};
 				}
-			};
-			
-			//Remove player from queue when Cancel button is pressed while searching
-			backgroundTask.setOnCancelled(new EventHandler<WorkerStateEvent>(){
-
-				@Override
-				public void handle(WorkerStateEvent event) {
-					System.out.println("Handeled Cancel");
-				}
+            };
+            //Remove player from queue when Cancel button is pressed while searching
+            backgroundTask.setOnCancelled(new EventHandler<WorkerStateEvent>(){
+                @Override
+                public void handle(WorkerStateEvent event)  {
+                    System.out.println("Handeled Cancel");
+                    //TODO put disconnect code here. Have to implement that on server first.
+                }
 			});
-			
 			//Close the dialog box and transition to the game board
 			backgroundTask.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
-
 				@Override
 				public void handle(WorkerStateEvent event) {
-					
 					a.close();
-					
 					// Transitions the UI to the GameBoard and loads the GameBoard FXML and CSS file
 					Stage getstage = (Stage) playGameButton.getScene().getWindow();
 					Parent root;
 					try {
+                        //TODO pass the in and out variables to the game controller for communication
 						root = FXMLLoader.load(getClass().getResource("GameBoard.fxml"));
 						Scene scene = new Scene(root,800,600);
 						scene.getStylesheets().add(getClass().getResource("GameBoard.css").toExternalForm());
-						
 						getstage.setScene(scene);
 						getstage.show();
 					} catch (IOException e) {
 						e.printStackTrace();
 					}	
 				}
-				
 			});
-			
 			backgroundTask.start();
-			
 			//show dialog box
 			Optional<ButtonType> result = a.showAndWait();
 			 if (result.isPresent()) {
@@ -136,7 +154,6 @@ public class MainMenuController {
 			e.printStackTrace();
 		}
 	}
-
 	/**
 	 * Terminates the game
 	 */
