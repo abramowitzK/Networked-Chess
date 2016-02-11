@@ -5,10 +5,10 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import Game.Move;
-import Game.Position;
-import Networking.OpCode;
-import Networking.Packet;
+import game.Move;
+import game.Position;
+import networking.OpCode;
+import networking.Packet;
 
 public class PacketTest {
 

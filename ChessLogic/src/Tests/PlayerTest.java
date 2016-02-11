@@ -8,7 +8,7 @@ import java.io.ObjectOutputStream;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import Game.Player;
+import game.Player;
 
 public class PlayerTest {
 

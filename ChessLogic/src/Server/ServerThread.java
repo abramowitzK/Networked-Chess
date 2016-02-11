@@ -1,32 +1,31 @@
 package server;
 
 import game.*;
-import networking.OpCode;
-import networking.Packet;
+import networking.*;
 
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.SocketException;
-import java.net.SocketTimeoutException;
-import java.util.concurrent.TimeoutException;
 
 /**
  * Created by Kyle on 2/1/2016.
  */
 public class ServerThread extends Thread{
+    private Server m_server;
     private Player m_player;
     private ObjectOutputStream m_out;
     private ObjectInputStream m_in;
     private boolean m_quit;
     private Game m_game;
-    public ServerThread(Player player, Game game, ObjectOutputStream out, ObjectInputStream in){
+    public ServerThread(Player player, Game game, ObjectOutputStream out, ObjectInputStream in, Server server){
         m_player = player;
         m_quit = false;
         m_out = out;
         m_in = in;
         m_game = game;
+        m_server = server;
     }
     /**
      * Process a packet from a player. Logic in here decides what kind of packet it is and what to do with it.
@@ -89,12 +88,10 @@ public class ServerThread extends Thread{
             System.out.println("Client disconnected");
             System.out.println("Caught EOF");
             return;
-
         }
         catch (IOException ex){
             //Should be better about this here
             ex.printStackTrace();
-
         }
         catch (ClassNotFoundException ex){
             //Also need this? But need to handle better

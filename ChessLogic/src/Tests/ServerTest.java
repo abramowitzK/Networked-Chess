@@ -18,10 +18,10 @@ import org.junit.BeforeClass;
 import org.junit.After;
 import org.junit.Test;
 
-import Game.Move;
-import Networking.OpCode;
-import Networking.Packet;
-import Server.Server;
+import game.Move;
+import networking.OpCode;
+import networking.Packet;
+import server.Server;
 
 public class ServerTest {
 

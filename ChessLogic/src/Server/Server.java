@@ -1,6 +1,5 @@
 package server;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 import game.*;
 import networking.OpCode;
 import networking.Packet;
@@ -11,11 +10,9 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketTimeoutException;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.function.Predicate;
-import java.util.function.*;
 /**
  * TODO Implement leaving the queue.
  * Created by Kyle on 2/1/2016.
@@ -108,7 +105,7 @@ public class Server {
     /**
      * Run the server
      */
-    public void Run(){
+    private void Run(){
         while(true){
             try {
                 //Accept packets. They will queue up if there is more than one at a time.
@@ -127,12 +124,9 @@ public class Server {
             catch (ClassNotFoundException ex){
                 ex.printStackTrace();
             }
-            finally {
-
-            }
         }
     }
-    public boolean Game(ObjectInputStream in, ObjectOutputStream out) throws IOException{
+    private boolean Game(ObjectInputStream in, ObjectOutputStream out) throws IOException{
         if(m_gameQueue.size() >= 2 && (m_game == null)){
             System.out.println("Starting new game");
             Player p1 = m_gameQueue.remove();
@@ -140,8 +134,8 @@ public class Server {
             p1.GetOut().writeObject(new Packet(OpCode.JoinGame, p1.GetID(), null));
             p2.GetOut().writeObject(new Packet(OpCode.JoinGame, p2.GetID(), null));
             m_game = new Game(p1, p2);
-            new ServerThread(p1, m_game, p1.GetOut(), p1.GetIn()).run();
-            new ServerThread(p2, m_game, p2.GetOut(), p2.GetIn()).run();
+            new ServerThread(p1, m_game, p1.GetOut(), p1.GetIn(), this).run();
+            new ServerThread(p2, m_game, p2.GetOut(), p2.GetIn(), this).run();
             return true;
         }
         else if (null != m_game && m_game.IsOver()) {
@@ -150,7 +144,12 @@ public class Server {
         }
         return false;
     }
+    public int getQueueSize(){
+        return m_gameQueue.size();
+    }
+    public void notifyServerOfQuit(){
 
+    }
 
 
 

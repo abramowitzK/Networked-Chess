@@ -5,10 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.sun.istack.internal.Nullable;
-
-import Game.BoardCell;
-import Pieces.Piece;
+import game.BoardCell;
+import pieces.Piece;
 
 public class BoardCellTest {
 
@@ -42,7 +40,7 @@ public class BoardCellTest {
         assertEquals(bc.toString(), "Queen");
 
         bc.SetPiece(null);
-        assertEquals(bc.toString(), "N");
+        assertEquals(bc.toString(), "No Name");
         
     }
 

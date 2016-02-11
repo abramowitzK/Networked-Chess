@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component inheritJdk="true">
 	<output-test url="file:///test/ChessLogic"/>
-	<contentEntry url="file://$MODULE_DIR$">
-		<excludeFolder url="file://$MODULE_DIR$/src/Tests"/>
-	</contentEntry>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<levels>
+		<level name="junit-4.12" value="project"/>
+	</levels>
 </component>
