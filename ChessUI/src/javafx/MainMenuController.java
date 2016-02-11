@@ -105,6 +105,7 @@ public class MainMenuController {
                                     //Okay this is expected if we wait a while.
                                 }
                             }
+							socket.setSoTimeout(100000);
 							//Expecting the server to tell us to join game. We'll block until we do. This is a thread so it won't
 							//block the UI
 							assert (null != joinGame && joinGame.GetOpCode() == OpCode.JoinGame);
@@ -132,12 +133,17 @@ public class MainMenuController {
 					Parent root;
 					try {
                         //TODO pass the in and out variables to the game controller for communication
-						root = FXMLLoader.load(getClass().getResource("GameBoard.fxml"));
+						FXMLLoader loader = new FXMLLoader(getClass().getResource("GameBoard.fxml"));
+						root = loader.load();
+						GameBoardController controller = loader.getController();
+						controller.setIn(in);
+						controller.setOut(out);
+						controller.setId(id);
 						Scene scene = new Scene(root,800,600);
 						scene.getStylesheets().add(getClass().getResource("GameBoard.css").toExternalForm());
 						getstage.setScene(scene);
 						getstage.show();
-					} catch (IOException e) {
+					} catch (Exception e) {
 						e.printStackTrace();
 					}	
 				}

@@ -145,6 +145,7 @@ public class Server {
             return true;
         }
         else if (null != m_game && m_game.IsOver()) {
+            System.out.println("Setting game to null");
             m_game = null;
         }
         return false;

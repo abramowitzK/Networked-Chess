@@ -1,6 +1,9 @@
 package game;
 
+import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 import networking.*;
+
+import java.io.IOException;
 
 /**
  * Created by Kyle on 2/1/2016.
@@ -64,11 +67,21 @@ public class Game {
      */
     public int Quit(int playerID){
         m_isOver = true;
-        if(playerID == m_p1ID){
-            return m_p2ID;
-        }else{
-            return m_p1ID;
+        try {
+            if (playerID == m_p1ID) {
+                System.out.println("Player 1 quit");
+                m_player2.GetOut().writeObject(new Packet(OpCode.QuitGame, m_p2ID, null));
+                return m_p2ID;
+            } else {
+                System.out.println("Player 2 quit");
+                m_player1.GetOut().writeObject(new Packet(OpCode.QuitGame, m_p1ID, null));
+                return m_p1ID;
+            }
         }
+        catch (IOException ex){
+
+        }
+        return -1;
     }
 
     /**
