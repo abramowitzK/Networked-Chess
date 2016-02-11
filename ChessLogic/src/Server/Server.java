@@ -1,5 +1,6 @@
 package server;
 
+import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 import game.*;
 import networking.OpCode;
 import networking.Packet;
@@ -10,14 +11,28 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-
+import java.util.function.Predicate;
+import java.util.function.*;
 /**
+ * TODO Implement leaving the queue.
  * Created by Kyle on 2/1/2016.
  */
 public class Server {
 
+
+    class MyPredicate<T> implements Predicate<T>{
+        T var1;
+        public boolean test(T var){
+            if(var1.equals(var)){
+                return true;
+            }
+            return false;
+        }
+
+    }
     private int m_currentID;
     private ServerSocket m_serverSocket;
     /**
@@ -69,6 +84,10 @@ public class Server {
                     break;
                 case QuitGame:
                     //Let player leave queue
+                    MyPredicate pred = new MyPredicate();
+                    pred.var1 = packet.GetID();
+                    System.out.println("Removing player with id: " + packet.GetID());
+                    m_gameQueue.removeIf(pred);
                 default:
                     System.err.println("Unknown packet opcode. Can only join queue from main server thread");
                     break;
@@ -113,11 +132,13 @@ public class Server {
             }
         }
     }
-    public boolean Game(ObjectInputStream in, ObjectOutputStream out){
+    public boolean Game(ObjectInputStream in, ObjectOutputStream out) throws IOException{
         if(m_gameQueue.size() >= 2 && (m_game == null)){
             System.out.println("Starting new game");
             Player p1 = m_gameQueue.remove();
             Player p2 = m_gameQueue.remove();
+            p1.GetOut().writeObject(new Packet(OpCode.JoinGame, p1.GetID(), null));
+            p2.GetOut().writeObject(new Packet(OpCode.JoinGame, p2.GetID(), null));
             m_game = new Game(p1, p2);
             new ServerThread(p1, m_game, p1.GetOut(), p1.GetIn()).run();
             new ServerThread(p2, m_game, p2.GetOut(), p2.GetIn()).run();
@@ -128,6 +149,7 @@ public class Server {
         }
         return false;
     }
+
 
 
 
