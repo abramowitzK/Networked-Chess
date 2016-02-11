@@ -1,6 +1,5 @@
 package javafx;
 
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -27,7 +26,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
-import networking.*;
+import Networking.*;
 
 public class MainMenuController {
 	@FXML private Button playGameButton;
@@ -38,7 +37,7 @@ public class MainMenuController {
 	private ObjectOutputStream out;
     private int id;
 	/**
-	 * Initiate pop-up to show searching and send request to server to place player in queue 
+	 * Initiate pop-up to show searching and send request to Server to place player in queue
 	 */
 	public void handleClick(){
 		try{
@@ -65,7 +64,7 @@ public class MainMenuController {
 			a.getDialogPane().setContent(vbox);
 			a.setTitle("Play Chess");
 
-			//Create background task to communicate with server
+			//Create background task to communicate with Server
 			backgroundTask = new Service<Void>() {
 				@Override
 				protected Task<Void> createTask() {
@@ -74,12 +73,12 @@ public class MainMenuController {
 						
 						@Override
 						protected Void call() throws Exception {
-							//Connect to server. Local host for now
+							//Connect to Server. Local host for now
 							socket = new Socket("127.0.0.1", 4444);
 							out = new ObjectOutputStream(socket.getOutputStream());
 							in = new ObjectInputStream(socket.getInputStream());
 							//Send a join queue packet which should put us in the queue
-                            //The -1 signfies we're a new client
+                            //The -1 signfies we're a new Client
 							Packet p = new Packet(OpCode.JoinQueue, -1, null);
 							out.writeObject(p);
 							//Server should send a confirmation with our player id
@@ -89,7 +88,7 @@ public class MainMenuController {
                             id = confirm.GetID();
                             //Set timeout for checking cancelation
 							socket.setSoTimeout(100);
-							//If we got here. We joined the queue. Now we need to wait for the server to tell us to do something
+							//If we got here. We joined the queue. Now we need to wait for the Server to tell us to do something
                             Packet joinGame;
 							while(true){
                                 if(isCancelled()) {
@@ -106,10 +105,10 @@ public class MainMenuController {
                                 }
                             }
 							socket.setSoTimeout(100000);
-							//Expecting the server to tell us to join game. We'll block until we do. This is a thread so it won't
+							//Expecting the Server to tell us to join Game. We'll block until we do. This is a thread so it won't
 							//block the UI
 							assert (null != joinGame && joinGame.GetOpCode() == OpCode.JoinGame);
-							//If we're here we joined the game and need to continue.
+							//If we're here we joined the Game and need to continue.
 							return null;
 						}	
 					};
@@ -120,10 +119,10 @@ public class MainMenuController {
                 @Override
                 public void handle(WorkerStateEvent event)  {
                     System.out.println("Handeled Cancel");
-                    //TODO put disconnect code here. Have to implement that on server first.
+                    //TODO put disconnect code here. Have to implement that on Server first.
                 }
 			});
-			//Close the dialog box and transition to the game board
+			//Close the dialog box and transition to the Game board
 			backgroundTask.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
 				@Override
 				public void handle(WorkerStateEvent event) {
@@ -132,7 +131,7 @@ public class MainMenuController {
 					Stage getstage = (Stage) playGameButton.getScene().getWindow();
 					Parent root;
 					try {
-                        //TODO pass the in and out variables to the game controller for communication
+                        //TODO pass the in and out variables to the Game controller for communication
 						FXMLLoader loader = new FXMLLoader(getClass().getResource("GameBoard.fxml"));
 						root = loader.load();
 						GameBoardController controller = loader.getController();
@@ -161,7 +160,7 @@ public class MainMenuController {
 		}
 	}
 	/**
-	 * Terminates the game
+	 * Terminates the Game
 	 */
 	public void handleQuit(){
 		System.exit(0);

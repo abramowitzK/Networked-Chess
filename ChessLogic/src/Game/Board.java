@@ -1,6 +1,6 @@
-package game;
+package Game;
 
-import pieces.Piece;
+import Pieces.Piece;
 
 /**
  * Created by Kyle on 2/1/2016.
@@ -26,7 +26,7 @@ public class Board {
     }
 
     /**
-     * Moves the pieces by switching what board cell they belong to. Sets the startPos.piece
+     * Moves the Pieces by switching what board cell they belong to. Sets the startPos.piece
      * to null
      * @param move This cannot be null. The move to be applied to this board object
      */

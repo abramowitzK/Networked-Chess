@@ -1,7 +1,7 @@
-package server;
+package Server;
 
-import game.*;
-import networking.*;
+import Game.*;
+import Networking.*;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -41,19 +41,19 @@ public class ServerThread extends Thread{
                 //We are updating the board
                 //Validate move here?
                 //
-                //Apply the move to the server board
-                //This needs to be synchronized since both threads work with this game.
+                //Apply the move to the Server board
+                //This needs to be synchronized since both threads work with this Game.
                 System.out.println("recieved an update board packet from: " + packet.GetID());
                 synchronized(lock) {
-                    //This method should update the game board on the server and then send a packet to
+                    //This method should update the Game board on the Server and then send a packet to
                     //the other player updating the board.
                     ApplyMove(packet.GetMove());
                 }
                 break;
             case QuitGame:
-                //Set flag in game struct that lets us know game is over and can be made null in server so a new one can
+                //Set flag in Game struct that lets us know Game is over and can be made null in Server so a new one can
                 //be created if there are more people in the queue
-                System.out.println("Quitting game. ID: " + packet.GetID() + " From inside thread");
+                System.out.println("Quitting Game. ID: " + packet.GetID() + " From inside thread");
                 m_server.notifyServerOfQuit(packet.GetID());
                 m_quit = true;
                 try {
@@ -69,7 +69,7 @@ public class ServerThread extends Thread{
     }
 
     /**
-     * Runs the thread and processes traffic back and forth between m_player and the server.
+     * Runs the thread and processes traffic back and forth between m_player and the Server.
      */
     @Override
     public void run(){
@@ -82,7 +82,7 @@ public class ServerThread extends Thread{
             log.log(Level.FINE, "Client Disconnected from inside ServerThread");
         }
         catch (EOFException ex){
-            log.log(Level.FINE, "Caught EOF, client has disconnected from inside ServerThread");
+            log.log(Level.FINE, "Caught EOF, Client has disconnected from inside ServerThread");
         }
         catch (IOException ex){
             log.log(Level.FINE, "Caught unknown IOException");

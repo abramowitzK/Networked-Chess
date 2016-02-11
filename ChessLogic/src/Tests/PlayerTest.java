@@ -2,13 +2,10 @@ package Tests;
 
 import static org.junit.Assert.*;
 
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import game.Player;
+import Game.Player;
 
 public class PlayerTest {
 

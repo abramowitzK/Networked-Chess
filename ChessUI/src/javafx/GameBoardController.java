@@ -1,8 +1,7 @@
 package javafx;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
-import game.Board;
-import game.Move;
+import Game.Board;
+import Game.Move;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
@@ -15,25 +14,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import jdk.internal.org.objectweb.asm.Opcodes;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.OPCode;
-import networking.OpCode;
-import networking.Packet;
+import Networking.OpCode;
+import Networking.Packet;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.Socket;
 import java.net.SocketException;
-import java.net.SocketTimeoutException;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
 
 public class GameBoardController implements Initializable {
 
@@ -63,11 +55,11 @@ public class GameBoardController implements Initializable {
 				}
 			}
 			catch (IOException ex){
-				System.out.println("Socket already closed by server");
+				System.out.println("Socket already closed by Server");
 			}
 				Alert a = new Alert(Alert.AlertType.INFORMATION);
 				a.setTitle("Warning!");
-				a.setContentText("Other Player quit game! Returning to main menu");
+				a.setContentText("Other Player quit Game! Returning to main menu");
 				a.showAndWait();
 				Stage getstage = (Stage) forfeitButton.getScene().getWindow();
 				Parent root = null;
@@ -91,7 +83,7 @@ public class GameBoardController implements Initializable {
 			System.out.println("You clicked Forfeit");
 			Stage getstage = (Stage) forfeitButton.getScene().getWindow();
 			Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
-			//tell server we're quitting.
+			//tell Server we're quitting.
 			synchronized (lock){
 				out.writeObject(new Packet(OpCode.QuitGame, id, null));
 			}
@@ -116,7 +108,7 @@ public class GameBoardController implements Initializable {
 			Stage getstage = (Stage) forfeitButton.getScene().getWindow();
 			Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
 			synchronized (lock) {
-				//Send the move object to the server here
+				//Send the move object to the Server here
 				out.writeObject(new Packet(OpCode.UpdateBoard, id, move));
 				//Expected to get an OpCode.UpdatedBoard packet here.
 				in.readObject();
@@ -149,11 +141,11 @@ public class GameBoardController implements Initializable {
 					}
 					break;
 				case UpdatedBoard:
-					//Response packet from server confirming that we updated the board
+					//Response packet from Server confirming that we updated the board
 					break;
 				case QuitGame:
-					//Other player quit game
-					System.out.println("Other player quit the game!");
+					//Other player quit Game
+					System.out.println("Other player quit the Game!");
 					otherPlayerQuit = true;
 					break;
 			}
@@ -166,7 +158,7 @@ public class GameBoardController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		System.out.println("Initialized");
 		boardState = new Board();
-		//Create background task to communicate with server
+		//Create background task to communicate with Server
 		backgroundTask = new Service<Void>() {
 			@Override
 			protected Task<Void> createTask() {
@@ -197,10 +189,10 @@ public class GameBoardController implements Initializable {
 			@Override
 			public void handle(WorkerStateEvent event)  {
 				System.out.println("Handeled Cancel");
-				//TODO put disconnect code here. Have to implement that on server first.
+				//TODO put disconnect code here. Have to implement that on Server first.
 			}
 		});
-		//Close the dialog box and transition to the game board
+		//Close the dialog box and transition to the Game board
 		backgroundTask.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
 			@Override
 			public void handle(WorkerStateEvent event) {}

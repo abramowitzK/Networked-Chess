@@ -1,6 +1,6 @@
-package game;
+package Game;
 
-import pieces.Piece;
+import Pieces.Piece;
 
 
 /**

@@ -8,7 +8,7 @@ public class ChessFXMLController {
 	@FXML private Button quit;
 	
 	/**
-	 * Initiate pop-up to show searching and send request to server to place player in queue 
+	 * Initiate pop-up to show searching and send request to Server to place player in queue
 	 */
 	public void handleClick(){
 		System.out.println("You clicked me");
@@ -16,7 +16,7 @@ public class ChessFXMLController {
 	}
 
 	/**
-	 * Terminates the game
+	 * Terminates the Game
 	 */
 	public void handleQuit(){
 		System.exit(0);

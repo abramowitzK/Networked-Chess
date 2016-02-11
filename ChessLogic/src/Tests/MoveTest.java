@@ -5,8 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import game.Move;
-import game.Position;
+import Game.Move;
+import Game.Position;
 
 public class MoveTest {
 

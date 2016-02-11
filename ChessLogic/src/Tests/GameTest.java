@@ -4,9 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import game.Game;
-import game.Player;
-import networking.OpCode;
+import Game.Game;
+import Game.Player;
 
 public class GameTest {
 
