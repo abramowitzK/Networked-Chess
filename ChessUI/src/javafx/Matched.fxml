@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<VBox alignment="CENTER" fx:controller="javafx.MatchedController" prefHeight="218.0" prefWidth="228.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label id="titleText" text="Opponent Found!">
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </Label>
+      <Button fx:id="beginButton" onAction="#handleBegin" text="Begin">
+         <VBox.margin>
+            <Insets bottom="15.0" />
+         </VBox.margin>
+      </Button>
+      <Button fx:id="leaveButton" onAction="#handleLeave" text="Leave" />
+   </children>
+</VBox>

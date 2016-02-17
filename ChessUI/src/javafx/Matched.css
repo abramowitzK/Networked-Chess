@@ -1,0 +1,15 @@
+.root{
+	-fx-background-color:lightgrey;
+}
+
+#titleText{
+	-fx-font-size:14pt;
+	-fx-font-style:italic;
+	-fx-font-weight:bold;
+}
+
+.button{
+	-fx-font-size:12pt;
+	-fx-font-weight:bold;
+	-fx-background-color:white;
+}
