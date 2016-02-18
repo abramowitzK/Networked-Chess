@@ -2,6 +2,8 @@ package javafx;
 
 import Game.Board;
 import Game.Move;
+import Pieces.Piece;
+import javafx.beans.value.ChangeListener;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
@@ -9,11 +11,13 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -43,8 +47,11 @@ public class GameBoardController implements Initializable {
 	final private Object lock = new Object();
 
 
+
     public void handleClick(MouseEvent e) {
     	Node source = (Node) e.getSource();
+		ImageView iv = (ImageView)e.getSource();
+		System.out.println(iv.toString());
 		//TODO Generate moveset here.
 		//TODO Also pick which move and set the move member variable
     	System.out.println( source.getId() );
@@ -57,23 +64,23 @@ public class GameBoardController implements Initializable {
 			catch (IOException ex){
 				System.out.println("Socket already closed by Server");
 			}
-				Alert a = new Alert(Alert.AlertType.INFORMATION);
-				a.setTitle("Warning!");
-				a.setContentText("Other Player quit Game! Returning to main menu");
-				a.showAndWait();
-				Stage getstage = (Stage) forfeitButton.getScene().getWindow();
-				Parent root = null;
+			Alert a = new Alert(Alert.AlertType.INFORMATION);
+			a.setTitle("Warning!");
+			a.setContentText("Other Player quit Game! Returning to main menu");
+			a.showAndWait();
+			Stage getstage = (Stage) forfeitButton.getScene().getWindow();
+			Parent root = null;
 			try {
 				 root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
 			}
 			catch (IOException ex){
 				ex.printStackTrace();
 			}
-				Scene scene = new Scene(root, 600, 400);
-				scene.getStylesheets().add(getClass().getResource("MainMenu.css").toExternalForm());
+			Scene scene = new Scene(root, 600, 400);
+			scene.getStylesheets().add(getClass().getResource("MainMenu.css").toExternalForm());
 
-				getstage.setScene(scene);
-				getstage.show();
+			getstage.setScene(scene);
+			getstage.show();
 			}
 		}
     
@@ -154,10 +161,26 @@ public class GameBoardController implements Initializable {
 			ex.printStackTrace();
 		}
 	}
+	private Node GetByRowColumn(int i, int j){
+		for(Node n : gameBoard.getChildren()){
+			if(gameBoard.getRowIndex(n) == i && gameBoard.getColumnIndex(n) == j){
+				return n;
+			}
+		}
+		return null;
+	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		System.out.println("Initialized");
 		boardState = new Board();
+		for(int i = 0; i < 8; i++){
+			for(int j = 0; j < 8; j++){
+				Piece temp = boardState.GetBoardCell(i,j).GetPiece();
+				if(null == temp)
+					continue;
+				temp.SetImage(((ImageView)GetByRowColumn(i,j)).getImage());
+			}
+		}
 		//Create background task to communicate with Server
 		backgroundTask = new Service<Void>() {
 			@Override
@@ -170,8 +193,10 @@ public class GameBoardController implements Initializable {
 							while (true) {
 								System.out.println("asdfa");
 								//TODO go back to main menu if other player quits. Also show win screen
-								if (isCancelled() || otherPlayerQuit || weQuit)
+								if (isCancelled() || otherPlayerQuit || weQuit) {
+									System.out.println("Quitting");
 									return null;
+								}
 								try {
 									Packet p = (Packet) in.readObject();
 									processPacket(p);
@@ -179,7 +204,6 @@ public class GameBoardController implements Initializable {
 								catch (IOException ex) {
 									ex.printStackTrace();
 								}
-								System.out.println("asdfa");
 							}
 					}
 				};

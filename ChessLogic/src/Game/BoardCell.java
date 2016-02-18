@@ -16,6 +16,9 @@ public class BoardCell {
         m_pos = new Position(x, y);
         m_piece = piece;
     }
+    public Position GetPosition(){
+        return new Position(m_pos);
+    }
     public Piece GetPiece(){
         return m_piece;
     }

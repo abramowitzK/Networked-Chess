@@ -37,7 +37,7 @@ public class Server {
     /**
      * Queue representing players waiting to find match
      * */
-    private Queue<Player> m_gameQueue;
+    private ConcurrentLinkedQueue<Player> m_gameQueue;
     /**
      * Represents the current Game being played (we allow only one at a time). Is null if no Game is being played
      */
@@ -48,7 +48,7 @@ public class Server {
     public Server() throws IOException
     {
         m_currentID = 0;
-        m_gameQueue = new ConcurrentLinkedQueue<>();
+        m_gameQueue = new ConcurrentLinkedQueue();
         m_game = null;
         try {
             m_serverSocket = new ServerSocket(4444,0, InetAddress.getByName("127.0.0.1"));

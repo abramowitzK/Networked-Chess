@@ -6,7 +6,8 @@ import Pieces.Piece;
  * Created by Kyle on 2/1/2016.
  */
 public class Board {
-
+    private boolean m_blackCheck;
+    private boolean m_whiteCheck;
     static final int SIZE = 8;
     private BoardCell[][] m_boardState;
 
@@ -22,9 +23,7 @@ public class Board {
                 m_boardState[i][j] = new BoardCell(i,j, null);
             }
         }
-
     }
-
     /**
      * Moves the Pieces by switching what board cell they belong to. Sets the startPos.piece
      * to null
@@ -37,7 +36,6 @@ public class Board {
             m_boardState[move.GetStartX()][move.GetStartY()].SetPiece(null);
         }
     }
-
     /**
      * Overrides statndard toString from Object.
      * @return String representation of the board.
@@ -53,5 +51,8 @@ public class Board {
             ret+="\n";
         }
         return ret;
+    }
+    public BoardCell GetBoardCell(int i, int j){
+        return m_boardState[i][j];
     }
 }

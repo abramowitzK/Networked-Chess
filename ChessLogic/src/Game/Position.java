@@ -12,6 +12,10 @@ public class Position implements Serializable {
         m_xPosition = x;
         m_yPosition = y;
     }
+    public Position (Position pos){
+        m_xPosition = pos.GetX();
+        m_yPosition = pos.GetY();
+    }
     public int GetX() {
         return m_xPosition;
     }

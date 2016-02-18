@@ -52,7 +52,7 @@ public class MainMenuController {
 			VBox vbox = new VBox(); 
 			vbox.getChildren().addAll(p,label);
 			
-			Alert a = new Alert(AlertType.NONE);
+			final Alert a = new Alert(AlertType.NONE);
 			
 			//change default icon of window to chess piece
 			Image image = new Image("/images/Chancellor_Piece.png");
