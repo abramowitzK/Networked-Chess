@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../CS451/ChessLogic/ChessLogic.iml" filepath="$PROJECT_DIR$/../CS451/ChessLogic/ChessLogic.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../CS451/ChessUI/ChessUI.iml" filepath="$PROJECT_DIR$/../CS451/ChessUI/ChessUI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ChessLogic/ChessLogic.iml" filepath="$PROJECT_DIR$/ChessLogic/ChessLogic.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ChessUI/ChessUI.iml" filepath="$PROJECT_DIR$/ChessUI/ChessUI.iml" />
     </modules>
   </component>
 </project>
