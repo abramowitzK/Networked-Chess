@@ -30,7 +30,6 @@ import Networking.*;
 
 public class MainMenuController {
 	@FXML private Button playGameButton;
-	@FXML private Button quitGameButton;
 	private Service<Void> backgroundTask;
 	private Socket socket;
 	private ObjectInputStream in;
