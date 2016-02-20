@@ -1,13 +1,11 @@
 package javafx;
 
-import java.io.IOException;
-
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.fxml.*;
+import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class MatchedController {
 

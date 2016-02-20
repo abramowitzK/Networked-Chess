@@ -1,10 +1,7 @@
 package Game;
 
-/**
- * Created by Kyle on 2/1/2016.
- */
 public class Game {
-    private Player m_player1;
+    private final Player m_player1;
     private int m_p1ID;
     private Player m_player2;
     private int m_p2ID;
@@ -26,7 +23,7 @@ public class Game {
 
     /**
      * This function applies the move to the Server board which is located in the Game object that
-     * is shared between the two ServerThreads. The Game object is sycnhronized so concurrent access
+     * is shared between the two ServerThreads. The Game object is synchronized so concurrent access
      * shouldn't be a problem. It then determines which player sent the update and sends an update to
      * the other Client accordingly.
      * @param move Cannot be null. Move to be applied to the Game.
@@ -62,8 +59,8 @@ public class Game {
 
     /**
      * Given a player ID returns the other player ID
-     * @param playerID
-     * @return
+     * @param playerID Id of one player in game.
+     * @return Returns other player in the game based on ID
      */
     public Player getOtherPlayer(int playerID){
         if(playerID == m_p1ID)

@@ -1,12 +1,8 @@
 package Game;
 
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 
-/**
- * Created by Kyle on 2/1/2016.
- */
 public class Player {
     private ObjectInputStream m_in;
     private ObjectOutputStream m_out;

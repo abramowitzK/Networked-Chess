@@ -1,40 +1,22 @@
 package Server;
 
 import Game.*;
-import Networking.OpCode;
-import Networking.Packet;
-import Networking.StartGamePacket;
+import Networking.*;
 import Pieces.Color;
 import javafx.embed.swing.JFXPanel;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.Queue;
+import java.io.*;
+import java.net.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.function.Predicate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.logging.*;
 
 /**
  * TODO Implement leaving the queue.
  * Created by Kyle on 2/1/2016.
  */
-public class Server {
+class Server {
 
     private static final Logger log = Logger.getLogger(Server.class.getName());
-    private class MyPredicate<T> implements Predicate<T>{
-        T var1;
-        public boolean test(T var){
-            if(var1.equals(var)){
-                return true;
-            }
-            return false;
-        }
-    }
     private int m_currentID;
     private ServerSocket m_serverSocket;
     /**
@@ -48,11 +30,13 @@ public class Server {
     /**
      * Constructor
      */
-    public Server() throws IOException
+    public Server()
     {
+        //Javafx won't allow us to load images without calling a javafx function first to do some
+        // magic initialization...
         JFXPanel panel = new JFXPanel();
         m_currentID = 0;
-        m_gameQueue = new ConcurrentLinkedQueue();
+        m_gameQueue = new ConcurrentLinkedQueue<>();
         m_game = null;
         try {
             m_serverSocket = new ServerSocket(4444,0, InetAddress.getByName("127.0.0.1"));
@@ -64,9 +48,9 @@ public class Server {
     }
     /**
      * Process a packet from a player. Logic in here decides what kind of packet it is and what to do with it.
-     * @param packet
+     * @param packet Packet to process
      */
-    public void ProcessPacket(Packet packet, ObjectOutputStream out, ObjectInputStream in, Socket socket){
+    private void ProcessPacket(Packet packet, ObjectOutputStream out, ObjectInputStream in, Socket socket){
         try {
             switch (packet.GetOpCode()) {
                 case JoinQueue:
@@ -86,10 +70,8 @@ public class Server {
                     break;
                 case QuitGame:
                     //Let player leave queue
-                    MyPredicate pred = new MyPredicate();
-                    pred.var1 = packet.GetID();
                     System.out.println("Removing player with id: " + packet.GetID());
-                    m_gameQueue.removeIf(pred);
+                    m_gameQueue.removeIf(p -> p.GetID() == packet.GetID());
                 default:
                     System.err.println("Unknown packet opcode. Can only join queue from main Server thread");
                     break;
@@ -122,10 +104,7 @@ public class Server {
                 ProcessPacket(receivedPacket, out, in, clientSocket);
                 Game();
             }
-            catch (IOException ex){
-                ex.printStackTrace();
-            }
-            catch (ClassNotFoundException ex){
+            catch (IOException | ClassNotFoundException ex){
                 ex.printStackTrace();
             }
         }
@@ -136,8 +115,8 @@ public class Server {
                 System.out.println("Starting new Game");
                 Player p1 = m_gameQueue.remove();
                 Player p2 = m_gameQueue.remove();
-                p1.GetOut().writeObject(new StartGamePacket(OpCode.JoinGame, p1.GetID(), Color.White));
-                p2.GetOut().writeObject(new StartGamePacket(OpCode.JoinGame, p2.GetID(), Color.Black));
+                p1.GetOut().writeObject(new StartGamePacket(p1.GetID(), Color.White));
+                p2.GetOut().writeObject(new StartGamePacket(p2.GetID(), Color.Black));
                 m_game = new Game(p1, p2);
                 new ServerThread(p1, m_game, p1.GetOut(), p1.GetIn(), this).start();
                 new ServerThread(p2, m_game, p2.GetOut(), p2.GetIn(), this).start();

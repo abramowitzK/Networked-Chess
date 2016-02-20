@@ -3,20 +3,12 @@ package Server;
 import Game.*;
 import Networking.*;
 
-import java.io.EOFException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.SocketException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-/**
- * Created by Kyle on 2/1/2016.
- */
-public class ServerThread extends Thread{
+import java.util.logging.*;
+class ServerThread extends Thread{
     private static final Logger log = Logger.getLogger(ServerThread.class.getName());
-    private Object lock = new Object();
+    private final Object lock = new Object();
     private Server m_server;
     private Player m_player;
     private ObjectOutputStream m_out;
@@ -35,7 +27,7 @@ public class ServerThread extends Thread{
      * Process a packet from a player. Logic in here decides what kind of packet it is and what to do with it.
      * @param packet packet to process
      */
-    public void ProcessPacket(Packet packet, ObjectOutputStream out)
+    private void ProcessPacket(Packet packet, ObjectOutputStream out)
     {
         switch (packet.GetOpCode()) {
             case UpdateBoard:
@@ -44,7 +36,7 @@ public class ServerThread extends Thread{
                 //
                 //Apply the move to the Server board
                 //This needs to be synchronized since both threads work with this Game.
-                System.out.println("recieved an update board packet from: " + packet.GetID());
+                System.out.println("received an update board packet from: " + packet.GetID());
                 synchronized(lock) {
                     //This method should update the Game board on the Server and then send a packet to
                     //the other player updating the board.
@@ -99,7 +91,7 @@ public class ServerThread extends Thread{
             log.log(Level.FINE, "Caught class not found exception. Client sent something that wasn't a packet");
         }
     }
-    public void ApplyMove(Move move){
+    private void ApplyMove(Move move){
         try{
             //Send move to other player
             if(!m_game.IsOver()){

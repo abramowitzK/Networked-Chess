@@ -1,48 +1,21 @@
 package javafx;
 
-import Game.Board;
-import Game.Move;
-import Game.Position;
-import Pieces.Color;
-import Pieces.Piece;
-import Pieces.PieceType;
+import Game.*;
+import Networking.*;
+import Pieces.*;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
+import javafx.concurrent.*;
+import javafx.fxml.*;
+import javafx.scene.*;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import Networking.OpCode;
-import Networking.Packet;
 
-import java.io.EOFException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
-import java.util.concurrent.SynchronousQueue;
+import java.io.*;
+import java.net.*;
+import java.util.*;
 
 public class GameBoardController implements Initializable {
 
@@ -54,8 +27,7 @@ public class GameBoardController implements Initializable {
 	private boolean otherPlayerQuit = false;
 	private boolean weQuit = false;
 	private Board boardState;
-	private Service<Void> backgroundTask;
-	private ObjectInputStream in;
+    private ObjectInputStream in;
 	private ObjectOutputStream out;
 	private int id;
 	private Color m_color;
@@ -98,12 +70,10 @@ public class GameBoardController implements Initializable {
 		if(null != p && p.PieceColor == m_color) {
 			m_validMoves = boardState.GetValidMoves(i, j);
 			if (m_validMoves != null)
-			{
-				for (int k = 0; k < m_validMoves.size(); k++)
-				{
-					ColorRegion(m_validMoves.get(k).GetX(), m_validMoves.get(k).GetY());
-				}
-			}
+                for (Position validMove : m_validMoves)
+                {
+                    ColorRegion(validMove.GetX(), validMove.GetY());
+                }
 		}
 	}
     
@@ -113,11 +83,8 @@ public class GameBoardController implements Initializable {
 			System.out.println("You clicked Forfeit");
 			Stage getstage = (Stage) forfeitButton.getScene().getWindow();
 			Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
-			//tell Server we're quitting.
-
 			Scene scene = new Scene(root,600,400);
 			scene.getStylesheets().add(getClass().getResource("MainMenu.css").toExternalForm());
-			
 			getstage.setScene(scene);
 			getstage.show();
 		}
@@ -179,9 +146,8 @@ public class GameBoardController implements Initializable {
 		}
 		else
 			turnIndicator.setText("Opponents turn");
-	};
-	public void processPacket(Packet p){
-		try {
+	}
+	private void processPacket(Packet p){
 			switch (p.GetOpCode()) {
 				case UpdateBoard:
 					//The other player made a move and we need to update our board.
@@ -190,7 +156,7 @@ public class GameBoardController implements Initializable {
 					}
 					m_ourTurn = true;
 					Platform.runLater(()-> turnIndicator.setText("Your turn"));
-					Platform.runLater(() -> UpdateImagesFromBoardState());
+					Platform.runLater(this::UpdateImagesFromBoardState);
 					break;
 				case UpdatedBoard:
 					//Response packet from Server confirming that we updated the board
@@ -198,16 +164,16 @@ public class GameBoardController implements Initializable {
 				case QuitGame:
 					//Other player quit Game
 					System.out.println("Other player quit the Game!");
+                    try{
 					out.writeObject(new Packet(OpCode.QuitGame, id, null));
-					otherPlayerQuit = true;
-					Platform.runLater(() -> HandleOtherPlayerQuit());
-
+                    }
+                    catch(IOException ex){
+                        System.out.println("Caught a socket exception");
+                    }
+                    otherPlayerQuit = true;
+                    Platform.runLater(this::HandleOtherPlayerQuit);
 					break;
 			}
-		}
-		catch (Exception ex){
-			ex.printStackTrace();
-		}
 	}
 	private void HandleOtherPlayerQuit(){
 		Alert A = new Alert(Alert.AlertType.ERROR, "Other player quit!", ButtonType.FINISH);
@@ -218,11 +184,8 @@ public class GameBoardController implements Initializable {
 			Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
 			Scene scene = new Scene(root,600,400);
 			scene.getStylesheets().add(getClass().getResource("MainMenu.css").toExternalForm());
-
 			getstage.setScene(scene);
 			getstage.show();
-			in.close();
-			out.close();
 		} catch (IOException e)
 		{
 			e.printStackTrace();
@@ -242,14 +205,15 @@ public class GameBoardController implements Initializable {
 	}
 	private Region GetRegion(int i, int j){
 		for(Node node : gameBoard.getChildren()){
-			if(gameBoard.getRowIndex(node) == i && gameBoard.getColumnIndex(node)== j)
+			if(GridPane.getRowIndex(node) == i && GridPane.getColumnIndex(node)== j)
 				return (Region)node;
 		}
 		return null;
 	}
 	private void ColorRegion(int i, int j){
 		Region r = GetRegion(i,j);
-		r.setStyle("-fx-background-color:yellow");
+        assert r != null;
+        r.setStyle("-fx-background-color:yellow");
 	}
 	private void UpdateImagesFromBoardState(){
 		for(int i = 0; i < 8;  i++){
@@ -268,12 +232,13 @@ public class GameBoardController implements Initializable {
 		}
 		return false;
 	}
-	void RemoveColoring(){
+	private void RemoveColoring(){
 		for(int i = 0; i < 8; i++){
 			for(int j = 0; j < 8; j++){
 				Region r = GetRegion(i,j);
 				String color;
-				if(r.getId().equals("light"))
+                assert r != null;
+                if(r.getId().equals("light"))
 					color = "wheat";
 				else
 					color = "peru";
@@ -287,44 +252,50 @@ public class GameBoardController implements Initializable {
 		boardState = new Board();
 		//Create background task to communicate with Server
 		UpdateImagesFromBoardState();
-		backgroundTask = new Service<Void>() {
-			@Override
-			protected Task<Void> createTask() {
+        Service<Void> backgroundTask = new Service<Void>()
+        {
+            @Override
+            protected Task<Void> createTask()
+            {
 
-				return new Task<Void>(){
+                return new Task<Void>()
+                {
 
-					@Override
-					protected Void call() throws Exception {
-							while (true) {
-								System.out.println("asdfa");
-								//TODO go back to main menu if other player quits. Also show win screen
-								if (isCancelled() || otherPlayerQuit || weQuit) {
-									System.out.println("Quitting");
-									return null;
-								}
-								try {synchronized (lock) {
-									Packet p = (Packet) in.readObject();
-									processPacket(p);
-								}
-								}
-								catch (SocketTimeoutException ex){
-									//This is okay. Makes it so we don't hang here forever
-								}
-								catch (EOFException ex) {
-									return null;
-								}
-								catch (IOException ex) {
-									ex.printStackTrace();
-								}
-							}
-					}
-				};
-			}
-		};
-		backgroundTask.setOnCancelled(event -> {
-            System.out.println("Handeled Cancel");
-            //TODO put disconnect code here. Have to implement that on Server first.
-        });
+                    @Override
+                    protected Void call() throws Exception
+                    {
+                        while (true)
+                        {
+                            //TODO go back to main menu if other player quits. Also show win screen
+                            if (isCancelled() || otherPlayerQuit || weQuit)
+                            {
+                                System.out.println("Quitting");
+                                return null;
+                            }
+                            try
+                            {
+                                synchronized (lock)
+                                {
+                                    Packet p = (Packet) in.readObject();
+                                    processPacket(p);
+                                }
+                            } catch (SocketTimeoutException ex)
+                            {
+                                //This is okay. Makes it so we don't hang here forever
+                            } catch (EOFException ex)
+                            {
+                                return null;
+                            } catch (IOException ex)
+                            {
+                                //Something bad happened
+                                return null;
+                            }
+                        }
+                    }
+                };
+            }
+        };
+		backgroundTask.setOnCancelled(event -> System.out.println("Exiting background thread"));
 		//Close the dialog box and transition to the Game board
 		backgroundTask.setOnSucceeded(event -> {
 				try {

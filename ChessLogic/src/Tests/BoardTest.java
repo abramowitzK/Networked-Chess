@@ -1,9 +1,7 @@
 package Tests;
 
-import org.junit.Before;
-import org.junit.Test;
-
 import Game.Board;
+import org.junit.*;
 
 public class BoardTest {
 

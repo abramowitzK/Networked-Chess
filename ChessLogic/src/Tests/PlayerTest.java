@@ -1,11 +1,9 @@
 package Tests;
 
-import static org.junit.Assert.*;
-
-import org.junit.BeforeClass;
-import org.junit.Test;
-
 import Game.Player;
+import org.junit.*;
+
+import static org.junit.Assert.*;
 
 public class PlayerTest {
 
