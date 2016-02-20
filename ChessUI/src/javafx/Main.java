@@ -12,7 +12,12 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			VBox root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
+			VBox root = loader.load();
+			MainMenuController mainMenu = loader.getController();
+			Parameters p = getParameters();
+			mainMenu.SetIP(p.getRaw().get(1));
+			mainMenu.SetPort(Integer.parseInt(p.getRaw().get(0)));
 			Scene scene = new Scene(root,600,400);
 			scene.getStylesheets().add(getClass().getResource("MainMenu.css").toExternalForm());
 			

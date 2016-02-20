@@ -6,11 +6,13 @@ import Pieces.*;
 import javafx.application.Platform;
 import javafx.concurrent.*;
 import javafx.fxml.*;
+import javafx.geometry.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -339,48 +341,23 @@ public class GameBoardController implements Initializable {
         // Set piece graphic, ID, and event handler
         pawnButton.setId("pawn");
         pawnButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("../images/white_pawn.png")))); //TODO abstract this somehow
-        pawnButton.setOnAction(new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(ActionEvent arg0) {
-                selection = pawnButton.getId();
-            }
-        });
+        pawnButton.setOnAction(arg0 -> selection = pawnButton.getId());
 
         knightButton.setId("knight");
         knightButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("../images/white_knight.png"))));
-        knightButton.setOnAction(new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(ActionEvent arg0) {
-                selection = knightButton.getId();
-            }
-        });
+        knightButton.setOnAction(arg0 -> selection = knightButton.getId());
 
         bishopButton.setId("bishop");
         bishopButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("../images/white_bishop.png"))));
-        bishopButton.setOnAction(new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(ActionEvent arg0) {
-                selection = bishopButton.getId();
-            }
-        });
+        bishopButton.setOnAction(arg0 -> selection = bishopButton.getId());
 
         queenButton.setId("queen");
         queenButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("../images/white_queen.png"))));
-        queenButton.setOnAction(new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(ActionEvent arg0) {
-                selection = queenButton.getId();
-            }
-        });
+        queenButton.setOnAction(arg0 -> selection = queenButton.getId());
 
         rookButton.setId("rook");
         rookButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("../images/white_rook.png"))));
-        rookButton.setOnAction(new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(ActionEvent arg0) {
-                selection = rookButton.getId();
-            }
-        });
+        rookButton.setOnAction(arg0 -> selection = rookButton.getId());
 
         // add buttons to grid pane
         redeemGrid.add(pawnButton,0,0);

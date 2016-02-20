@@ -22,11 +22,19 @@ public class MainMenuController {
 	private Socket socket;
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
+	private int port;
+	private String serverIP;
     private int id;
 	private Color color;
 	/**
 	 * Initiate pop-up to show searching and send request to Server to place player in queue
 	 */
+	public void SetPort(int port){
+		this.port = port;
+	}
+	public void SetIP(String ip){
+		this.serverIP = ip;
+	}
 	public void handleClick(){
 		try{
 			// Create cancel button
@@ -54,7 +62,7 @@ public class MainMenuController {
 						@Override
 						protected Void call() throws Exception {
 							//Connect to Server. Local host for now
-							socket = new Socket("127.0.0.1", 4444);
+							socket = new Socket(serverIP, port);
 							out = new ObjectOutputStream(socket.getOutputStream());
 							in = new ObjectInputStream(socket.getInputStream());
 							//Send a join queue packet which should put us in the queue

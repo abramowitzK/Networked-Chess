@@ -1,6 +1,5 @@
 package Server;
 
-import java.io.IOException;
 import java.util.logging.*;
 
 class Main {
@@ -12,7 +11,7 @@ class Main {
     public static void main(String [] args){
         Server mainServer;
         //Create a Server.Server
-        mainServer = new Server();
+        mainServer = new Server(Integer.parseInt(args[0]), args[1]);
         //Start the Server
         log.log(Level.FINE, "Starting Server");
         mainServer.Start();
