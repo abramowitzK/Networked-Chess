@@ -142,6 +142,11 @@ public class MainMenuController {
 						controller.setOut(out);
 						controller.setId(id);
 						controller.setColor(color);
+						if(color == Color.White){
+							controller.setTurn(true);
+						}
+						else
+							controller.setTurn(false);
 						Scene scene = new Scene(root,800,600);
 						scene.getStylesheets().add(getClass().getResource("GameBoard.css").toExternalForm());
 						getstage.setScene(scene);
