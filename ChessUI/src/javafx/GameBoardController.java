@@ -90,12 +90,10 @@ public class GameBoardController implements Initializable {
 		if(null != p && p.PieceColor == m_color) {
 			m_validMoves = boardState.GetValidMoves(i, j);
 			if (m_validMoves != null)
-			{
-				for (int k = 0; k < m_validMoves.size(); k++)
-				{
-					ColorRegion(m_validMoves.get(k).GetX(), m_validMoves.get(k).GetY());
-				}
-			}
+                for (Position validMove : m_validMoves)
+                {
+                    ColorRegion(validMove.GetX(), validMove.GetY());
+                }
 		}
 	}
     
@@ -105,11 +103,8 @@ public class GameBoardController implements Initializable {
 			System.out.println("You clicked Forfeit");
 			Stage getstage = (Stage) forfeitButton.getScene().getWindow();
 			Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
-			//tell Server we're quitting.
-
 			Scene scene = new Scene(root,600,400);
 			scene.getStylesheets().add(getClass().getResource("MainMenu.css").toExternalForm());
-			
 			getstage.setScene(scene);
 			getstage.show();
 		}
@@ -171,9 +166,8 @@ public class GameBoardController implements Initializable {
 		}
 		else
 			turnIndicator.setText("Opponents turn");
-	};
+	}
 	public void processPacket(Packet p){
-		try {
 			switch (p.GetOpCode()) {
 				case UpdateBoard:
 					//The other player made a move and we need to update our board.
@@ -182,7 +176,7 @@ public class GameBoardController implements Initializable {
 					}
 					m_ourTurn = true;
 					Platform.runLater(()-> turnIndicator.setText("Your turn"));
-					Platform.runLater(() -> UpdateImagesFromBoardState());
+					Platform.runLater(this::UpdateImagesFromBoardState);
 					break;
 				case UpdatedBoard:
 					//Response packet from Server confirming that we updated the board
@@ -190,16 +184,16 @@ public class GameBoardController implements Initializable {
 				case QuitGame:
 					//Other player quit Game
 					System.out.println("Other player quit the Game!");
+                    try{
 					out.writeObject(new Packet(OpCode.QuitGame, id, null));
-					otherPlayerQuit = true;
-					Platform.runLater(() -> HandleOtherPlayerQuit());
-
+                    }
+                    catch(IOException ex){
+                        System.out.println("Caught a socket exception");
+                    }
+                    otherPlayerQuit = true;
+                    Platform.runLater(this::HandleOtherPlayerQuit);
 					break;
 			}
-		}
-		catch (Exception ex){
-			ex.printStackTrace();
-		}
 	}
 	private void HandleOtherPlayerQuit(){
 		Alert A = new Alert(Alert.AlertType.ERROR, "Other player quit!", ButtonType.FINISH);
@@ -210,11 +204,8 @@ public class GameBoardController implements Initializable {
 			Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
 			Scene scene = new Scene(root,600,400);
 			scene.getStylesheets().add(getClass().getResource("MainMenu.css").toExternalForm());
-
 			getstage.setScene(scene);
 			getstage.show();
-			in.close();
-			out.close();
 		} catch (IOException e)
 		{
 			e.printStackTrace();
@@ -234,7 +225,7 @@ public class GameBoardController implements Initializable {
 	}
 	private Region GetRegion(int i, int j){
 		for(Node node : gameBoard.getChildren()){
-			if(gameBoard.getRowIndex(node) == i && gameBoard.getColumnIndex(node)== j)
+			if(GridPane.getRowIndex(node) == i && GridPane.getColumnIndex(node)== j)
 				return (Region)node;
 		}
 		return null;
@@ -306,7 +297,8 @@ public class GameBoardController implements Initializable {
 									return null;
 								}
 								catch (IOException ex) {
-									ex.printStackTrace();
+									//Something bad happened
+                                    return null;
 								}
 							}
 					}
@@ -314,8 +306,7 @@ public class GameBoardController implements Initializable {
 			}
 		};
 		backgroundTask.setOnCancelled(event -> {
-            System.out.println("Handeled Cancel");
-            //TODO put disconnect code here. Have to implement that on Server first.
+            System.out.println("Exiting background thread");
         });
 		//Close the dialog box and transition to the Game board
 		backgroundTask.setOnSucceeded(event -> {

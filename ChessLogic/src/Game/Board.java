@@ -92,19 +92,55 @@ public class Board {
             case Pawn:
                 ret = GetValidPawnMoves(i,j, dir, p);
                 break;
+            case Bishop:
+                ret = GetValidBishopMoves(i,j);
+                break;
+            case Knight:
+                ret = GetValidKnightMoves(p.PieceColor,i,j);
+                break;
+            case Rook:
+                ret = GetValidRookMoves(i,j);
+                break;
+            case King:
+                ret = GetValidKingMoves(i,j);
+                break;
+            case Queen:
+                ret = GetValidQueenMoves(i,j);
+                break;
         }
         return ret;
     }
     private boolean WithinBounds(int i){
-        if(i < 8 && i > 0)
-            return true;
-        else
-            return false;
+        return i <= 7 && i >= 0;
     }
+    private boolean IsValidLandingPoint(Color myColor, int i, int j)
+    {
+        return !(!WithinBounds(i) || !WithinBounds(j)) && !(m_boardState[i][j] != null && m_boardState[i][j].PieceColor == myColor);
+    }
+    private ArrayList<Position> GetValidBishopMoves(int i, int j){return null;}
+    private ArrayList<Position> GetValidKnightMoves(Color c, int i, int j){
+        ArrayList<Position> ret = new ArrayList<>();
+        for(Position direction : Piece.KnightDirs) {
+            if(IsValidLandingPoint(c, direction.GetX() + i, direction.GetY() + j))
+                ret.add(new Position(direction.GetX()+i, direction.GetY() +j));
+        }
+        return ret;
+    }
+    private ArrayList<Position> GetValidRookMoves(int i, int j){return null;}
+    private ArrayList<Position> GetValidKingMoves(int i, int j){return null;}
+    private ArrayList<Position> GetValidQueenMoves(int i, int j) {return null;}
+    /**
+     *
+     * @param i Current row
+     * @param j Current column
+     * @param dir Direction (1 for white, -1 for black)
+     * @param p reference to the piece to set the hasMoved flag
+     * @return List of all valid moves
+     */
     private ArrayList<Position> GetValidPawnMoves(int i, int j, int dir, Piece p){
         ArrayList<Position> ret = new ArrayList<>();
             //First check directly in front of us
-        if(i+dir < 8 && m_boardState[i+dir][(j)] == null) {
+        if(i+dir <= 8 && m_boardState[i+dir][(j)] == null) {
             ret.add(new Position(i+dir, j));
             if (!p.HasMoved() && m_boardState[i+2*dir][j] == null)
                 ret.add(new Position(i+2*dir, j));
@@ -116,18 +152,19 @@ public class Board {
         return  ret;
     }
     /**
-     * Overrides statndard toString from Object.
+     * Overrides standard toString from Object.
      * @return String representation of the board.
      */
     @Override
     public String toString(){
         String ret = "";
-        for(int i = 0; i < m_boardState.length; i++){
+        for (Piece[] piece : m_boardState)
+        {
             for (int j = 0; j < m_boardState[0].length; j++)
             {
-                ret += m_boardState[i][j].toString();
+                ret += piece[j].toString();
             }
-            ret+="\n";
+            ret += "\n";
         }
         return ret;
     }

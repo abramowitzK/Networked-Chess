@@ -1,8 +1,19 @@
 package Pieces;
 
+import Game.Position;
 import javafx.scene.image.Image;
 
 public final class Piece {
+    public final static Position[] KnightDirs = new Position[]{
+            new Position(-1, 2),
+            new Position(1, 2),
+            new Position(2, 1),
+            new Position(2, -1),
+            new Position(1, -2),
+            new Position(-1, -2),
+            new Position(-2, 1),
+            new Position(-2, -1),
+    };
     public final Image PieceImage;
     public final Color PieceColor;
     public final PieceType Type;
@@ -22,6 +33,10 @@ public final class Piece {
     }
     public void SetHasMoved(){
         m_hasMoved = true;
+    }
+    @Override
+    public String toString(){
+        return Type.name() + " " + PieceColor.name();
     }
 
 }
