@@ -32,8 +32,6 @@ class ServerThread extends Thread{
         switch (packet.GetOpCode()) {
             case UpdateBoard:
                 //We are updating the board
-                //Validate move here?
-                //
                 //Apply the move to the Server board
                 //This needs to be synchronized since both threads work with this Game.
                 System.out.println("received an update board packet from: " + packet.GetID());
@@ -46,7 +44,6 @@ class ServerThread extends Thread{
             case QuitGame:
                 //Set flag in Game struct that lets us know Game is over and can be made null in Server so a new one can
                 //be created if there are more people in the queue
-                System.out.println("Quitting Game. ID: " + packet.GetID() + " From inside thread");
                 m_server.notifyServerOfQuit(packet.GetID());
                 try {
                     out.writeObject(null);
@@ -71,24 +68,14 @@ class ServerThread extends Thread{
             while (!m_quit){
                 ProcessPacket((Packet)m_in.readObject(), m_out);
             }
-        }
-        catch (SocketException ex){
+        } catch (SocketException ex){
             log.log(Level.FINE, "Client Disconnected from inside ServerThread");
-            System.out.println("Socket exception0");
             m_server.notifyServerOfQuit(m_player.GetID());
-        }
-        catch (EOFException ex){
-            System.out.println("eof exception0");
-            m_server.notifyServerOfQuit(m_player.GetID());
+        } catch (EOFException ex){
             log.log(Level.FINE, "Caught EOF, Client has disconnected from inside ServerThread");
-        }
-        catch (IOException ex){
-            System.out.println("ioexception0");
+        } catch (IOException | ClassNotFoundException ex){
+            m_server.notifyServerOfQuit(m_player.GetID());
             log.log(Level.FINE, "Caught unknown IOException");
-        }
-        catch (ClassNotFoundException ex){
-            System.out.println("cnfexception0");
-            log.log(Level.FINE, "Caught class not found exception. Client sent something that wasn't a packet");
         }
     }
     private void ApplyMove(Move move){
@@ -98,12 +85,10 @@ class ServerThread extends Thread{
                 Player other = m_game.getOtherPlayer(m_player.GetID());
                 other.GetOut().writeObject(new Packet(OpCode.UpdateBoard, other.GetID(), move));
                 m_game.ApplyMove(move);
-            }
-            else {
+            } else {
                 System.out.println("Game is over. Not forwarding packet");
             }
-        }
-        catch (IOException ex){
+        } catch (IOException ex){
             ex.printStackTrace();
         }
 

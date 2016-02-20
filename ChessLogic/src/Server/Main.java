@@ -11,11 +11,11 @@ class Main {
      */
     public static void main(String [] args){
         Server mainServer;
-            //Create a Server.Server
-            mainServer = new Server();
-            //Start the Server
-            log.log(Level.FINE, "Starting Server");
-            mainServer.Start();
+        //Create a Server.Server
+        mainServer = new Server();
+        //Start the Server
+        log.log(Level.FINE, "Starting Server");
+        mainServer.Start();
     }
 
 

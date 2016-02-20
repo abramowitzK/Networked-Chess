@@ -1,7 +1,6 @@
 package Pieces;
 
-public enum PieceType
-{
+public enum PieceType {
     Pawn,
     Bishop,
     Rook,

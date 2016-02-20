@@ -16,7 +16,6 @@ public class Packet implements Serializable {
      * Move object to be sent along with this only if this is a board update packet.
      */
     private Move m_move;
-
     /**
      *
      * @param code Code describing the operation the packet is requesting
@@ -28,7 +27,6 @@ public class Packet implements Serializable {
         m_playerID = id;
         m_move = move;
     }
-
     public OpCode GetOpCode(){
         return m_code;
     }
