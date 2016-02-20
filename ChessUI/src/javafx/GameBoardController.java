@@ -64,6 +64,7 @@ public class GameBoardController implements Initializable {
 				UpdateImagesFromBoardState();
 				RemoveColoring();
 				m_hasMoved = true;
+				m_selectedPiece = null;
 			}
 		}
 		if(null != p && p.PieceColor == m_color) {
@@ -115,7 +116,6 @@ public class GameBoardController implements Initializable {
 				m_oldPosition = null;
 				m_newPosition = null;
 				m_ourTurn = false;
-				m_selectedPiece = null;
 				turnIndicator.setText("Opponents turn");
 			}
 
@@ -253,22 +253,12 @@ public class GameBoardController implements Initializable {
                                 System.out.println("Quitting");
                                 return null;
                             }
-<<<<<<< HEAD
                             try {
                                 synchronized (lock) {
                                     Packet p = (Packet) in.readObject();
                                     processPacket(p);
                                 }
                             } catch (SocketTimeoutException ex) {
-=======
-                            try
-                            {
-
-								Packet p = (Packet) in.readObject();
-								processPacket(p);
-                            } catch (SocketTimeoutException ex)
-                            {
->>>>>>> refs/remotes/origin/master
                                 //This is okay. Makes it so we don't hang here forever
                             } catch (EOFException ex) {
                                 //Something bad happened

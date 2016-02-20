@@ -135,8 +135,8 @@ public class Board {
     private ArrayList<Position> GetValidKingMoves(Color c, int i, int j){
         ArrayList<Position> ret = new ArrayList<>();
         for(Position dir : Piece.QueenKingDirs){
-            if(IsValidLandingPoint(c, dir.GetX() + i, dir.GetY()+j))
-                ret.add(new Position(dir.GetX()+ i, dir.GetY()+j));
+            if(IsValidLandingPoint(c, dir.GetX() + i + dir.GetX(), dir.GetY()+j+dir.GetY()))
+                ret.add(new Position(dir.GetX()+ i + dir.GetX(), dir.GetY()+j+dir.GetY()));
         }
         return ret;
     }
