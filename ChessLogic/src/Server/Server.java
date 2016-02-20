@@ -66,9 +66,9 @@ public class Server {
     }
     /**
      * Process a packet from a player. Logic in here decides what kind of packet it is and what to do with it.
-     * @param packet
+     * @param packet Packet to process
      */
-    public void ProcessPacket(Packet packet, ObjectOutputStream out, ObjectInputStream in, Socket socket){
+    private void ProcessPacket(Packet packet, ObjectOutputStream out, ObjectInputStream in, Socket socket){
         try {
             switch (packet.GetOpCode()) {
                 case JoinQueue:
@@ -138,8 +138,8 @@ public class Server {
                 System.out.println("Starting new Game");
                 Player p1 = m_gameQueue.remove();
                 Player p2 = m_gameQueue.remove();
-                p1.GetOut().writeObject(new StartGamePacket(OpCode.JoinGame, p1.GetID(), Color.White));
-                p2.GetOut().writeObject(new StartGamePacket(OpCode.JoinGame, p2.GetID(), Color.Black));
+                p1.GetOut().writeObject(new StartGamePacket(p1.GetID(), Color.White));
+                p2.GetOut().writeObject(new StartGamePacket(p2.GetID(), Color.Black));
                 m_game = new Game(p1, p2);
                 new ServerThread(p1, m_game, p1.GetOut(), p1.GetIn(), this).start();
                 new ServerThread(p2, m_game, p2.GetOut(), p2.GetIn(), this).start();

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Board {
     private boolean m_blackCheck;
     private boolean m_whiteCheck;
-    static final int SIZE = 8;
+    private static final int SIZE = 8;
     private Piece[][] m_boardState;
     /**
      * Default constructor initializes board to starting state for chess board
@@ -93,7 +93,7 @@ public class Board {
                 ret = GetValidPawnMoves(i,j, dir, p);
                 break;
             case Bishop:
-                ret = GetValidBishopMoves(i,j);
+                ret = GetValidBishopMoves(p.PieceColor,i,j);
                 break;
             case Knight:
                 ret = GetValidKnightMoves(p.PieceColor,i,j);
@@ -117,7 +117,10 @@ public class Board {
     {
         return !(!WithinBounds(i) || !WithinBounds(j)) && !(m_boardState[i][j] != null && m_boardState[i][j].PieceColor == myColor);
     }
-    private ArrayList<Position> GetValidBishopMoves(int i, int j){return null;}
+    private ArrayList<Position> GetValidBishopMoves(Color c, int i, int j){
+        ArrayList<Position> ret = new ArrayList<>();
+        return ret;
+    }
     private ArrayList<Position> GetValidKnightMoves(Color c, int i, int j){
         ArrayList<Position> ret = new ArrayList<>();
         for(Position direction : Piece.KnightDirs) {

@@ -3,9 +3,6 @@ package Networking;
 import Game.Move;
 
 import java.io.Serializable;
-/**
- * Created by Kyle on 2/1/2016.
- */
 public class Packet implements Serializable {
     /**
      * Describes what kind of packet this is

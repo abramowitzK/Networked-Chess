@@ -167,7 +167,7 @@ public class GameBoardController implements Initializable {
 		else
 			turnIndicator.setText("Opponents turn");
 	}
-	public void processPacket(Packet p){
+	private void processPacket(Packet p){
 			switch (p.GetOpCode()) {
 				case UpdateBoard:
 					//The other player made a move and we need to update our board.
@@ -251,7 +251,7 @@ public class GameBoardController implements Initializable {
 		}
 		return false;
 	}
-	void RemoveColoring(){
+	private void RemoveColoring(){
 		for(int i = 0; i < 8; i++){
 			for(int j = 0; j < 8; j++){
 				Region r = GetRegion(i,j);
@@ -305,9 +305,7 @@ public class GameBoardController implements Initializable {
 				};
 			}
 		};
-		backgroundTask.setOnCancelled(event -> {
-            System.out.println("Exiting background thread");
-        });
+		backgroundTask.setOnCancelled(event -> System.out.println("Exiting background thread"));
 		//Close the dialog box and transition to the Game board
 		backgroundTask.setOnSucceeded(event -> {
 				try {

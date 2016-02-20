@@ -114,13 +114,10 @@ public class MainMenuController {
 				}
             };
             //Remove player from queue when Cancel button is pressed while searching
-            backgroundTask.setOnCancelled(new EventHandler<WorkerStateEvent>(){
-                @Override
-                public void handle(WorkerStateEvent event)  {
-                    System.out.println("Handled Cancel");
-                    //TODO put disconnect code here. Have to implement that on Server first.
-                }
-			});
+            backgroundTask.setOnCancelled(event -> {
+                System.out.println("Handled Cancel");
+                //TODO put disconnect code here. Have to implement that on Server first.
+            });
 			//Close the dialog box and transition to the Game board
 			backgroundTask.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
 				@Override
