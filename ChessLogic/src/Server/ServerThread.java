@@ -81,11 +81,13 @@ public class ServerThread extends Thread{
             }
         }
         catch (SocketException ex){
-            System.out.println("Socket exception0");
             log.log(Level.FINE, "Client Disconnected from inside ServerThread");
+            System.out.println("Socket exception0");
+            m_server.notifyServerOfQuit(m_player.GetID());
         }
         catch (EOFException ex){
             System.out.println("eof exception0");
+            m_server.notifyServerOfQuit(m_player.GetID());
             log.log(Level.FINE, "Caught EOF, Client has disconnected from inside ServerThread");
         }
         catch (IOException ex){
@@ -103,7 +105,6 @@ public class ServerThread extends Thread{
             if(!m_game.IsOver()){
                 Player other = m_game.getOtherPlayer(m_player.GetID());
                 other.GetOut().writeObject(new Packet(OpCode.UpdateBoard, other.GetID(), move));
-                m_player.GetOut().writeObject(new Packet(OpCode.UpdatedBoard, m_player.GetID(), move));
                 m_game.ApplyMove(move);
             }
             else {

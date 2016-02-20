@@ -17,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -47,6 +48,8 @@ public class GameBoardController implements Initializable {
 
 	@FXML Button forfeitButton;
 	@FXML Button submitMoveButton;
+	@FXML Button resetButton;
+	@FXML Label turnIndicator;
     @FXML GridPane gameBoard;
 	private boolean otherPlayerQuit = false;
 	private boolean weQuit = false;
@@ -56,6 +59,7 @@ public class GameBoardController implements Initializable {
 	private ObjectOutputStream out;
 	private int id;
 	private Color m_color;
+	private boolean m_ourTurn;
 	final private Object lock = new Object();
 	private Piece m_selectedPiece = null;
 	private Position m_oldPosition = null;
@@ -64,6 +68,8 @@ public class GameBoardController implements Initializable {
 	private boolean m_hasMoved;
 
     public void handleClick(MouseEvent e) {
+		if(!m_ourTurn)
+			return;
 		if(m_hasMoved)
 			return;
 		ImageView view = (ImageView)e.getSource();
@@ -75,6 +81,7 @@ public class GameBoardController implements Initializable {
 			RemoveColoring();
 			m_selectedPiece = p;
 			m_oldPosition = new Position(i,j);
+			m_newPosition = null;
 		}
 		else if(m_selectedPiece != null && (p == null || p.PieceColor != m_color)){
 			// We have a piece selected and we want to move it
@@ -85,6 +92,7 @@ public class GameBoardController implements Initializable {
 				UpdateImagesFromBoardState();
 				RemoveColoring();
 				m_hasMoved = true;
+				m_selectedPiece = null;
 			}
 		}
 		if(null != p && p.PieceColor == m_color) {
@@ -128,6 +136,10 @@ public class GameBoardController implements Initializable {
 		UpdateImagesFromBoardState();
 	}
 	public void handleSubmitMoveClick(){
+		if(!m_ourTurn)
+			return;
+		if(!m_hasMoved)
+			return;
 		try{
 			System.out.println("You clicked SubmitMove");
 			//TODO send move object here.
@@ -138,11 +150,14 @@ public class GameBoardController implements Initializable {
 				{
 					//Send the move object to the Server here
 					out.writeObject(new Packet(OpCode.UpdateBoard, id, move));
-					//Expected to get an OpCode.UpdatedBoard packet here.
-					in.readObject();
 				}
 				m_hasMoved = false;
+				m_oldPosition = null;
+				m_newPosition = null;
+				m_ourTurn = false;
+				turnIndicator.setText("Opponents turn");
 			}
+
 		}
 		catch (SocketException ex){
 			System.out.println("Socket closed");
@@ -157,6 +172,14 @@ public class GameBoardController implements Initializable {
 	public void setOut(ObjectOutputStream out){ this.out = out; }
 	public void setId(int id){ this.id = id; }
 	public void setColor(Color color){ this.m_color = color;}
+	public void setTurn(boolean turn){
+		m_ourTurn = turn;
+		if(turn){
+			turnIndicator.setText("Your turn");
+		}
+		else
+			turnIndicator.setText("Opponents turn");
+	};
 	public void processPacket(Packet p){
 		try {
 			switch (p.GetOpCode()) {
@@ -165,6 +188,8 @@ public class GameBoardController implements Initializable {
 					synchronized (lock) {
 						boardState.ApplyMove(p.GetMove());
 					}
+					m_ourTurn = true;
+					Platform.runLater(()-> turnIndicator.setText("Your turn"));
 					Platform.runLater(() -> UpdateImagesFromBoardState());
 					break;
 				case UpdatedBoard:
@@ -175,7 +200,7 @@ public class GameBoardController implements Initializable {
 					System.out.println("Other player quit the Game!");
 					out.writeObject(new Packet(OpCode.QuitGame, id, null));
 					otherPlayerQuit = true;
-					Platform.runLater(()-> HandleOtherPlayerQuit());
+					Platform.runLater(() -> HandleOtherPlayerQuit());
 
 					break;
 			}
@@ -277,12 +302,13 @@ public class GameBoardController implements Initializable {
 									System.out.println("Quitting");
 									return null;
 								}
-								try {
+								try {synchronized (lock) {
 									Packet p = (Packet) in.readObject();
 									processPacket(p);
 								}
+								}
 								catch (SocketTimeoutException ex){
-									//This is okay
+									//This is okay. Makes it so we don't hang here forever
 								}
 								catch (EOFException ex) {
 									return null;

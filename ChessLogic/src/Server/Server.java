@@ -163,12 +163,8 @@ public class Server {
             try {
                 //Let other player know the Game is over
                 other.GetOut().writeObject(new Packet(OpCode.QuitGame, other.GetID(), null));
-                other.GetIn().readObject();
                 other.GetSocket().close();
             } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e)
-            {
                 e.printStackTrace();
             }
             System.out.println("Setting Game to null");

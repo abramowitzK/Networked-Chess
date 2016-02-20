@@ -54,18 +54,17 @@ public class Board {
         Position start = new Position(move.GetStartX(), move.GetStartY());
         Position end = new Position(move.GetEndX(), move.GetEndY());
         Piece temp = m_boardState[start.GetX()][start.GetY()];
-        //We're either capturing a piece or we're moving to an empty spot
-        if(m_boardState[end.GetX()][end.GetY()] == null|| m_boardState[end.GetX()][end.GetY()].PieceColor !=  m_boardState[start.GetX()][start.GetY()].PieceColor) {
-            m_boardState[end.GetX()][end.GetY()] = temp;
-            m_boardState[start.GetX()][start.GetY()] = null;
-        }
-        else
-            return;
+        temp.SetHasMoved();
+        SetPiece(start.GetX(),start.GetY(), null);
+        SetPiece(end.GetX(), end.GetY(), temp);
+
     }
     public Piece GetPiece(int i , int j){
         return m_boardState[i][j];
     }
     public void SetPiece(int i, int j, Piece p){
+        if(p != null)
+            p.SetHasMoved();
         m_boardState[i][j] = p;
     }
     public Position GetPos(Piece p){
