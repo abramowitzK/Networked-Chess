@@ -64,7 +64,6 @@ public class GameBoardController implements Initializable {
 				UpdateImagesFromBoardState();
 				RemoveColoring();
 				m_hasMoved = true;
-				m_selectedPiece = null;
 			}
 		}
 		if(null != p && p.PieceColor == m_color) {
@@ -122,6 +121,7 @@ public class GameBoardController implements Initializable {
 				m_oldPosition = null;
 				m_newPosition = null;
 				m_ourTurn = false;
+				m_selectedPiece = null;
 				turnIndicator.setText("Opponents turn");
 			}
 
