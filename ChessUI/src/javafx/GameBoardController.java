@@ -285,10 +285,11 @@ public class GameBoardController implements Initializable {
 									System.out.println("Quitting");
 									return null;
 								}
-								try {synchronized (lock) {
-									Packet p = (Packet) in.readObject();
-									processPacket(p);
-								}
+								try {
+                                    synchronized (lock) {
+                                        Packet p = (Packet) in.readObject();
+                                        processPacket(p);
+                                    }
 								}
 								catch (SocketTimeoutException ex){
 									//This is okay. Makes it so we don't hang here forever

@@ -14,6 +14,29 @@ public final class Piece {
             new Position(-2, 1),
             new Position(-2, -1),
     };
+    public final static Position[] BishopDirs = new Position[]{
+            new Position(1,1),
+            new Position(1,-1),
+            new Position(-1,1),
+            new Position(-1,-1),
+    };
+    public final static Position[] RookDirs = new Position[]{
+            new Position(0,1),
+            new Position(0,-1),
+            new Position(1, 0),
+            new Position(-1,0),
+    };
+    public final static Position[] QueenKingDirs = new Position[]{
+            new Position(1,1),
+            new Position(1,-1),
+            new Position(-1,1),
+            new Position(-1,-1),
+            new Position(0,1),
+            new Position(0,-1),
+            new Position(1, 0),
+            new Position(-1,0),
+
+    };
     public final Image PieceImage;
     public final Color PieceColor;
     public final PieceType Type;

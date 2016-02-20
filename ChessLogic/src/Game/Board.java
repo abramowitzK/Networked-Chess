@@ -99,13 +99,13 @@ public class Board {
                 ret = GetValidKnightMoves(p.PieceColor,i,j);
                 break;
             case Rook:
-                ret = GetValidRookMoves(i,j);
+                ret = GetValidRookMoves(p.PieceColor, i,j);
                 break;
             case King:
-                ret = GetValidKingMoves(i,j);
+                ret = GetValidKingMoves(p.PieceColor, i,j);
                 break;
             case Queen:
-                ret = GetValidQueenMoves(i,j);
+                ret = GetValidQueenMoves(p.PieceColor, i,j);
                 break;
         }
         return ret;
@@ -119,6 +119,15 @@ public class Board {
     }
     private ArrayList<Position> GetValidBishopMoves(Color c, int i, int j){
         ArrayList<Position> ret = new ArrayList<>();
+        for(Position dir : Piece.BishopDirs){
+            int k = 0;
+            while(IsValidLandingPoint(c, dir.GetX() + i + dir.GetX()*k, dir.GetY()+j+dir.GetY()*k)){
+                ret.add(new Position(dir.GetX()+ i + dir.GetX()*k, dir.GetY()+j+dir.GetY()*k));
+                if(m_boardState[dir.GetX()+ i + dir.GetX()*k][dir.GetY()+j+dir.GetY()*k] != null)
+                    break;
+                k++;
+            }
+        }
         return ret;
     }
     private ArrayList<Position> GetValidKnightMoves(Color c, int i, int j){
@@ -129,9 +138,40 @@ public class Board {
         }
         return ret;
     }
-    private ArrayList<Position> GetValidRookMoves(int i, int j){return null;}
-    private ArrayList<Position> GetValidKingMoves(int i, int j){return null;}
-    private ArrayList<Position> GetValidQueenMoves(int i, int j) {return null;}
+    private ArrayList<Position> GetValidRookMoves(Color c, int i, int j){
+        ArrayList<Position> ret = new ArrayList<>();
+        for(Position dir : Piece.RookDirs){
+            int k = 0;
+            while(IsValidLandingPoint(c, dir.GetX() + i + dir.GetX()*k, dir.GetY()+j+dir.GetY()*k)){
+                ret.add(new Position(dir.GetX()+ i + dir.GetX()*k, dir.GetY()+j+dir.GetY()*k));
+                if(m_boardState[dir.GetX()+ i + dir.GetX()*k][dir.GetY()+j+dir.GetY()*k] != null)
+                    break;
+                k++;
+            }
+        }
+        return ret;
+    }
+    private ArrayList<Position> GetValidKingMoves(Color c, int i, int j){
+        ArrayList<Position> ret = new ArrayList<>();
+        for(Position dir : Piece.QueenKingDirs){
+            if(IsValidLandingPoint(c, dir.GetX() + i + dir.GetX(), dir.GetY()+j+dir.GetY()))
+                ret.add(new Position(dir.GetX()+ i + dir.GetX(), dir.GetY()+j+dir.GetY()));
+        }
+        return ret;
+    }
+    private ArrayList<Position> GetValidQueenMoves(Color c, int i, int j) {
+        ArrayList<Position> ret = new ArrayList<>();
+        for(Position dir : Piece.QueenKingDirs){
+            int k = 0;
+            while(IsValidLandingPoint(c, dir.GetX() + i + dir.GetX()*k, dir.GetY()+j+dir.GetY()*k)){
+                ret.add(new Position(dir.GetX()+ i + dir.GetX()*k, dir.GetY()+j+dir.GetY()*k));
+                if(m_boardState[dir.GetX()+ i + dir.GetX()*k][dir.GetY()+j+dir.GetY()*k] != null)
+                    break;
+                k++;
+            }
+        }
+        return ret;
+    }
     /**
      *
      * @param i Current row
