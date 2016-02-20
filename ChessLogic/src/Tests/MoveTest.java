@@ -1,12 +1,11 @@
 package Tests;
 
-import static org.junit.Assert.*;
-
+import Game.Move;
+import Game.Position;
 import org.junit.Before;
 import org.junit.Test;
 
-import Game.Move;
-import Game.Position;
+import static org.junit.Assert.*;
 
 public class MoveTest {
 

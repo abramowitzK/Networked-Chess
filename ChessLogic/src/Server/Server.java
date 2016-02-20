@@ -1,6 +1,7 @@
 package Server;
 
-import Game.*;
+import Game.Game;
+import Game.Player;
 import Networking.OpCode;
 import Networking.Packet;
 import Networking.StartGamePacket;
@@ -13,7 +14,6 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.function.Predicate;
 import java.util.logging.Level;
@@ -50,9 +50,11 @@ public class Server {
      */
     public Server() throws IOException
     {
+        //Javafx won't allow us to load images without calling a javafx function first to do some
+        // magic initialization...
         JFXPanel panel = new JFXPanel();
         m_currentID = 0;
-        m_gameQueue = new ConcurrentLinkedQueue();
+        m_gameQueue = new ConcurrentLinkedQueue<>();
         m_game = null;
         try {
             m_serverSocket = new ServerSocket(4444,0, InetAddress.getByName("127.0.0.1"));

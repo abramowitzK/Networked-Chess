@@ -1,5 +1,8 @@
 package Game;
-import Pieces.*;
+
+import Pieces.Color;
+import Pieces.Piece;
+import Pieces.PieceType;
 
 import java.util.ArrayList;
 

@@ -1,11 +1,10 @@
 package Tests;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
 import Game.Game;
 import Game.Player;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class GameTest {
 

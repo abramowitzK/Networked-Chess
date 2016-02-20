@@ -3,35 +3,28 @@ package javafx;
 import Game.Board;
 import Game.Move;
 import Game.Position;
+import Networking.OpCode;
+import Networking.Packet;
 import Pieces.Color;
 import Pieces.Piece;
-import Pieces.PieceType;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
-import Networking.OpCode;
-import Networking.Packet;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -42,7 +35,6 @@ import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.concurrent.SynchronousQueue;
 
 public class GameBoardController implements Initializable {
 

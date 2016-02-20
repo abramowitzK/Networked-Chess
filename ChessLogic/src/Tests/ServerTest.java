@@ -1,22 +1,15 @@
 package Tests;
 
-import static org.junit.Assert.*;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.PrintStream;
-
-
-import org.junit.BeforeClass;
-import org.junit.After;
-import org.junit.Test;
-
 import Networking.OpCode;
 import Networking.Packet;
 import Server.Server;
+import org.junit.After;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import java.io.*;
+
+import static org.junit.Assert.*;
 
 public class ServerTest {
 

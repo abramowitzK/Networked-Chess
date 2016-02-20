@@ -1,13 +1,12 @@
 package Tests;
 
-import static org.junit.Assert.*;
-
+import Game.BoardCell;
 import Pieces.Pawn;
+import Pieces.Piece;
 import org.junit.Before;
 import org.junit.Test;
 
-import Game.BoardCell;
-import Pieces.Piece;
+import static org.junit.Assert.*;
 
 public class BoardCellTest {
 
