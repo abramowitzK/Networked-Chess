@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="ChessUI:jar">
+    <output-path>C://artifacts/ChessUI_jar</output-path>
+    <root id="archive" name="ChessUI.jar">
+      <element id="module-output" name="ChessUI" />
+      <element id="module-output" name="ChessLogic" />
+      <element id="library" level="project" name="junit-4.12" />
+    </root>
+  </artifact>
+</component>

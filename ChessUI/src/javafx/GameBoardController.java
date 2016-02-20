@@ -34,6 +34,8 @@ public class GameBoardController implements Initializable {
 	private boolean m_ourTurn;
 	final private Object lock = new Object();
 	private Piece m_selectedPiece = null;
+    private boolean m_selectedPieceHasMoved = false;
+    private Piece m_takenPiece = null;
 	private Position m_oldPosition = null;
 	private Position m_newPosition = null;
 	private ArrayList<Position> m_validMoves = null;
@@ -48,16 +50,23 @@ public class GameBoardController implements Initializable {
 		int i = GridPane.getRowIndex(view);
 		int j = GridPane.getColumnIndex(view);
 		Piece p = boardState.GetPiece(i,j);
-		if(p != null && p != m_selectedPiece && p.PieceColor == m_color){
+		if(p != null && p.PieceColor == m_color){
 			//We selected a new non null piece that we own.
+            m_selectedPieceHasMoved = p.HasMoved();
 			RemoveColoring();
 			m_selectedPiece = p;
 			m_oldPosition = new Position(i,j);
 			m_newPosition = null;
 		}
-		else if(m_selectedPiece != null && (p == null || p.PieceColor != m_color)){
+		else if(m_selectedPiece != null){
 			// We have a piece selected and we want to move it
-			if(ListContainsPosition(i,j, m_validMoves)){
+            if(ListContainsPosition(i,j, m_validMoves)){
+                if(p == null){
+                    m_takenPiece = null;
+                }
+                else{
+                    m_takenPiece = p;
+                }
 				m_newPosition = new Position(i, j);
 				boardState.SetPiece(i, j, m_selectedPiece);
 				boardState.SetPiece(m_oldPosition.GetX(), m_oldPosition.GetY(), null);
@@ -91,12 +100,23 @@ public class GameBoardController implements Initializable {
 
 	}
 	public void handleReset(){
+        if(!m_ourTurn)
+            return;
+        if(!m_hasMoved)
+            return;
+
 		boardState.SetPiece(m_oldPosition.GetX(), m_oldPosition.GetY(), m_selectedPiece);
-		boardState.SetPiece(m_newPosition.GetX(),m_newPosition.GetY(), null);
+        if(m_takenPiece == null)
+		    boardState.SetPiece(m_newPosition.GetX(),m_newPosition.GetY(), null);
+        else
+            boardState.SetPiece(m_newPosition.GetX(), m_newPosition.GetY(), m_takenPiece);
+        if(!m_selectedPieceHasMoved)
+            m_selectedPiece.UnsetHasMoved();
 		m_hasMoved = false;
 		m_selectedPiece = null;
 		m_newPosition = null;
 		m_oldPosition = null;
+        m_takenPiece = null;
 		UpdateImagesFromBoardState();
 	}
 	public void handleSubmitMoveClick(){
@@ -115,7 +135,7 @@ public class GameBoardController implements Initializable {
 				m_oldPosition = null;
 				m_newPosition = null;
 				m_ourTurn = false;
-				m_selectedPiece = null;
+                m_takenPiece = null;
 				turnIndicator.setText("Opponents turn");
 			}
 
@@ -253,22 +273,11 @@ public class GameBoardController implements Initializable {
                                 System.out.println("Quitting");
                                 return null;
                             }
-<<<<<<< HEAD
                             try {
-                                synchronized (lock) {
-                                    Packet p = (Packet) in.readObject();
-                                    processPacket(p);
-                                }
-                            } catch (SocketTimeoutException ex) {
-=======
-                            try
-                            {
+                                Packet p = (Packet) in.readObject();
+                                processPacket(p);
 
-								Packet p = (Packet) in.readObject();
-								processPacket(p);
-                            } catch (SocketTimeoutException ex)
-                            {
->>>>>>> refs/remotes/origin/master
+                            } catch (SocketTimeoutException ex) {
                                 //This is okay. Makes it so we don't hang here forever
                             } catch (EOFException ex) {
                                 //Something bad happened
