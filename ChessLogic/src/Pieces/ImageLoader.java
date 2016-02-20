@@ -3,10 +3,8 @@ package Pieces;
 import javafx.scene.image.Image;
 class ImageLoader
 {
-    private Color m_color;
     private String colorString;
     public ImageLoader(Color color){
-        m_color = color;
         if(color == Color.Black)
             colorString = "black";
         else

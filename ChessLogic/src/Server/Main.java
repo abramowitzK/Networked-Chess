@@ -3,7 +3,7 @@ package Server;
 import java.io.IOException;
 import java.util.logging.*;
 
-public class Main {
+class Main {
     private static final Logger log = Logger.getLogger(Main.class.getName());
     /**
      * Server.Main entry point

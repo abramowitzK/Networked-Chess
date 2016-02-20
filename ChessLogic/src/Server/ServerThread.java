@@ -36,7 +36,7 @@ class ServerThread extends Thread{
                 //
                 //Apply the move to the Server board
                 //This needs to be synchronized since both threads work with this Game.
-                System.out.println("recieved an update board packet from: " + packet.GetID());
+                System.out.println("received an update board packet from: " + packet.GetID());
                 synchronized(lock) {
                     //This method should update the Game board on the Server and then send a packet to
                     //the other player updating the board.

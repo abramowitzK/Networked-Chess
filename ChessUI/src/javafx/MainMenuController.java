@@ -20,7 +20,6 @@ import java.util.Optional;
 public class MainMenuController {
 	@FXML private Button playGameButton;
 	@FXML private Button quitGameButton;
-	private Service<Void> backgroundTask;
 	private Socket socket;
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
@@ -55,56 +54,63 @@ public class MainMenuController {
 			a.setTitle("Play Chess");
 
 			//Create background task to communicate with Server
-			backgroundTask = new Service<Void>() {
+			Service<Void> backgroundTask = new Service<Void>()
+			{
 				@Override
-				protected Task<Void> createTask() {
-					
-					return new Task<Void>(){
-						
+				protected Task<Void> createTask()
+				{
+
+					return new Task<Void>()
+					{
+
 						@Override
-						protected Void call() throws Exception {
+						protected Void call() throws Exception
+						{
 							//Connect to Server. Local host for now
 							socket = new Socket("127.0.0.1", 4444);
 							out = new ObjectOutputStream(socket.getOutputStream());
 							in = new ObjectInputStream(socket.getInputStream());
 							//Send a join queue packet which should put us in the queue
-                            //The -1 signfies we're a new Client
+							//The -1 signifies we're a new Client
 							Packet p = new Packet(OpCode.JoinQueue, -1, null);
 							out.writeObject(p);
 							//Server should send a confirmation with our player id
 							Packet confirm = (Packet) in.readObject();
 							//Should be a joined queue packet. Let's check to make sure
 							assert (confirm.GetOpCode() == OpCode.JoinedQueue);
-                            id = confirm.GetID();
-                            //Set timeout for checking cancelation
+							id = confirm.GetID();
+							//Set timeout for checking cancellation
 							socket.setSoTimeout(100);
 							//If we got here. We joined the queue. Now we need to wait for the Server to tell us to do something
-                            Packet joinGame;
-							while(true){
-                                if(isCancelled()) {
-                                    System.out.println("Cancelling task...");
-                                    return null;
-                                }
-                                try {
-                                    joinGame = (Packet) in.readObject();
-                                    //If we don't time out. We succeeded. Break out of loop
-                                    break;
-                                }
-                                catch (SocketTimeoutException e){
-                                    //Okay this is expected if we wait a while.
-                                }
-                            }
+							Packet joinGame;
+							while (true)
+							{
+								if (isCancelled())
+								{
+									System.out.println("Cancelling task...");
+									return null;
+								}
+								try
+								{
+									joinGame = (Packet) in.readObject();
+									//If we don't time out. We succeeded. Break out of loop
+									break;
+								} catch (SocketTimeoutException e)
+								{
+									//Okay this is expected if we wait a while.
+								}
+							}
 							socket.setSoTimeout(1000);
 							//Expecting the Server to tell us to join Game. We'll block until we do. This is a thread so it won't
 							//block the UI
 							assert (null != joinGame && joinGame.GetOpCode() == OpCode.JoinGame);
-							color = ((StartGamePacket)joinGame).GetColor();
+							color = ((StartGamePacket) joinGame).GetColor();
 							//If we're here we joined the Game and need to continue.
 							return null;
-						}	
+						}
 					};
 				}
-            };
+			};
             //Remove player from queue when Cancel button is pressed while searching
             backgroundTask.setOnCancelled(event -> {
                 System.out.println("Handled Cancel");

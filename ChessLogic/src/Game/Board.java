@@ -42,7 +42,6 @@ public class Board {
         m_boardState[7][5] = new Piece(PieceType.Bishop, Color.White);
         m_boardState[7][6] = new Piece(PieceType.Knight, Color.White);
         m_boardState[7][7] = new Piece(PieceType.Rook, Color.White);
-
     }
     /**
      * Moves the Pieces by switching what board cell they belong to. Sets the startPos.piece
@@ -53,7 +52,6 @@ public class Board {
         Position start = new Position(move.GetStartX(), move.GetStartY());
         Position end = new Position(move.GetEndX(), move.GetEndY());
         Piece temp = m_boardState[start.GetX()][start.GetY()];
-        temp.SetHasMoved();
         SetPiece(start.GetX(),start.GetY(), null);
         SetPiece(end.GetX(), end.GetY(), temp);
 
@@ -66,24 +64,13 @@ public class Board {
             p.SetHasMoved();
         m_boardState[i][j] = p;
     }
-    public Position GetPos(Piece p){
-        for(int i = 0; i < 8; i++){
-            for(int j = 0; j < 8; j++){
-                if(p == m_boardState[i][j])
-                    return new Position(i,j);
-            }
-        }
-        return null;
-    }
     public ArrayList<Position> GetValidMoves(int i, int j){
 
         Piece p = m_boardState[i][j];
         ArrayList<Position> ret = null;
-        int dir;
+        int dir = -1;
         if(p.PieceColor == Color.Black)
             dir = 1;
-        else
-            dir = -1;
         switch (p.Type){
             case Pawn:
                 ret = GetValidPawnMoves(i,j, dir, p);

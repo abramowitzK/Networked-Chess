@@ -1,7 +1,7 @@
 package Game;
 
 public class Game {
-    private Player m_player1;
+    private final Player m_player1;
     private int m_p1ID;
     private Player m_player2;
     private int m_p2ID;

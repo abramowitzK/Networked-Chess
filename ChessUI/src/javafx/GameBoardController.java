@@ -27,8 +27,7 @@ public class GameBoardController implements Initializable {
 	private boolean otherPlayerQuit = false;
 	private boolean weQuit = false;
 	private Board boardState;
-	private Service<Void> backgroundTask;
-	private ObjectInputStream in;
+    private ObjectInputStream in;
 	private ObjectOutputStream out;
 	private int id;
 	private Color m_color;
@@ -213,7 +212,8 @@ public class GameBoardController implements Initializable {
 	}
 	private void ColorRegion(int i, int j){
 		Region r = GetRegion(i,j);
-		r.setStyle("-fx-background-color:yellow");
+        assert r != null;
+        r.setStyle("-fx-background-color:yellow");
 	}
 	private void UpdateImagesFromBoardState(){
 		for(int i = 0; i < 8;  i++){
@@ -237,7 +237,8 @@ public class GameBoardController implements Initializable {
 			for(int j = 0; j < 8; j++){
 				Region r = GetRegion(i,j);
 				String color;
-				if(r.getId().equals("light"))
+                assert r != null;
+                if(r.getId().equals("light"))
 					color = "wheat";
 				else
 					color = "peru";
@@ -251,42 +252,49 @@ public class GameBoardController implements Initializable {
 		boardState = new Board();
 		//Create background task to communicate with Server
 		UpdateImagesFromBoardState();
-		backgroundTask = new Service<Void>() {
-			@Override
-			protected Task<Void> createTask() {
+        Service<Void> backgroundTask = new Service<Void>()
+        {
+            @Override
+            protected Task<Void> createTask()
+            {
 
-				return new Task<Void>(){
+                return new Task<Void>()
+                {
 
-					@Override
-					protected Void call() throws Exception {
-							while (true) {
-								System.out.println("asdfa");
-								//TODO go back to main menu if other player quits. Also show win screen
-								if (isCancelled() || otherPlayerQuit || weQuit) {
-									System.out.println("Quitting");
-									return null;
-								}
-								try {
-                                    synchronized (lock) {
-                                        Packet p = (Packet) in.readObject();
-                                        processPacket(p);
-                                    }
-								}
-								catch (SocketTimeoutException ex){
-									//This is okay. Makes it so we don't hang here forever
-								}
-								catch (EOFException ex) {
-									return null;
-								}
-								catch (IOException ex) {
-									//Something bad happened
-                                    return null;
-								}
-							}
-					}
-				};
-			}
-		};
+                    @Override
+                    protected Void call() throws Exception
+                    {
+                        while (true)
+                        {
+                            //TODO go back to main menu if other player quits. Also show win screen
+                            if (isCancelled() || otherPlayerQuit || weQuit)
+                            {
+                                System.out.println("Quitting");
+                                return null;
+                            }
+                            try
+                            {
+                                synchronized (lock)
+                                {
+                                    Packet p = (Packet) in.readObject();
+                                    processPacket(p);
+                                }
+                            } catch (SocketTimeoutException ex)
+                            {
+                                //This is okay. Makes it so we don't hang here forever
+                            } catch (EOFException ex)
+                            {
+                                return null;
+                            } catch (IOException ex)
+                            {
+                                //Something bad happened
+                                return null;
+                            }
+                        }
+                    }
+                };
+            }
+        };
 		backgroundTask.setOnCancelled(event -> System.out.println("Exiting background thread"));
 		//Close the dialog box and transition to the Game board
 		backgroundTask.setOnSucceeded(event -> {

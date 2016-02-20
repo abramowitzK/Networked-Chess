@@ -8,25 +8,15 @@ import javafx.embed.swing.JFXPanel;
 import java.io.*;
 import java.net.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.function.Predicate;
 import java.util.logging.*;
 
 /**
  * TODO Implement leaving the queue.
  * Created by Kyle on 2/1/2016.
  */
-public class Server {
+class Server {
 
     private static final Logger log = Logger.getLogger(Server.class.getName());
-    private class MyPredicate<T> implements Predicate<T>{
-        T var1;
-        public boolean test(T var){
-            if(var1.equals(var)){
-                return true;
-            }
-            return false;
-        }
-    }
     private int m_currentID;
     private ServerSocket m_serverSocket;
     /**
@@ -40,7 +30,7 @@ public class Server {
     /**
      * Constructor
      */
-    public Server() throws IOException
+    public Server()
     {
         //Javafx won't allow us to load images without calling a javafx function first to do some
         // magic initialization...
@@ -80,10 +70,8 @@ public class Server {
                     break;
                 case QuitGame:
                     //Let player leave queue
-                    MyPredicate pred = new MyPredicate();
-                    pred.var1 = packet.GetID();
                     System.out.println("Removing player with id: " + packet.GetID());
-                    m_gameQueue.removeIf(pred);
+                    m_gameQueue.removeIf(p -> p.GetID() == packet.GetID());
                 default:
                     System.err.println("Unknown packet opcode. Can only join queue from main Server thread");
                     break;
@@ -116,10 +104,7 @@ public class Server {
                 ProcessPacket(receivedPacket, out, in, clientSocket);
                 Game();
             }
-            catch (IOException ex){
-                ex.printStackTrace();
-            }
-            catch (ClassNotFoundException ex){
+            catch (IOException | ClassNotFoundException ex){
                 ex.printStackTrace();
             }
         }
