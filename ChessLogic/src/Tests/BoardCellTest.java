@@ -1,7 +1,7 @@
 package Tests;
 
 import Game.BoardCell;
-import Pieces.*;
+import Pieces.Piece;
 import org.junit.*;
 
 import static org.junit.Assert.*;

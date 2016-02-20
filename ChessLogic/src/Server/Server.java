@@ -30,7 +30,7 @@ class Server {
     /**
      * Constructor
      */
-    public Server() {
+    public Server(int port, String ip) {
         //Javafx won't allow us to load images without calling a javafx function first to do some
         // magic initialization...
         JFXPanel panel = new JFXPanel();
@@ -38,7 +38,7 @@ class Server {
         m_gameQueue = new ConcurrentLinkedQueue<>();
         m_game = null;
         try {
-            m_serverSocket = new ServerSocket(4444,0, InetAddress.getByName("127.0.0.1"));
+            m_serverSocket = new ServerSocket(port,0, InetAddress.getByName(ip));
         } catch (IOException ex) {
             log.log(Level.FINE, "Failed to bind Server to port", ex);
             System.exit(-1);
