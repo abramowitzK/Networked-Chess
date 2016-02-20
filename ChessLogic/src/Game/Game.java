@@ -39,8 +39,7 @@ public class Game {
         if (playerID == m_p1ID) {
             System.out.println("Player 1 quit");
             return m_p2ID;
-        }
-        else {
+        } else {
             System.out.println("Player 2 quit");
             return m_p1ID;
         }

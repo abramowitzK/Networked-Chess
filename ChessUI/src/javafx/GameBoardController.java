@@ -70,8 +70,7 @@ public class GameBoardController implements Initializable {
 		if(null != p && p.PieceColor == m_color) {
 			m_validMoves = boardState.GetValidMoves(i, j);
 			if (m_validMoves != null)
-                for (Position validMove : m_validMoves)
-                {
+                for (Position validMove : m_validMoves) {
                     ColorRegion(validMove.GetX(), validMove.GetY());
                 }
 		}
@@ -87,8 +86,7 @@ public class GameBoardController implements Initializable {
 			scene.getStylesheets().add(getClass().getResource("MainMenu.css").toExternalForm());
 			getstage.setScene(scene);
 			getstage.show();
-		}
-		catch (Exception e){
+		} catch (Exception e){
 			e.printStackTrace();
 		}
 
@@ -108,11 +106,9 @@ public class GameBoardController implements Initializable {
 		if(!m_hasMoved)
 			return;
 		try{
-			if(m_hasMoved)
-			{
+			if(m_hasMoved) {
 				Move move = new Move(m_oldPosition, m_newPosition);
-				synchronized (lock)
-				{
+				synchronized (lock) {
 					//Send the move object to the Server here
 					out.writeObject(new Packet(OpCode.UpdateBoard, id, move));
 				}
@@ -123,11 +119,9 @@ public class GameBoardController implements Initializable {
 				turnIndicator.setText("Opponents turn");
 			}
 
-		}
-		catch (SocketException ex){
+		} catch (SocketException ex){
 			System.out.println("Socket closed");
-		}
-		catch (Exception e){
+		} catch (Exception e){
 			e.printStackTrace();
 		}
 	}
@@ -141,8 +135,7 @@ public class GameBoardController implements Initializable {
 		m_ourTurn = turn;
 		if(turn){
 			turnIndicator.setText("Your turn");
-		}
-		else
+		} else
 			turnIndicator.setText("Opponents turn");
 	}
 	private void processPacket(Packet p){
@@ -164,8 +157,7 @@ public class GameBoardController implements Initializable {
 					System.out.println("Other player quit the Game!");
                     try{
 					out.writeObject(new Packet(OpCode.QuitGame, id, null));
-                    }
-                    catch(IOException ex){
+                    } catch(IOException ex){
                         System.out.println("Caught a socket exception");
                     }
                     otherPlayerQuit = true;
@@ -177,18 +169,15 @@ public class GameBoardController implements Initializable {
 		Alert A = new Alert(Alert.AlertType.ERROR, "Other player quit!", ButtonType.FINISH);
 		A.showAndWait();
 		Stage getstage = (Stage) forfeitButton.getScene().getWindow();
-		try
-		{
+		try {
 			Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
 			Scene scene = new Scene(root,600,400);
 			scene.getStylesheets().add(getClass().getResource("MainMenu.css").toExternalForm());
 			getstage.setScene(scene);
 			getstage.show();
-		} catch (IOException e)
-		{
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 	private Node GetByRowColumn(int i, int j){
 		for(Node n : gameBoard.getChildren()){
@@ -250,41 +239,31 @@ public class GameBoardController implements Initializable {
 		boardState = new Board();
 		//Create background task to communicate with Server
 		UpdateImagesFromBoardState();
-        Service<Void> backgroundTask = new Service<Void>()
-        {
+        Service<Void> backgroundTask = new Service<Void>() {
             @Override
-            protected Task<Void> createTask()
-            {
+            protected Task<Void> createTask() {
 
-                return new Task<Void>()
-                {
+                return new Task<Void>() {
 
                     @Override
-                    protected Void call() throws Exception
-                    {
-                        while (true)
-                        {
+                    protected Void call() throws Exception {
+                        while (true) {
                             //TODO go back to main menu if other player quits. Also show win screen
-                            if (isCancelled() || otherPlayerQuit || weQuit)
-                            {
+                            if (isCancelled() || otherPlayerQuit || weQuit) {
                                 System.out.println("Quitting");
                                 return null;
                             }
-                            try
-                            {
-                                synchronized (lock)
-                                {
+                            try {
+                                synchronized (lock) {
                                     Packet p = (Packet) in.readObject();
                                     processPacket(p);
                                 }
-                            } catch (SocketTimeoutException ex)
-                            {
+                            } catch (SocketTimeoutException ex) {
                                 //This is okay. Makes it so we don't hang here forever
-                            } catch (EOFException ex)
-                            {
+                            } catch (EOFException ex) {
+                                //Something bad happened
                                 return null;
-                            } catch (IOException ex)
-                            {
+                            } catch (IOException ex) {
                                 //Something bad happened
                                 return null;
                             }

@@ -32,40 +32,28 @@ public class MainMenuController {
 		try{
 			// Create cancel button
 			ButtonType cancelButtonType = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
-			
 			// Create label and progress indicator
 			Label label = new Label("Searching for opponent");
 			ProgressIndicator p = new ProgressIndicator();
-			
 			// Create and add VBox to hold progress indicator and searching text
 			VBox vbox = new VBox(); 
 			vbox.getChildren().addAll(p,label);
-			
 			final Alert a = new Alert(AlertType.NONE);
-			
 			//change default icon of window to chess piece
 			Image image = new Image("/images/Chancellor_Piece.png");
 			Stage stage = (Stage) a.getDialogPane().getScene().getWindow();
 			stage.getIcons().add(image);
-			
 			// Add vbox and cancel button
 			a.getButtonTypes().add(cancelButtonType);
 			a.getDialogPane().setContent(vbox);
 			a.setTitle("Play Chess");
-
 			//Create background task to communicate with Server
-			Service<Void> backgroundTask = new Service<Void>()
-			{
+			Service<Void> backgroundTask = new Service<Void>() {
 				@Override
-				protected Task<Void> createTask()
-				{
-
-					return new Task<Void>()
-					{
-
+				protected Task<Void> createTask() {
+					return new Task<Void>() {
 						@Override
-						protected Void call() throws Exception
-						{
+						protected Void call() throws Exception {
 							//Connect to Server. Local host for now
 							socket = new Socket("127.0.0.1", 4444);
 							out = new ObjectOutputStream(socket.getOutputStream());
@@ -83,20 +71,16 @@ public class MainMenuController {
 							socket.setSoTimeout(100);
 							//If we got here. We joined the queue. Now we need to wait for the Server to tell us to do something
 							Packet joinGame;
-							while (true)
-							{
-								if (isCancelled())
-								{
+							while (true) {
+								if (isCancelled()) {
 									System.out.println("Cancelling task...");
 									return null;
 								}
-								try
-								{
+								try {
 									joinGame = (Packet) in.readObject();
 									//If we don't time out. We succeeded. Break out of loop
 									break;
-								} catch (SocketTimeoutException e)
-								{
+								} catch (SocketTimeoutException e) {
 									//Okay this is expected if we wait a while.
 								}
 							}
@@ -134,8 +118,7 @@ public class MainMenuController {
 						controller.setColor(color);
 						if(color == Color.White){
 							controller.setTurn(true);
-						}
-						else
+						} else
 							controller.setTurn(false);
 						Scene scene = new Scene(root,800,600);
 						scene.getStylesheets().add(getClass().getResource("GameBoard.css").toExternalForm());
@@ -153,8 +136,7 @@ public class MainMenuController {
 				 System.out.println("You clicked Cancel");
 				 backgroundTask.cancel();
 			 }
-		}
-		catch (Exception e){
+		} catch (Exception e){
 			e.printStackTrace();
 		}
 	}

@@ -39,8 +39,7 @@ class Server {
         m_game = null;
         try {
             m_serverSocket = new ServerSocket(4444,0, InetAddress.getByName("127.0.0.1"));
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             log.log(Level.FINE, "Failed to bind Server to port", ex);
             System.exit(-1);
         }
@@ -102,8 +101,7 @@ class Server {
                 //Encapsulate all packet processing
                 ProcessPacket(receivedPacket, out, in, clientSocket);
                 Game();
-            }
-            catch (IOException | ClassNotFoundException ex){
+            } catch (IOException | ClassNotFoundException ex){
                 ex.printStackTrace();
             }
         }
@@ -124,8 +122,7 @@ class Server {
                 System.out.println("Setting Game to null");
                 m_game = null;
             }
-        }
-        catch (IOException ex){
+        } catch (IOException ex){
             ex.printStackTrace();
         }
         return false;

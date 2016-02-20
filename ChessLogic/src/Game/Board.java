@@ -54,7 +54,6 @@ public class Board {
         Piece temp = m_boardState[start.GetX()][start.GetY()];
         SetPiece(start.GetX(),start.GetY(), null);
         SetPiece(end.GetX(), end.GetY(), temp);
-
     }
     public Piece GetPiece(int i , int j){
         return m_boardState[i][j];
@@ -96,8 +95,7 @@ public class Board {
     private boolean WithinBounds(int i){
         return i <= 7 && i >= 0;
     }
-    private boolean IsValidLandingPoint(Color myColor, int i, int j)
-    {
+    private boolean IsValidLandingPoint(Color myColor, int i, int j) {
         return !(!WithinBounds(i) || !WithinBounds(j)) && !(m_boardState[i][j] != null && m_boardState[i][j].PieceColor == myColor);
     }
     private ArrayList<Position> GetValidBishopMoves(Color c, int i, int j){
@@ -184,10 +182,8 @@ public class Board {
     @Override
     public String toString(){
         String ret = "";
-        for (Piece[] piece : m_boardState)
-        {
-            for (int j = 0; j < m_boardState[0].length; j++)
-            {
+        for (Piece[] piece : m_boardState) {
+            for (int j = 0; j < m_boardState[0].length; j++) {
                 ret += piece[j].toString();
             }
             ret += "\n";
