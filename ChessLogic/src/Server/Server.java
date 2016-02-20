@@ -3,6 +3,9 @@ package Server;
 import Game.*;
 import Networking.OpCode;
 import Networking.Packet;
+import Networking.StartGamePacket;
+import Pieces.Color;
+import javafx.embed.swing.JFXPanel;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -47,6 +50,7 @@ public class Server {
      */
     public Server() throws IOException
     {
+        JFXPanel panel = new JFXPanel();
         m_currentID = 0;
         m_gameQueue = new ConcurrentLinkedQueue();
         m_game = null;
@@ -132,11 +136,11 @@ public class Server {
                 System.out.println("Starting new Game");
                 Player p1 = m_gameQueue.remove();
                 Player p2 = m_gameQueue.remove();
-                p1.GetOut().writeObject(new Packet(OpCode.JoinGame, p1.GetID(), null));
-                p2.GetOut().writeObject(new Packet(OpCode.JoinGame, p2.GetID(), null));
+                p1.GetOut().writeObject(new StartGamePacket(OpCode.JoinGame, p1.GetID(), Color.White));
+                p2.GetOut().writeObject(new StartGamePacket(OpCode.JoinGame, p2.GetID(), Color.Black));
                 m_game = new Game(p1, p2);
-                new ServerThread(p1, m_game, p1.GetOut(), p1.GetIn(), this).run();
-                new ServerThread(p2, m_game, p2.GetOut(), p2.GetIn(), this).run();
+                new ServerThread(p1, m_game, p1.GetOut(), p1.GetIn(), this).start();
+                new ServerThread(p2, m_game, p2.GetOut(), p2.GetIn(), this).start();
                 return true;
             } else if (null != m_game && m_game.IsOver()) {
                 System.out.println("Setting Game to null");
@@ -159,8 +163,12 @@ public class Server {
             try {
                 //Let other player know the Game is over
                 other.GetOut().writeObject(new Packet(OpCode.QuitGame, other.GetID(), null));
+                other.GetIn().readObject();
                 other.GetSocket().close();
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e)
+            {
                 e.printStackTrace();
             }
             System.out.println("Setting Game to null");

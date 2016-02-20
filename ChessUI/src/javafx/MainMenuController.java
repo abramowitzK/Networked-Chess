@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.util.Optional;
 
+import Pieces.Color;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
@@ -36,6 +37,7 @@ public class MainMenuController {
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
     private int id;
+	private Color color;
 	/**
 	 * Initiate pop-up to show searching and send request to Server to place player in queue
 	 */
@@ -104,10 +106,11 @@ public class MainMenuController {
                                     //Okay this is expected if we wait a while.
                                 }
                             }
-							socket.setSoTimeout(100000);
+							socket.setSoTimeout(1000);
 							//Expecting the Server to tell us to join Game. We'll block until we do. This is a thread so it won't
 							//block the UI
 							assert (null != joinGame && joinGame.GetOpCode() == OpCode.JoinGame);
+							color = ((StartGamePacket)joinGame).GetColor();
 							//If we're here we joined the Game and need to continue.
 							return null;
 						}	
@@ -118,7 +121,7 @@ public class MainMenuController {
             backgroundTask.setOnCancelled(new EventHandler<WorkerStateEvent>(){
                 @Override
                 public void handle(WorkerStateEvent event)  {
-                    System.out.println("Handeled Cancel");
+                    System.out.println("Handled Cancel");
                     //TODO put disconnect code here. Have to implement that on Server first.
                 }
 			});
@@ -138,6 +141,7 @@ public class MainMenuController {
 						controller.setIn(in);
 						controller.setOut(out);
 						controller.setId(id);
+						controller.setColor(color);
 						Scene scene = new Scene(root,800,600);
 						scene.getStylesheets().add(getClass().getResource("GameBoard.css").toExternalForm());
 						getstage.setScene(scene);

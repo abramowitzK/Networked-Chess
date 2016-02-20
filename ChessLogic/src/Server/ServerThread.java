@@ -35,7 +35,8 @@ public class ServerThread extends Thread{
      * Process a packet from a player. Logic in here decides what kind of packet it is and what to do with it.
      * @param packet packet to process
      */
-    public void ProcessPacket(Packet packet, ObjectOutputStream out){
+    public void ProcessPacket(Packet packet, ObjectOutputStream out)
+    {
         switch (packet.GetOpCode()) {
             case UpdateBoard:
                 //We are updating the board
@@ -55,8 +56,9 @@ public class ServerThread extends Thread{
                 //be created if there are more people in the queue
                 System.out.println("Quitting Game. ID: " + packet.GetID() + " From inside thread");
                 m_server.notifyServerOfQuit(packet.GetID());
-                m_quit = true;
                 try {
+                    out.writeObject(null);
+                    m_quit = true;
                     m_player.GetSocket().close();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -79,15 +81,19 @@ public class ServerThread extends Thread{
             }
         }
         catch (SocketException ex){
+            System.out.println("Socket exception0");
             log.log(Level.FINE, "Client Disconnected from inside ServerThread");
         }
         catch (EOFException ex){
+            System.out.println("eof exception0");
             log.log(Level.FINE, "Caught EOF, Client has disconnected from inside ServerThread");
         }
         catch (IOException ex){
+            System.out.println("ioexception0");
             log.log(Level.FINE, "Caught unknown IOException");
         }
         catch (ClassNotFoundException ex){
+            System.out.println("cnfexception0");
             log.log(Level.FINE, "Caught class not found exception. Client sent something that wasn't a packet");
         }
     }
