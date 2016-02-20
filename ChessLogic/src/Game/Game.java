@@ -7,7 +7,6 @@ public class Game {
     private int m_p2ID;
     private Board m_board;
     private boolean m_isOver;
-
     /**
      * Order does not matter when specifying players. These should be two players in the same Game logically
      * @param player1 First player
@@ -20,7 +19,6 @@ public class Game {
         m_p2ID = player2.GetID();
         m_board = new Board();
     }
-
     /**
      * This function applies the move to the Server board which is located in the Game object that
      * is shared between the two ServerThreads. The Game object is synchronized so concurrent access
@@ -46,9 +44,7 @@ public class Game {
             System.out.println("Player 2 quit");
             return m_p1ID;
         }
-
     }
-
     /**
      * Call to determine status of Game (over/not over)
      * @return If Game is over or not
@@ -56,7 +52,6 @@ public class Game {
     public boolean IsOver(){
         return m_isOver;
     }
-
     /**
      * Given a player ID returns the other player ID
      * @param playerID Id of one player in game.

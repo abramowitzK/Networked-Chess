@@ -11,16 +11,11 @@ class Main {
      */
     public static void main(String [] args){
         Server mainServer;
-        try {
-            //Create a Server.Server
-            mainServer = new Server();
-            //Start the Server
-            log.log(Level.FINE, "Starting Server");
-            mainServer.Start();
-        }
-        catch (IOException ex){
-            log.log(Level.FINE, "Failed to start the Server. Port already bound", ex);
-        }
+        //Create a Server.Server
+        mainServer = new Server();
+        //Start the Server
+        log.log(Level.FINE, "Starting Server");
+        mainServer.Start();
     }
 
 

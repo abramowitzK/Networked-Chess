@@ -35,7 +35,6 @@ public final class Piece {
             new Position(0,-1),
             new Position(1, 0),
             new Position(-1,0),
-
     };
     public final Image PieceImage;
     public final Color PieceColor;

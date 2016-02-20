@@ -30,8 +30,7 @@ class Server {
     /**
      * Constructor
      */
-    public Server()
-    {
+    public Server() {
         //Javafx won't allow us to load images without calling a javafx function first to do some
         // magic initialization...
         JFXPanel panel = new JFXPanel();

@@ -108,8 +108,6 @@ public class GameBoardController implements Initializable {
 		if(!m_hasMoved)
 			return;
 		try{
-			System.out.println("You clicked SubmitMove");
-			//TODO send move object here.
 			if(m_hasMoved)
 			{
 				Move move = new Move(m_oldPosition, m_newPosition);

@@ -125,7 +125,6 @@ public class MainMenuController {
 					Stage getstage = (Stage) playGameButton.getScene().getWindow();
 					Parent root;
 					try {
-                        //TODO pass the in and out variables to the Game controller for communication
 						FXMLLoader loader = new FXMLLoader(getClass().getResource("GameBoard.fxml"));
 						root = loader.load();
 						GameBoardController controller = loader.getController();
