@@ -64,7 +64,6 @@ public class GameBoardController implements Initializable {
 				UpdateImagesFromBoardState();
 				RemoveColoring();
 				m_hasMoved = true;
-				m_selectedPiece = null;
 			}
 		}
 		if(null != p && p.PieceColor == m_color) {
