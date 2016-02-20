@@ -1,18 +1,11 @@
 package Server;
 
-import Game.Game;
-import Game.Move;
-import Game.Player;
-import Networking.OpCode;
-import Networking.Packet;
+import Game.*;
+import Networking.*;
 
-import java.io.EOFException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.SocketException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.logging.*;
 class ServerThread extends Thread{
     private static final Logger log = Logger.getLogger(ServerThread.class.getName());
     private final Object lock = new Object();

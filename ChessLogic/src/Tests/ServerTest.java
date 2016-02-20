@@ -1,11 +1,8 @@
 package Tests;
 
-import Networking.OpCode;
-import Networking.Packet;
+import Networking.*;
 import Server.Server;
-import org.junit.After;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 
 import java.io.*;
 

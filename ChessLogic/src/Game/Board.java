@@ -1,8 +1,6 @@
 package Game;
 
-import Pieces.Color;
-import Pieces.Piece;
-import Pieces.PieceType;
+import Pieces.*;
 
 import java.util.ArrayList;
 
@@ -13,7 +11,6 @@ public class Board {
     private Piece[][] m_boardState;
     /**
      * Default constructor initializes board to starting state for chess board
-     * TODO: Set up board.
      */
     public Board(){
         m_boardState = new Piece[SIZE][SIZE];
@@ -25,7 +22,6 @@ public class Board {
         m_boardState[0][5] = new Piece(PieceType.Bishop, Color.Black);
         m_boardState[0][6] = new Piece(PieceType.Knight, Color.Black);
         m_boardState[0][7] = new Piece(PieceType.Rook, Color.Black);
-
         for(int i = 0; i < SIZE; i++){
             m_boardState[1][i] = new Piece(PieceType.Pawn, Color.Black);
         }

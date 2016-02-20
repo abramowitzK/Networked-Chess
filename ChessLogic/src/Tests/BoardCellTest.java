@@ -1,10 +1,8 @@
 package Tests;
 
 import Game.BoardCell;
-import Pieces.Pawn;
-import Pieces.Piece;
-import org.junit.Before;
-import org.junit.Test;
+import Pieces.*;
+import org.junit.*;
 
 import static org.junit.Assert.*;
 

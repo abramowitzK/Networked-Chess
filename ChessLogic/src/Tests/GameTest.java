@@ -1,7 +1,6 @@
 package Tests;
 
-import Game.Game;
-import Game.Player;
+import Game.*;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

@@ -1,11 +1,8 @@
 package Tests;
 
-import Game.Move;
-import Game.Position;
-import Networking.OpCode;
-import Networking.Packet;
-import org.junit.Before;
-import org.junit.Test;
+import Game.*;
+import Networking.*;
+import org.junit.*;
 
 import static org.junit.Assert.*;
 

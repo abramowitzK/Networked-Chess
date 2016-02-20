@@ -1,9 +1,7 @@
 package Tests;
 
-import Game.Move;
-import Game.Position;
-import org.junit.Before;
-import org.junit.Test;
+import Game.*;
+import org.junit.*;
 
 import static org.junit.Assert.*;
 

@@ -1,23 +1,15 @@
 package Server;
 
-import Game.Game;
-import Game.Player;
-import Networking.OpCode;
-import Networking.Packet;
-import Networking.StartGamePacket;
+import Game.*;
+import Networking.*;
 import Pieces.Color;
 import javafx.embed.swing.JFXPanel;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.io.*;
+import java.net.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.function.Predicate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.logging.*;
 
 /**
  * TODO Implement leaving the queue.

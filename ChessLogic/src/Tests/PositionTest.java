@@ -1,8 +1,7 @@
 package Tests;
 
 import Game.Position;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 
 import static org.junit.Assert.*;
 
