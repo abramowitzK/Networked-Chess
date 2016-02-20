@@ -19,7 +19,6 @@ import java.util.Optional;
 
 public class MainMenuController {
 	@FXML private Button playGameButton;
-	@FXML private Button quitGameButton;
 	private Socket socket;
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
