@@ -201,7 +201,7 @@ public class Board {
         assert kp != null;
         for(int i = 0; i < SIZE; i++){
             for(int j = 0; j < SIZE; j++){
-                if( m_boardState[i][j] != null && m_boardState[i][j].PieceColor != color && GetValidMoves(i,j).stream().filter(p -> p.GetX() == kp.GetX() && p.GetY() == kp.GetY()).collect(Collectors.toList()).size() > 0 ){
+                if( m_boardState[i][j] != null && m_boardState[i][j].PieceColor != color && GetValidMoves(i,j) != null && GetValidMoves(i,j).stream().filter(p -> p.GetX() == kp.GetX() && p.GetY() == kp.GetY()).collect(Collectors.toList()).size() > 0 ){
                     return true;
                 }
             }

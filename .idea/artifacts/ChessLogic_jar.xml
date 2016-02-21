@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ChessLogic:jar">
+    <output-path>C://artifacts/ChessLogic_jar</output-path>
+    <root id="archive" name="ChessLogic.jar">
+      <element id="module-output" name="ChessLogic" />
+      <element id="library" level="project" name="junit-4.12" />
+    </root>
+  </artifact>
+</component>

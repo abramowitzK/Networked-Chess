@@ -2,16 +2,16 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
+      <artifact name="ChessLogic:jar" />
       <artifact name="ChessUI:jar" />
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="07e140e5-a4c5-4171-a50f-709e4d1d1de2" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/artifacts/ChessLogic_jar.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ChessLogic/src/META-INF/MANIFEST.MF" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChessLogic/src/Game/Board.java" afterPath="$PROJECT_DIR$/ChessLogic/src/Game/Board.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChessLogic/src/Pieces/Piece.java" afterPath="$PROJECT_DIR$/ChessLogic/src/Pieces/Piece.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChessUI/src/javafx/GameBoard.fxml" afterPath="$PROJECT_DIR$/ChessUI/src/javafx/GameBoard.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChessUI/src/javafx/GameBoardController.java" afterPath="$PROJECT_DIR$/ChessUI/src/javafx/GameBoardController.java" />
     </list>
     <ignored path=".idea/dataSources.local.xml" />
     <manually-removed-from-ignored>
@@ -34,34 +34,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GameBoardController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ChessUI/src/javafx/GameBoardController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-23.586206">
-              <caret line="114" column="40" selection-start-line="114" selection-start-column="40" selection-end-line="114" selection-end-column="40" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#3688#3689#0" expanded="true" />
-                <element signature="e#3727#3728#0" expanded="true" />
-                <element signature="e#6169#6170#0" expanded="true" />
-                <element signature="e#6204#6205#0" expanded="true" />
-                <element signature="method#GetRegion#0;class#GameBoardController#0" expanded="false" />
-                <element signature="method#ColorRegion#0;class#GameBoardController#0" expanded="false" />
-                <element signature="method#UpdateImagesFromBoardState#0;class#GameBoardController#0" expanded="false" />
-                <element signature="method#ListContainsPosition#0;class#GameBoardController#0" expanded="false" />
-                <element signature="method#RemoveColoring#0;class#GameBoardController#0" expanded="false" />
-                <element signature="method#redeemPiece#0;class#GameBoardController#0" expanded="false" />
-                <element signature="docComment;method#returnToMainMenu#0;class#GameBoardController#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Board.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ChessLogic/src/Game/Board.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.80746794">
-              <caret line="134" column="8" selection-start-line="134" selection-start-column="8" selection-end-line="134" selection-end-column="93" />
+            <state vertical-scroll-proportion="0.72228706">
+              <caret line="203" column="251" selection-start-line="203" selection-start-column="251" selection-end-line="203" selection-end-column="251" />
               <folding>
                 <element signature="method#Board#0;class#Board#0" expanded="false" />
                 <element signature="method#GetValidKnightMoves#0;class#Board#0" expanded="false" />
@@ -70,14 +47,51 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameBoard.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ChessUI/src/javafx/GameBoard.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder">
-            <state />
-          </provider>
+      <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ChessLogic/src/Game/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.8292685">
-              <caret line="383" column="34" selection-start-line="383" selection-start-column="34" selection-end-line="383" selection-end-column="34" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ChessLogic/src/Server/Server.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="147" column="9" selection-start-line="147" selection-start-column="9" selection-end-line="147" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OpCode.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ChessLogic/src/Networking/OpCode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Packet.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ChessLogic/src/Networking/Packet.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="28" column="5" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MatchedController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ChessUI/src/javafx/MatchedController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="12" column="15" selection-start-line="12" selection-start-column="15" selection-end-line="12" selection-end-column="15" />
               <folding />
             </state>
           </provider>
@@ -86,8 +100,18 @@
       <file leaf-file-name="GameBoard.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ChessUI/src/javafx/GameBoard.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state vertical-scroll-proportion="-13.076923">
+              <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ServerThread.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ChessLogic/src/Server/ServerThread.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -103,223 +127,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Position.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ChessLogic/src/Game/Position.java">
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ChessLogic/src/Game/Game.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JAVA/Networking.Packet" pinned="false" current-in-tab="false">
-        <entry file="uml://JAVA/Networking.Packet">
-          <provider selected="true" editor-type-id="UmlEditorProvider">
-            <state>
-              <ID>JAVA</ID>
-              <OriginalElement>Networking.Packet</OriginalElement>
-              <nodes>
-                <node x="1315.3375" y="23.0">Pieces.PieceType</node>
-                <node x="406.1409226190476" y="819.0">Game.Player</node>
-                <node x="403.69508928571423" y="1929.0">Server.Server</node>
-                <node x="990.3375000000001" y="0.0">Pieces.ImageLoader</node>
-                <node x="52.5" y="842.0">Networking.OpCode</node>
-                <node x="503.69508928571423" y="2275.0">Server.Main</node>
-                <node x="15.5" y="67.0">Pieces.Color</node>
-                <node x="0.0" y="1663.0">Networking.StartGamePacket</node>
-                <node x="161.0" y="375.0">Game.Move</node>
-                <node x="954.2375000000001" y="309.0">Pieces.Piece</node>
-                <node x="797.6925595238095" y="1241.0">Game.Game</node>
-                <node x="238.5" y="1564.0">Server.ServerThread</node>
-                <node x="695.3375000000001" y="11.0">Game.Position</node>
-                <node x="768.1409226190476" y="676.0">Game.Board</node>
-                <node x="87.0" y="1274.0">Networking.Packet</node>
-              </nodes>
-              <notes />
-              <edges>
-                <edge source="Server.Main" target="Server.Server">
-                  <point x="0.0" y="-37.0" />
-                  <point x="0.0" y="148.0" />
-                </edge>
-                <edge source="Server.Server" target="Server.ServerThread">
-                  <point x="-61.875" y="-148.0" />
-                  <point x="506.82008928571423" y="1889.0" />
-                  <point x="321.0" y="1889.0" />
-                  <point x="-82.5" y="147.5" />
-                </edge>
-                <edge source="Server.ServerThread" target="Networking.Packet">
-                  <point x="-110.00000000000006" y="-147.5" />
-                  <point x="293.49999999999994" y="1539.0" />
-                  <point x="322.0" y="1539.0" />
-                  <point x="94.0" y="103.5" />
-                </edge>
-                <edge source="Game.Board" target="Game.Position">
-                  <point x="-198.66666666666652" y="-257.5" />
-                  <point x="867.4742559523811" y="651.0" />
-                  <point x="789.2983630952381" y="651.0" />
-                  <point x="789.2983630952381" y="289.0" />
-                  <point x="798.4625000000001" y="289.0" />
-                  <point x="-34.375" y="103.5" />
-                </edge>
-                <edge source="Networking.StartGamePacket" target="Networking.Packet">
-                  <point x="42.0" y="-48.5" />
-                  <point x="126.0" y="1539.0" />
-                  <point x="134.0" y="1539.0" />
-                  <point x="-94.0" y="103.5" />
-                </edge>
-                <edge source="Pieces.Piece" target="Game.Position">
-                  <point x="-80.39999999999986" y="-158.5" />
-                  <point x="1074.8375" y="269.0" />
-                  <point x="867.2125000000001" y="269.0" />
-                  <point x="34.375" y="103.5" />
-                </edge>
-                <edge source="Networking.StartGamePacket" target="Pieces.Color">
-                  <point x="-42.0" y="-48.5" />
-                  <point x="-26.5" y="47.5" />
-                </edge>
-                <edge source="Server.ServerThread" target="Game.Player">
-                  <point x="-5.6843418860808015E-14" y="-147.5" />
-                  <point x="403.49999999999994" y="1216.0" />
-                  <point x="448.8909226190476" y="1216.0" />
-                  <point x="-128.25" y="114.5" />
-                </edge>
-                <edge source="Server.Server" target="Game.Player">
-                  <point x="20.625" y="-148.0" />
-                  <point x="589.3200892857142" y="1909.0" />
-                  <point x="579.0" y="1909.0" />
-                  <point x="579.0" y="1216.0" />
-                  <point x="534.3909226190476" y="1216.0" />
-                  <point x="-42.75" y="114.5" />
-                </edge>
-                <edge source="Pieces.Piece" target="Pieces.Color">
-                  <point x="-160.79999999999995" y="-158.5" />
-                  <point x="994.4375000000001" y="279.0" />
-                  <point x="95.0" y="279.0" />
-                  <point x="26.5" y="47.5" />
-                </edge>
-                <edge source="Networking.Packet" target="Game.Move">
-                  <point x="70.5" y="-103.5" />
-                  <point x="298.5" y="1216.0" />
-                  <point x="290.0" y="1216.0" />
-                  <point x="0.0" y="92.5" />
-                </edge>
-                <edge source="Server.Server" target="Networking.StartGamePacket">
-                  <point x="-144.375" y="-148.0" />
-                  <point x="424.32008928571423" y="1909.0" />
-                  <point x="84.0" y="1909.0" />
-                  <point x="0.0" y="48.5" />
-                </edge>
-                <edge source="Game.Game" target="Game.Board">
-                  <point x="0.0" y="-136.5" />
-                  <point x="968.6925595238095" y="1216.0" />
-                  <point x="917.1409226190476" y="1216.0" />
-                  <point x="-149.0" y="257.5" />
-                </edge>
-                <edge source="Networking.Packet" target="Networking.OpCode">
-                  <point x="-70.5" y="-103.5" />
-                  <point x="157.5" y="1216.0" />
-                  <point x="166.0" y="1216.0" />
-                  <point x="0.0" y="91.5" />
-                </edge>
-                <edge source="Game.Move" target="Game.Position">
-                  <point x="0.0" y="-92.5" />
-                  <point x="290.0" y="289.0" />
-                  <point x="729.7125000000001" y="289.0" />
-                  <point x="-103.125" y="103.5" />
-                </edge>
-                <edge source="Pieces.Piece" target="Pieces.ImageLoader">
-                  <point x="80.40000000000009" y="-158.5" />
-                  <point x="1235.6375000000003" y="249.0" />
-                  <point x="1142.8375" y="249.0" />
-                  <point x="0.0" y="114.5" />
-                </edge>
-                <edge source="Pieces.Piece" target="Pieces.PieceType">
-                  <point x="160.79999999999995" y="-158.5" />
-                  <point x="1316.0375" y="289.0" />
-                  <point x="1408.8375" y="289.0" />
-                  <point x="0.0" y="91.5" />
-                </edge>
-                <edge source="Server.ServerThread" target="Server.Server">
-                  <point x="82.49999999999994" y="147.5" />
-                  <point x="485.99999999999994" y="1879.0" />
-                  <point x="548.0700892857142" y="1879.0" />
-                  <point x="-20.625" y="-148.0" />
-                </edge>
-                <edge source="Server.Server" target="Networking.Packet">
-                  <point x="-103.125" y="-148.0" />
-                  <point x="465.57008928571423" y="1899.0" />
-                  <point x="228.0" y="1899.0" />
-                  <point x="0.0" y="103.5" />
-                </edge>
-                <edge source="Game.Board" target="Pieces.Piece">
-                  <point x="198.66666666666674" y="-257.5" />
-                  <point x="1264.8075892857144" y="651.0" />
-                  <point x="1255.7375000000002" y="651.0" />
-                  <point x="100.5" y="158.5" />
-                </edge>
-                <edge source="Game.Game" target="Game.Player">
-                  <point x="-114.0" y="-136.5" />
-                  <point x="854.6925595238095" y="1216.0" />
-                  <point x="705.3909226190476" y="1216.0" />
-                  <point x="128.25" y="114.5" />
-                </edge>
-                <edge source="Server.Server" target="Game.Game">
-                  <point x="103.125" y="-148.0" />
-                  <point x="671.8200892857142" y="1899.0" />
-                  <point x="974.5541666666666" y="1899.0" />
-                  <point x="974.5541666666666" y="1539.0" />
-                  <point x="968.6925595238095" y="1539.0" />
-                  <point x="0.0" y="136.5" />
-                </edge>
-                <edge source="Server.ServerThread" target="Game.Game">
-                  <point x="109.99999999999994" y="-147.5" />
-                  <point x="513.5" y="1539.0" />
-                  <point x="854.6925595238095" y="1539.0" />
-                  <point x="-114.0" y="136.5" />
-                </edge>
-              </edges>
-              <settings layout="Hierarchic Group" zoom="0.8" x="-521.0" y="499.0" />
-              <SelectedNodes />
-              <Categories>
-                <Category>Methods</Category>
-                <Category>Properties</Category>
-                <Category>Constructors</Category>
-                <Category>Fields</Category>
-              </Categories>
-              <SCOPE>Project Files</SCOPE>
-              <VISIBILITY>private</VISIBILITY>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ChessLogic/src/Server/Server.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="40" column="78" selection-start-line="40" selection-start-column="78" selection-end-line="40" selection-end-column="78" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AllTests.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ChessLogic/src/Tests/AllTests.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ChessUI/src/javafx/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="17" column="38" selection-start-line="17" selection-start-column="38" selection-end-line="17" selection-end-column="38" />
+              <caret line="41" column="10" selection-start-line="41" selection-start-column="10" selection-end-line="41" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -435,24 +247,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CS451Chess7" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ChessUI" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="javafx" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1054,7 +848,7 @@
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="javafx.Main" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="4445 127.0.0.1" />
+      <option name="PROGRAM_PARAMETERS" value="25565 71.168.230.155" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -1091,7 +885,7 @@
       <workItem from="1455989046056" duration="37000" />
       <workItem from="1455989843863" duration="434000" />
       <workItem from="1455990295753" duration="1003000" />
-      <workItem from="1455991710717" duration="11699000" />
+      <workItem from="1455991710717" duration="14866000" />
     </task>
     <task id="LOCAL-00001" summary="Optimized imports">
       <created>1455944159923</created>
@@ -1159,11 +953,17 @@
       <option name="project" value="LOCAL" />
       <updated>1455990378372</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Implemented check/checkmate and their UI components">
+      <created>1456018976347</created>
+      <option name="number" value="00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1456018976347</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29196000" />
+    <option name="totallyTimeSpent" value="32363000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-2568" y="-360" width="2576" height="1416" extended-state="6" />
@@ -1218,7 +1018,8 @@
     <MESSAGE value="Fixing concurrency issue again" />
     <MESSAGE value="Fixed king issue again. Think everything is good now except for a few bugs with piece selection" />
     <MESSAGE value="Merge remote-tracking branch 'remotes/origin/UI-micah'&#10;&#10;# Conflicts:&#10;#&#9;ChessUI/src/javafx/GameBoardController.java&#10;#&#9;ChessUI/src/javafx/MainMenuController.java&#10;Optimized imports and fixed style issues" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'remotes/origin/UI-micah'&#10;&#10;# Conflicts:&#10;#&#9;ChessUI/src/javafx/GameBoardController.java&#10;#&#9;ChessUI/src/javafx/MainMenuController.java&#10;Optimized imports and fixed style issues" />
+    <MESSAGE value="Implemented check/checkmate and their UI components" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented check/checkmate and their UI components" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1496,20 +1297,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ChessUI/src/javafx/MatchedController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="43" column="10" selection-start-line="43" selection-start-column="10" selection-end-line="43" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Server/ServerThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="90" column="10" selection-start-line="90" selection-start-column="10" selection-end-line="90" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ChessLogic/src/Pieces/PieceType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1535,43 +1322,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="8" column="36" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Networking/Packet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="5" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Networking/OpCode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Game/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Game/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="41" column="10" selection-start-line="41" selection-start-column="10" selection-end-line="41" selection-end-column="10" />
-          <folding>
-            <element signature="e#1072#1073#0" expanded="false" />
-            <element signature="e#1111#1112#0" expanded="false" />
-            <element signature="e#1773#1774#0" expanded="false" />
-            <element signature="e#1804#1805#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1614,14 +1364,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="38" selection-start-line="17" selection-start-column="38" selection-end-line="17" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Server/Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="40" column="78" selection-start-line="40" selection-start-column="78" selection-end-line="40" selection-end-column="78" />
           <folding />
         </state>
       </provider>
@@ -1841,22 +1583,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Game/Move.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ChessUI/src/javafx/GameBoard.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ChessUI/src/javafx/GameBoard.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
@@ -1889,10 +1615,82 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Game/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Game/Move.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Game/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="41" column="10" selection-start-line="41" selection-start-column="10" selection-end-line="41" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Server/ServerThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Server/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="147" column="9" selection-start-line="147" selection-start-column="9" selection-end-line="147" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Networking/OpCode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Networking/Packet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="28" column="5" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChessUI/src/javafx/MatchedController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="15" selection-start-line="12" selection-start-column="15" selection-end-line="12" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChessUI/src/javafx/GameBoard.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.076923">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ChessLogic/src/Game/Board.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.80746794">
-          <caret line="134" column="8" selection-start-line="134" selection-start-column="8" selection-end-line="134" selection-end-column="93" />
+        <state vertical-scroll-proportion="0.72228706">
+          <caret line="203" column="251" selection-start-line="203" selection-start-column="251" selection-end-line="203" selection-end-column="251" />
           <folding>
             <element signature="method#Board#0;class#Board#0" expanded="false" />
             <element signature="method#GetValidKnightMoves#0;class#Board#0" expanded="false" />
@@ -1955,7 +1753,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>ChessLogic</last-edited>
+          <last-edited>ChessUI</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
