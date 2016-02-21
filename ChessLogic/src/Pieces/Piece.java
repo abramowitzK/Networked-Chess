@@ -59,7 +59,7 @@ public final class Piece {
     public void UnsetHasMoved(){ m_hasMoved = false;}
     @Override
     public String toString(){
-        return Type.name() + " " + PieceColor.name();
+        return Type.name() + " " + PieceColor.name() + " ";
     }
 
 }

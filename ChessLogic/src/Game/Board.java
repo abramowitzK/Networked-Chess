@@ -3,12 +3,15 @@ package Game;
 import Pieces.*;
 
 import java.util.ArrayList;
+import java.util.concurrent.SynchronousQueue;
+import java.util.stream.Collectors;
 
 public class Board {
     private boolean m_blackCheck;
     private boolean m_whiteCheck;
     private static final int SIZE = 8;
     private Piece[][] m_boardState;
+    private Piece m_lastPieceTaken;
     /**
      * Default constructor initializes board to starting state for chess board
      */
@@ -55,6 +58,23 @@ public class Board {
         SetPiece(start.GetX(),start.GetY(), null);
         SetPiece(end.GetX(), end.GetY(), temp);
     }
+    private void CheckApplyMove(Move move){
+        //Used on for CheckUnApplyMove which is private
+        Position start = new Position(move.GetStartX(), move.GetStartY());
+        Position end = new Position(move.GetEndX(), move.GetEndY());
+        Piece temp = m_boardState[start.GetX()][start.GetY()];
+        m_lastPieceTaken = m_boardState[end.GetX()][end.GetY()];
+        m_boardState[start.GetX()][start.GetY()] = null;
+        m_boardState[end.GetX()][end.GetY()] = temp;
+    }
+    private void CheckUnApplyMove(Move move){
+        Position start = new Position(move.GetStartX(),move.GetStartY());
+        Position end = new Position(move.GetEndX(), move.GetEndY());
+        Piece temp = m_boardState[end.GetX()][end.GetY()];
+        m_boardState[end.GetX()][end.GetY()] = m_lastPieceTaken;
+        m_boardState[start.GetX()][start.GetY()] = temp;
+        m_lastPieceTaken = null;
+    }
     public Piece GetPiece(int i , int j){
         return m_boardState[i][j];
     }
@@ -62,10 +82,20 @@ public class Board {
         if(p != null)
             p.SetHasMoved();
         m_boardState[i][j] = p;
+        m_blackCheck = IsInCheck(Color.Black);
+        m_whiteCheck = IsInCheck(Color.White);
+    }
+    public boolean GetCheck(Color color){
+        if(color == Color.Black)
+            return m_blackCheck;
+        else
+            return m_whiteCheck;
     }
     public ArrayList<Position> GetValidMoves(int i, int j){
 
         Piece p = m_boardState[i][j];
+        if(p == null)
+            return null;
         ArrayList<Position> ret = null;
         int dir = -1;
         if(p.PieceColor == Color.Black)
@@ -90,6 +120,19 @@ public class Board {
                 ret = GetValidQueenMoves(p.PieceColor, i,j);
                 break;
         }
+        return ret;
+    }
+    public ArrayList<Position> GetCheckedValidMoves(int i, int j){
+        ArrayList<Position> ret = GetValidMoves(i,j);
+        Piece piece = m_boardState[i][j];
+        if(piece == null)
+            return null;
+        //Remove moves that don't block the check
+        if( m_whiteCheck||m_blackCheck) {
+            ret.removeIf(p -> !MoveBlocksCheckmate(new Move(new Position(i,j),p), piece.PieceColor));
+        }
+        //Remove moves that will put us in check.
+        ret.removeIf(p -> MoveCausesCheck(new Move(new Position(i,j), p), piece.PieceColor));
         return ret;
     }
     private boolean WithinBounds(int i){
@@ -153,6 +196,56 @@ public class Board {
         }
         return ret;
     }
+    public boolean IsInCheck(Color color){
+        Position kp = GetKingPosition(color);
+        assert kp != null;
+        for(int i = 0; i < SIZE; i++){
+            for(int j = 0; j < SIZE; j++){
+                if( m_boardState[i][j] != null && m_boardState[i][j].PieceColor != color && GetValidMoves(i,j).stream().filter(p -> p.GetX() == kp.GetX() && p.GetY() == kp.GetY()).collect(Collectors.toList()).size() > 0 ){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    //TODO also have to check if any pieces can block this check.
+    public boolean IsInCheckmate(Color color){
+        if(!IsInCheck(color))
+            return false;
+        for(int i = 0; i < SIZE; i++){
+            for(int j = 0; j < SIZE; j++){
+                Piece p = m_boardState[i][j];
+                if(p == null || p.PieceColor != color)
+                    continue;
+                for(Position pos : GetValidMoves(i,j)){
+                    if(MoveBlocksCheckmate(new Move(new Position(i,j), pos), color))
+                        return false;
+                }
+            }
+        }
+        return true;
+    }
+    private boolean MoveBlocksCheckmate(Move move, Color color){
+        CheckApplyMove(move);
+        boolean ret = IsInCheck(color);
+        CheckUnApplyMove(move);
+        return !ret;
+    }
+    private boolean MoveCausesCheck(Move move, Color color){
+        CheckApplyMove(move);
+        boolean ret = IsInCheck(color);
+        CheckUnApplyMove(move);
+        return ret;
+    }
+    private Position GetKingPosition(Color color){
+        for(int i = 0; i < SIZE; i++){
+            for(int j = 0; j < SIZE; j++){
+                if(m_boardState[i][j] != null && m_boardState[i][j].Type == PieceType.King && m_boardState[i][j].PieceColor == color)
+                    return new Position(i,j);
+            }
+        }
+        return null;
+    }
     /**
      *
      * @param i Current row
@@ -184,7 +277,10 @@ public class Board {
         String ret = "";
         for (Piece[] piece : m_boardState) {
             for (int j = 0; j < m_boardState[0].length; j++) {
-                ret += piece[j].toString();
+                if( piece[j] != null)
+                    ret += piece[j].toString();
+                else
+                    ret += "Empty Square";
             }
             ret += "\n";
         }

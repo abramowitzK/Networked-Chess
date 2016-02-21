@@ -25,6 +25,7 @@ public class GameBoardController implements Initializable {
 	@FXML Button submitMoveButton;
 	@FXML Button resetButton;
 	@FXML Label turnIndicator;
+    @FXML Label checkIndicator;
     @FXML GridPane gameBoard;
 	private boolean otherPlayerQuit = false;
 	private boolean weQuit = false;
@@ -82,35 +83,23 @@ public class GameBoardController implements Initializable {
 			}
 		}
 		if(null != p && p.PieceColor == m_color) {
-			m_validMoves = boardState.GetValidMoves(i, j);
-			if (m_validMoves != null)
+			m_validMoves = boardState.GetCheckedValidMoves(i, j);
+			if (m_validMoves != null) {
                 for (Position validMove : m_validMoves) {
                     ColorRegion(validMove.GetX(), validMove.GetY());
                 }
+            }
 		}
 	}
-
-	public void handleForfeitClick(){	
-		try{
+	public void handleForfeitClick(){
 			weQuit = true;
-			System.out.println("You clicked Forfeit");
-			Stage getstage = (Stage) forfeitButton.getScene().getWindow();
-			Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
-			Scene scene = new Scene(root,600,400);
-			scene.getStylesheets().add(getClass().getResource("MainMenu.css").toExternalForm());
-			getstage.setScene(scene);
-			getstage.show();
-		} catch (Exception e){
-			e.printStackTrace();
-		}
-
+            returnToMainMenu(false);
 	}
 	public void handleReset(){
         if(!m_ourTurn)
             return;
         if(!m_hasMoved)
             return;
-
 		boardState.SetPiece(m_oldPosition.GetX(), m_oldPosition.GetY(), m_selectedPiece);
         if(m_takenPiece == null)
 		    boardState.SetPiece(m_newPosition.GetX(),m_newPosition.GetY(), null);
@@ -123,8 +112,15 @@ public class GameBoardController implements Initializable {
 		m_newPosition = null;
 		m_oldPosition = null;
         m_takenPiece = null;
+        m_selectedPieceHasMoved = false;
 		UpdateImagesFromBoardState();
 	}
+    /**
+     * Handles the case where we lost
+     */
+    private void HandleCheckmate(){
+        returnToMainMenu(false);
+    }
 	public void handleSubmitMoveClick(){
 		if(!m_ourTurn)
 			return;
@@ -143,6 +139,7 @@ public class GameBoardController implements Initializable {
 				m_ourTurn = false;
                 m_takenPiece = null;
 				turnIndicator.setText("Opponents turn");
+                checkIndicator.setText("");
 			}
 
 		} catch (SocketException ex){
@@ -171,18 +168,23 @@ public class GameBoardController implements Initializable {
 					synchronized (lock) {
 						boardState.ApplyMove(p.GetMove());
 					}
+                    if(boardState.IsInCheckmate(m_color)) {
+                        Platform.runLater(() -> checkIndicator.setText("You are in checkmate!!!"));
+                        Platform.runLater(this::HandleCheckmate);
+                    }
+                    if(boardState.IsInCheck(m_color))
+                        Platform.runLater(() -> checkIndicator.setText("You are in check!"));
+                    else
+                        Platform.runLater(() -> checkIndicator.setText(""));
 					m_ourTurn = true;
-					Platform.runLater(()-> turnIndicator.setText("Your turn"));
+					Platform.runLater(() -> setTurn(true));
 					Platform.runLater(this::UpdateImagesFromBoardState);
-					break;
-				case UpdatedBoard:
-					//Response packet from Server confirming that we updated the board
 					break;
 				case QuitGame:
 					//Other player quit Game
 					System.out.println("Other player quit the Game!");
                     try{
-					out.writeObject(new Packet(OpCode.QuitGame, id, null));
+						out.writeObject(new Packet(OpCode.QuitGame, id, null));
                     } catch(IOException ex){
                         System.out.println("Caught a socket exception");
                     }
@@ -192,26 +194,7 @@ public class GameBoardController implements Initializable {
 			}
 	}
 	private void HandleOtherPlayerQuit(){
-		Alert A = new Alert(Alert.AlertType.ERROR, "Other player quit!", ButtonType.FINISH);
-		A.showAndWait();
-		Stage getstage = (Stage) forfeitButton.getScene().getWindow();
-		try {
-			Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
-			Scene scene = new Scene(root,600,400);
-			scene.getStylesheets().add(getClass().getResource("MainMenu.css").toExternalForm());
-			getstage.setScene(scene);
-			getstage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	private Node GetByRowColumn(int i, int j){
-		for(Node n : gameBoard.getChildren()){
-			if(GridPane.getRowIndex(n) == i && GridPane.getColumnIndex(n) == j){
-				return n;
-			}
-		}
-		return null;
+        returnToMainMenu(true);
 	}
 	private ImageView GetImageView(int i, int j){
 		return (ImageView)gameBoard.lookup("#"+i+j);
@@ -282,7 +265,6 @@ public class GameBoardController implements Initializable {
                             try {
                                 Packet p = (Packet) in.readObject();
                                 processPacket(p);
-
                             } catch (SocketTimeoutException ex) {
                                 //This is okay. Makes it so we don't hang here forever
                             } catch (EOFException ex) {
@@ -304,7 +286,7 @@ public class GameBoardController implements Initializable {
 					System.out.println("Informing server that we quit");
 					out.writeObject(new Packet(OpCode.QuitGame, id, null));
 				} catch (IOException ex) {
-					System.out.println("failed to inform server we quit. Panic!");
+					System.out.println("Socket already closed");
 				}
 		});
 		backgroundTask.start();
@@ -404,13 +386,14 @@ public class GameBoardController implements Initializable {
      * TODO Add logic to determine whether to show 'You Lose' or 'You Win'
      * Called at the end of a game and returns the player to the main menu
      */
-    public void returnToMainMenu(){
-
+    public void returnToMainMenu(boolean win){
+        otherPlayerQuit = true;
         // Create return to main menu button
         ButtonType returnButton = new ButtonType("Return to Main Menu");
 
         // Create label and progress indicator
-        Label label = new Label("You Win!");
+        String l = win ? "Won" : "Lost";
+        Label label = new Label("You " + l + "!");
         label.setFont(Font.font("Arial", 18));
 
         //Create alert box

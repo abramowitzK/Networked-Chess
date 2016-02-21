@@ -369,8 +369,25 @@
             <Insets top="10.0" />
          </BorderPane.margin>
       </Label>
+      <!--<Label id="checkLabel" fx:id="checkIndicator" text="" BorderPane.alignment="TOP_LEFT">
+         <padding>
+            <Insets bottom="5.0" />
+         </padding>
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin>
+      </Label>-->
    </top>
-   
+   <left>
+      <Label id="turnLabel" fx:id="checkIndicator" text="" BorderPane.alignment="CENTER_LEFT">
+         <padding>
+            <Insets bottom="5.0"/>
+         </padding>
+         <BorderPane.margin>
+            <Insets left="10.0"/>
+         </BorderPane.margin>
+      </Label>
+   </left>
    <!-- Forfeit and Submit Move buttons at bottom of the screen -->
    <bottom>
       <BorderPane prefHeight="38.0" prefWidth="100.0" BorderPane.alignment="CENTER">
