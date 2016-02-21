@@ -46,7 +46,6 @@ class ServerThread extends Thread{
                 //be created if there are more people in the queue
                 m_server.notifyServerOfQuit(packet.GetID());
                 try {
-                    out.writeObject(null);
                     m_quit = true;
                     m_player.GetSocket().close();
                 } catch (IOException e) {

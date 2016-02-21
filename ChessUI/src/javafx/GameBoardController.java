@@ -3,7 +3,7 @@ package javafx;
 import Game.*;
 import Networking.*;
 import Pieces.*;
-import javafx.application.Platform;
+import javafx.application.*;
 import javafx.concurrent.*;
 import javafx.fxml.*;
 import javafx.geometry.*;
@@ -36,6 +36,8 @@ public class GameBoardController implements Initializable {
 	private Color m_color;
 	private boolean m_ourTurn;
 	final private Object lock = new Object();
+    private int port;
+    private String ip;
 
     //TODO change so that selection is a piece that can replace the current piece
     String selection; //variable to determine which piece was selected to redeem
@@ -154,6 +156,8 @@ public class GameBoardController implements Initializable {
 	public void setOut(ObjectOutputStream out){ this.out = out; }
 	public void setId(int id){ this.id = id; }
 	public void setColor(Color color){ this.m_color = color;}
+    public void setIp(String ip){ this.ip = ip;}
+    public void setPort(int port) {this.port = port;}
 	public void setTurn(boolean turn){
 		m_ourTurn = turn;
 		if(turn){
@@ -420,8 +424,11 @@ public class GameBoardController implements Initializable {
             System.out.println("You clicked Return to Main Menu");
 
             Stage getstage = (Stage) gameBoard.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
-
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
+            Parent root = loader.load();
+            MainMenuController cont = loader.getController();
+            cont.SetIP(ip);
+            cont.SetPort(port);
             Scene scene = new Scene(root,600,400);
             scene.getStylesheets().add(getClass().getResource("MainMenu.css").toExternalForm());
 

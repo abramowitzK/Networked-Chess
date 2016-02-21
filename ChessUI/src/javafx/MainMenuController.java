@@ -123,6 +123,8 @@ public class MainMenuController {
 						controller.setOut(out);
 						controller.setId(id);
 						controller.setColor(color);
+						controller.setIp(serverIP);
+						controller.setPort(port);
 						if(color == Color.White){
 							controller.setTurn(true);
 						} else
