@@ -25,4 +25,21 @@ public class Position implements Serializable {
     public void SetY(int y) {
         m_yPosition = y;
     }
+
+    @Override
+    public String toString()
+    {
+        return "(" + this.GetX() + ", " + this.GetY() + ")";
+    }
+
+    @Override
+    public boolean equals(Object other)
+    {
+        if( other instanceof Position ) {
+            if (((Integer) ((Position) other).GetX()).equals(this.GetX()) && ((Integer) ((Position) other).GetY()).equals(this.GetY())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

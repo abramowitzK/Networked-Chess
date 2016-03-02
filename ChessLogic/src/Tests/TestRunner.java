@@ -1,5 +1,7 @@
+
 package Tests;
 
+import javafx.embed.swing.JFXPanel;
 import org.junit.runner.*;
 import org.junit.runner.notification.Failure;
 
@@ -11,4 +13,4 @@ public class TestRunner {
       }
       System.out.println(result.wasSuccessful());
    }
-} 
+}

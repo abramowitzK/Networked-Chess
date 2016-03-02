@@ -2,6 +2,7 @@ package Tests;
 
 import Game.*;
 import Networking.*;
+import Pieces.Color;
 import org.junit.*;
 
 import static org.junit.Assert.*;
@@ -18,7 +19,6 @@ public class PacketTest {
         start = new Position(2,1) ;
         end = new Position(2,6);
         m = new Move(start, end);
-        
         p = new Packet(o, 1, m);
     }
 
@@ -54,8 +54,13 @@ public class PacketTest {
         assertNotNull(OpCode.valueOf("JoinGame"));
         assertNotNull(OpCode.valueOf("JoinedGame"));
         assertNotNull(OpCode.valueOf("QuitGame"));
-      
-        
+    }
+
+    @Test
+    public void startGamePacketTest()
+    {
+        StartGamePacket sgp = new StartGamePacket(1, Color.White);
+        assertEquals(Color.White, sgp.GetColor());
     }
     
     

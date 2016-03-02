@@ -6,7 +6,7 @@ import Networking.*;
 import java.io.*;
 import java.net.SocketException;
 import java.util.logging.*;
-class ServerThread extends Thread{
+public class ServerThread extends Thread{
     private static final Logger log = Logger.getLogger(ServerThread.class.getName());
     private final Object lock = new Object();
     private Server m_server;
@@ -27,7 +27,7 @@ class ServerThread extends Thread{
      * Process a packet from a player. Logic in here decides what kind of packet it is and what to do with it.
      * @param packet packet to process
      */
-    private void ProcessPacket(Packet packet, ObjectOutputStream out)
+    public void ProcessPacket(Packet packet, ObjectOutputStream out)
     {
         switch (packet.GetOpCode()) {
             case UpdateBoard:

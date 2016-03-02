@@ -277,10 +277,14 @@ public class Board {
         String ret = "";
         for (Piece[] piece : m_boardState) {
             for (int j = 0; j < m_boardState[0].length; j++) {
-                if( piece[j] != null)
-                    ret += piece[j].toString();
+                if( piece[j] != null )
+                {
+                    ret += String.format("%-12s\t",  piece[j].toString());
+                }
                 else
-                    ret += "Empty Square";
+                {
+                    ret += String.format("%-12s\t",  "EMPTY");
+                }
             }
             ret += "\n";
         }

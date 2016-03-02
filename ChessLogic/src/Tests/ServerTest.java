@@ -1,10 +1,15 @@
+
 package Tests;
 
+import java.lang.System;
 import Networking.*;
-import Server.Server;
+import Server.*;
 import org.junit.*;
-
+import org.junit.contrib.java.lang.system.ExpectedSystemExit;
+import org.junit.rules.TestRule;
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import static org.junit.Assert.*;
 
@@ -13,35 +18,74 @@ public class ServerTest {
     private final static ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final static ByteArrayOutputStream errContent = new ByteArrayOutputStream();
 
+    @Rule
+    public final ExpectedSystemExit exit = ExpectedSystemExit.none();
 
     static Server s;
     static Packet p;
     static FileOutputStream out;
+    static PrintStream originalOut = System.out;
+
     @BeforeClass
     public static void setUp() throws Exception {
-        s = new Server();
+        s = new Server(4444, "127.0.0.1");
         p = new Packet(OpCode.JoinQueue, -1, null);
+
         out = new FileOutputStream("outputTest.dat");
-        
+
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
     }
 
-    
     @Test
-    public void processPacketJoinTest() throws IOException {
-        s.ProcessPacket(p, new ObjectOutputStream(out) ,  null, null);
-        assertEquals(s.getQueueSize(), 1);
-        assertEquals("Adding new Client to the queue!", outContent.toString().replaceAll("\r\n", ""));
-        
-        p = new Packet(OpCode.JoinQueue, 1, null);
-        s.ProcessPacket(p, new ObjectOutputStream(out) ,  null, null);
-        
+    public void failToBindPort()
+    {
+        exit.expectSystemExitWithStatus(-1);
+        Server s2 = new Server(4444, "127.0.0.1");
     }
- 
+
+    @Test
+    public void runTest() throws InterruptedException {
+        System.setOut(new PrintStream(outContent));
+        outContent.reset();
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+                s.Start();
+            }
+        });
+        t.start();
+        t.join(250);
+
+        Assert.assertEquals("Starting Server!", outContent.toString().replaceAll("\r\n", ""));
+        outContent.reset();
+    }
+
+    @Test
+    public void processPacketJoinQuitTest() throws IOException
+    {
+        out = new FileOutputStream("outputTest.dat");
+        p = new Packet(OpCode.JoinQueue, 1, null);
+        s.ProcessPacket(p, new ObjectOutputStream(outContent), null, null);
+        ByteArrayOutputStream newOut = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(newOut);
+        oos.writeObject(new Packet(OpCode.JoinedQueue, 1, null));
+        assertEquals(newOut.toString(), outContent.toString());
+
+        outContent.reset();
+        System.setOut(new PrintStream(outContent));
+        p = new Packet(OpCode.JoinQueue, -1, null);
+        s.ProcessPacket(p, new ObjectOutputStream(out), null, null);
+        assertEquals(1, s.getQueueSize());
+        assertEquals("Adding new Client to the queue!", outContent.toString().replaceAll("\r\n", ""));
+
+        Packet quitPacket = new Packet(OpCode.QuitGame, 0, null);
+        s.ProcessPacket(quitPacket, null, null, null);
+        assertEquals(0, s.getQueueSize());
+    }
 
     @Test
     public void processPacketDefaultTest() throws IOException {
+        errContent.reset();
         p = new Packet(OpCode.UpdateBoard, 1, null);
         s.ProcessPacket(p, null,  null, null);
         String err = "Unknown packet opcode. Can only join queue from main Server thread";
@@ -49,10 +93,14 @@ public class ServerTest {
     }
 
     
-    @After
-    public void tearDown() throws IOException {
+    @AfterClass
+    public static void tearDown() throws IOException {
         out.close();
+        System.setOut(originalOut);
+        System.setErr(System.err);
         (new File("outputTest.dat")).delete();
+        s = null;
     }
     
 }
+

@@ -1,3 +1,4 @@
+
 package Tests;
 
 import org.junit.runner.RunWith;
@@ -11,12 +12,14 @@ import org.junit.runners.Suite.SuiteClasses;
     PlayerTest.class, 
     PositionTest.class, 
     MoveTest.class,
-    BoardCellTest.class,
     PacketTest.class,
+    PieceTest.class,
+    BoardTest.class,
     ServerTest.class,
-    BoardTest.class
+    ServerThreadTest.class
     
 })
 public class AllTests {
     
 }
+

@@ -64,4 +64,10 @@ public class Game {
         else
             return null;
     }
+
+
+    public Board getBoard()
+    {
+        return m_board;
+    }
 }

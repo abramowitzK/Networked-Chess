@@ -4,7 +4,10 @@
 	<contentEntry url="file://$MODULE_DIR$">
 		<excludeFolder url="file://$MODULE_DIR$/src/Tests"/>
 	</contentEntry>
-	<levels>
-		<level name="junit-4.12" value="project"/>
-	</levels>
+	<lib name="junit-4.12.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/ChessLogic/lib/junit-4.12.jar!/"/>
+	</lib>
+	<lib name="system-rules-1.2.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/ChessLogic/lib/system-rules-1.2.0.jar!/"/>
+	</lib>
 </component>

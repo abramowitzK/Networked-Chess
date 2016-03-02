@@ -14,7 +14,7 @@ import java.util.logging.*;
  * TODO Implement leaving the queue.
  * Created by Kyle on 2/1/2016.
  */
-class Server {
+public class Server {
 
     private static final Logger log = Logger.getLogger(Server.class.getName());
     private int m_currentID;
@@ -48,7 +48,7 @@ class Server {
      * Process a packet from a player. Logic in here decides what kind of packet it is and what to do with it.
      * @param packet Packet to process
      */
-    private void ProcessPacket(Packet packet, ObjectOutputStream out, ObjectInputStream in, Socket socket){
+    public void ProcessPacket(Packet packet, ObjectOutputStream out, ObjectInputStream in, Socket socket){
         try {
             switch (packet.GetOpCode()) {
                 case JoinQueue:

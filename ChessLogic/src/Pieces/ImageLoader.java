@@ -1,7 +1,7 @@
 package Pieces;
 
 import javafx.scene.image.Image;
-class ImageLoader
+public class ImageLoader
 {
     private String colorString;
     public ImageLoader(Color color){
