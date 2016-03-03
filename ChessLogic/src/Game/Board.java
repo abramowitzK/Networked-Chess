@@ -55,8 +55,8 @@ public class Board {
         Position start = new Position(move.GetStartX(), move.GetStartY());
         Position end = new Position(move.GetEndX(), move.GetEndY());
         Piece temp = m_boardState[start.GetX()][start.GetY()];
-        SetPiece(start.GetX(),start.GetY(), null);
         SetPiece(end.GetX(), end.GetY(), temp);
+        SetPiece(start.GetX(),start.GetY(), null);
     }
     private void CheckApplyMove(Move move){
         //Used on for CheckUnApplyMove which is private

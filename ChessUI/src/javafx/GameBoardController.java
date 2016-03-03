@@ -268,6 +268,8 @@ public class GameBoardController implements Initializable {
                             }
                             try {
                                 Packet p = (Packet) in.readObject();
+                                if(p == null)
+                                    continue;
                                 processPacket(p);
                             } catch (SocketTimeoutException ex) {
                                 //This is okay. Makes it so we don't hang here forever
