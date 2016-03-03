@@ -89,9 +89,10 @@ public class BoardTest {
     {
         // Pawn hasn't moved so it has two possible moves
         Board b = new Board();
-        for( int y=0; y < 8; y++)
+        for( int i=0; i < 8; i++)
         {
             int x = 1;
+            int y = i;
             Position p = new Position(x+1,y);
             Position p2 = new Position(x+2,y);
 
@@ -108,9 +109,10 @@ public class BoardTest {
     {
         Board b = new Board();
 
-        for( int y=0; y < 8; y++)
+        for( int i=0; i < 8; i++)
         {
             int x = 6;
+            int y = i;
             Position p = new Position(x-1,y);
             Position p2 = new Position(x-2,y);
 
@@ -128,12 +130,13 @@ public class BoardTest {
     {
         Board b = new Board();
 
-        for(int y=0; y < 8; y++)
+        for(int i=0; i < 8; i++)
         {
             Position start;// = new Position(1,0);
             Position end; //= new Position(3,0);
 
             int xWhite = 6;
+            int y = i;
 
             Position pWhite = new Position(xWhite-2,y);
             b.ApplyMove(new Move(new Position(xWhite,y), new Position(xWhite-1,y)));
