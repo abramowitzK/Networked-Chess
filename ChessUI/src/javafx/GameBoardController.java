@@ -135,6 +135,8 @@ public class GameBoardController implements Initializable {
 					//Send the move object to the Server here
 					out.writeObject(new Packet(OpCode.UpdateBoard, id, move));
 				}
+                m_selectedPiece = null;
+                m_selectedPieceHasMoved = false;
 				m_hasMoved = false;
 				m_oldPosition = null;
 				m_newPosition = null;
