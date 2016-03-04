@@ -51,6 +51,7 @@ public class GameBoardController implements Initializable {
     private ArrayList<Position> m_castleMoves = null;
     private boolean m_lastMoveWasCastleLeft = false;
     private boolean m_lastMoveWasCastleRight = false;
+    private boolean m_lastMoveWasEnPassant = false;
 	private boolean m_hasMoved;
 
     public void handleClick(MouseEvent e) {
@@ -72,7 +73,25 @@ public class GameBoardController implements Initializable {
 		}
 		else if(m_selectedPiece != null){
 			// We have a piece selected and we want to move it
-            if(ListContainsPosition(i,j, m_validMoves)){
+            //Enpassant
+            Position pos = boardState.GetPositionForEnPassant(m_color);
+            if(p == null && pos != null && pos.GetX() == i && pos.GetY() == j){
+                //We're moving to position to enpassant
+                m_newPosition = new Position(i,j);
+                boardState.SetPiece(i,j, m_selectedPiece);
+                if(m_color == Color.Black){
+                    m_takenPiece = boardState.GetPiece(i-1,j);
+                    boardState.SetPiece(i-1, j, null);
+                }else{
+                    m_takenPiece = boardState.GetPiece(i+1, j);
+                    boardState.SetPiece(i+1, j, null);
+                }
+                boardState.SetPiece(m_oldPosition.GetX(), m_oldPosition.GetY(), null);
+                m_lastMoveWasEnPassant = true;
+                UpdateImagesFromBoardState();
+                RemoveColoring();
+                m_hasMoved = true;
+            } else if(ListContainsPosition(i,j, m_validMoves)){
                 if(p == null){
                     m_takenPiece = null;
                 }
@@ -129,18 +148,29 @@ public class GameBoardController implements Initializable {
         if(!m_hasMoved)
             return;
         if(!m_lastMoveWasCastleLeft && !m_lastMoveWasCastleRight) {
-            boardState.SetPiece(m_oldPosition.GetX(), m_oldPosition.GetY(), m_selectedPiece);
-            if (m_takenPiece == null)
+            if(m_lastMoveWasEnPassant) {
+                boardState.SetPiece(m_oldPosition.GetX(), m_oldPosition.GetY(), m_selectedPiece);
                 boardState.SetPiece(m_newPosition.GetX(), m_newPosition.GetY(), null);
-            else
-                boardState.SetPiece(m_newPosition.GetX(), m_newPosition.GetY(), m_takenPiece);
-            if (!m_selectedPieceHasMoved)
-                m_selectedPiece.UnsetHasMoved();
+                if(m_color == Color.Black) {
+                    boardState.SetPiece(m_newPosition.GetX()-1, m_newPosition.GetY(), m_takenPiece);
+                }else{
+                    boardState.SetPiece(m_newPosition.GetX()+1, m_newPosition.GetY(), m_takenPiece);
+                }
+            }else {
+                boardState.SetPiece(m_oldPosition.GetX(), m_oldPosition.GetY(), m_selectedPiece);
+                if (m_takenPiece == null)
+                    boardState.SetPiece(m_newPosition.GetX(), m_newPosition.GetY(), null);
+                else
+                    boardState.SetPiece(m_newPosition.GetX(), m_newPosition.GetY(), m_takenPiece);
+                if (!m_selectedPieceHasMoved)
+                    m_selectedPiece.UnsetHasMoved();
+            }
         } else if(m_lastMoveWasCastleLeft){
             boardState.UnCastle(m_color, true);
         } else if(m_lastMoveWasCastleRight){
             boardState.UnCastle(m_color, false);
         }
+            m_lastMoveWasEnPassant = false;
             m_lastMoveWasCastleRight = false;
             m_lastMoveWasCastleLeft = false;
             m_hasMoved = false;
@@ -180,6 +210,7 @@ public class GameBoardController implements Initializable {
                         out.writeObject(new CastlePacket(id, m_color, false));
                     }
                 }
+                m_lastMoveWasEnPassant = true;
                 m_lastMoveWasCastleLeft = false;
                 m_lastMoveWasCastleRight = false;
                 m_castleMoves = null;
@@ -222,6 +253,18 @@ public class GameBoardController implements Initializable {
 					synchronized (lock) {
 						boardState.ApplyMove(p.GetMove());
 					}
+                    Position pos = new Position(p.GetMove().GetEndX(), p.GetMove().GetEndY());
+                    if(m_color == Color.White){
+                        Piece piece = boardState.GetPiece(pos.GetX()-1, pos.GetY());
+                        if(piece != null && piece.Type == PieceType.Pawn && piece.PieceColor == Color.White){
+                            boardState.SetPiece(pos.GetX()-1, pos.GetY(), null);
+                        }
+                    }else{
+                        Piece piece = boardState.GetPiece(pos.GetX()+1, pos.GetY());
+                        if(piece != null && piece.Type == PieceType.Pawn && piece.PieceColor == Color.Black){
+                            boardState.SetPiece(pos.GetX()+1, pos.GetY(), null);
+                        }
+                    }
                     if(boardState.IsInCheckmate(m_color)) {
                         Platform.runLater(() -> checkIndicator.setText("You are in checkmate!!!"));
                         Platform.runLater(this::HandleCheckmate);

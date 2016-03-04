@@ -13,6 +13,8 @@ public class Board {
     private static final int SIZE = 8;
     private Piece[][] m_boardState;
     private Piece m_lastPieceTaken;
+    private boolean m_enpassantPossible = false;
+    private Position m_enPassantPosition;
     /**
      * Default constructor initializes board to starting state for chess board
      */
@@ -47,6 +49,16 @@ public class Board {
         m_boardState[7][6] = new Piece(PieceType.Knight, Color.White);
         m_boardState[7][7] = new Piece(PieceType.Rook, Color.White);
     }
+    public Position GetPositionForEnPassant(Color takersColor){
+        if(m_enpassantPossible) {
+            if (takersColor == Color.Black) {
+                return new Position(m_enPassantPosition.GetX()+1, m_enPassantPosition.GetY());
+            } else {
+                return new Position(m_enPassantPosition.GetX()-1, m_enPassantPosition.GetY());
+            }
+        }
+        return null;
+    }
     /**
      * Moves the Pieces by switching what board cell they belong to. Sets the startPos.piece
      * to null
@@ -55,6 +67,16 @@ public class Board {
     public void ApplyMove(Move move){
         Position start = new Position(move.GetStartX(), move.GetStartY());
         Position end = new Position(move.GetEndX(), move.GetEndY());
+        if(GetPiece(start.GetX(),start.GetY()).Type == PieceType.Pawn){
+            if(Math.abs(end.GetX() - start.GetX()) == 2 ){
+                m_enpassantPossible = true;
+                m_enPassantPosition = end;
+            }else{
+                m_enpassantPossible = false;
+            }
+        }else{
+            m_enpassantPossible = false;
+        }
         Piece temp = m_boardState[start.GetX()][start.GetY()];
         SetPiece(end.GetX(), end.GetY(), temp);
         SetPiece(start.GetX(),start.GetY(), null);
@@ -340,6 +362,16 @@ public class Board {
             ret.add(new Position(i+dir, j+dir));
         if(WithinBounds(i+dir) && WithinBounds(j-dir) && m_boardState[i+dir][j-dir]!= null && m_boardState[i+dir][j-dir].PieceColor != p.PieceColor)
             ret.add(new Position(i+dir, j-dir));
+        if(m_enpassantPossible){
+            if(i == m_enPassantPosition.GetX()){
+                if(j == m_enPassantPosition.GetY()+1 || j == m_enPassantPosition.GetY() - 1 ){
+                    if(p.PieceColor == Color.Black)
+                        ret.add(new Position(m_enPassantPosition.GetX()+1, m_enPassantPosition.GetY()));
+                    else
+                        ret.add(new Position(m_enPassantPosition.GetX()-1, m_enPassantPosition.GetY()));
+                }
+            }
+        }
         return  ret;
     }
     /**

@@ -11,4 +11,5 @@ public enum OpCode implements Serializable{
     QuitGame,
     Promotion,
     Castle,
+    EnPassant,
 }
