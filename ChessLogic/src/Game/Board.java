@@ -67,7 +67,7 @@ public class Board {
     public void ApplyMove(Move move){
         Position start = new Position(move.GetStartX(), move.GetStartY());
         Position end = new Position(move.GetEndX(), move.GetEndY());
-        if(GetPiece(start.GetX(),start.GetY()) != null && GetPiece(start.GetX(), start.GetY()).Type == PieceType.Pawn){
+        if(GetPiece(start.GetX(),start.GetY()).Type == PieceType.Pawn){
             if(Math.abs(end.GetX() - start.GetX()) == 2 ){
                 m_enpassantPossible = true;
                 m_enPassantPosition = end;
@@ -148,10 +148,7 @@ public class Board {
     public ArrayList<Position> GetCheckedValidMoves(int i, int j){
         ArrayList<Position> ret = GetValidMoves(i,j);
         Piece piece = m_boardState[i][j];
-        if(piece == null)
-            return null;
         Color color = piece.PieceColor;
-
         Position kp = GetKingPosition(color);
         //Remove moves that don't block the check
         if( m_whiteCheck||m_blackCheck) {
@@ -356,7 +353,7 @@ public class Board {
     private ArrayList<Position> GetValidPawnMoves(int i, int j, int dir, Piece p){
         ArrayList<Position> ret = new ArrayList<>();
             //First check directly in front of us
-        if(i+dir <= 8  && i + dir >= 0 && m_boardState[i+dir][(j)] == null) {
+        if(i+dir <= 8 && m_boardState[i+dir][(j)] == null) {
             ret.add(new Position(i+dir, j));
             if (!p.HasMoved() && m_boardState[i+2*dir][j] == null)
                 ret.add(new Position(i+2*dir, j));
