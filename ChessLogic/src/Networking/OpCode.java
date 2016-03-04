@@ -9,4 +9,6 @@ public enum OpCode implements Serializable{
     JoinGame,
     JoinedGame,
     QuitGame,
+    Promotion,
+    Castle,
 }

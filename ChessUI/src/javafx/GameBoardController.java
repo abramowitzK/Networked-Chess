@@ -48,6 +48,9 @@ public class GameBoardController implements Initializable {
 	private Position m_oldPosition = null;
 	private Position m_newPosition = null;
 	private ArrayList<Position> m_validMoves = null;
+    private ArrayList<Position> m_castleMoves = null;
+    private boolean m_lastMoveWasCastleLeft = false;
+    private boolean m_lastMoveWasCastleRight = false;
 	private boolean m_hasMoved;
 
     public void handleClick(MouseEvent e) {
@@ -82,14 +85,37 @@ public class GameBoardController implements Initializable {
 				UpdateImagesFromBoardState();
 				RemoveColoring();
 				m_hasMoved = true;
-			}
+			}else if(ListContainsPosition(i,j, m_castleMoves)){
+                if(j == 2) {
+                    m_lastMoveWasCastleLeft = true;
+                    boardState.Castle(m_color, true);
+                }
+                else {
+                    m_lastMoveWasCastleRight = true;
+                    boardState.Castle(m_color, false);
+                }
+                UpdateImagesFromBoardState();
+                RemoveColoring();
+                m_hasMoved = true;
+            }
 		}
 		if(null != p && p.PieceColor == m_color) {
 			m_validMoves = boardState.GetCheckedValidMoves(i, j);
+            m_castleMoves= new ArrayList<>();
+            if(p.Type == PieceType.King) {
+                int rank = m_color == Color.Black ? 0 : 7;
+                if (boardState.CanCastleLeft(m_color))
+                    m_castleMoves.add(new Position(rank, 2));
+                if (boardState.CanCastleRight(m_color))
+                    m_castleMoves.add(new Position(rank, 6));
+            }
 			if (m_validMoves != null) {
                 for (Position validMove : m_validMoves) {
                     ColorRegion(validMove.GetX(), validMove.GetY());
                 }
+            }
+            for(Position pos : m_castleMoves){
+                ColorRegion(pos.GetX(), pos.GetY());
             }
 		}
 	}
@@ -102,20 +128,28 @@ public class GameBoardController implements Initializable {
             return;
         if(!m_hasMoved)
             return;
-		boardState.SetPiece(m_oldPosition.GetX(), m_oldPosition.GetY(), m_selectedPiece);
-        if(m_takenPiece == null)
-		    boardState.SetPiece(m_newPosition.GetX(),m_newPosition.GetY(), null);
-        else
-            boardState.SetPiece(m_newPosition.GetX(), m_newPosition.GetY(), m_takenPiece);
-        if(!m_selectedPieceHasMoved)
-            m_selectedPiece.UnsetHasMoved();
-		m_hasMoved = false;
-		m_selectedPiece = null;
-		m_newPosition = null;
-		m_oldPosition = null;
-        m_takenPiece = null;
-        m_selectedPieceHasMoved = false;
-		UpdateImagesFromBoardState();
+        if(!m_lastMoveWasCastleLeft && !m_lastMoveWasCastleRight) {
+            boardState.SetPiece(m_oldPosition.GetX(), m_oldPosition.GetY(), m_selectedPiece);
+            if (m_takenPiece == null)
+                boardState.SetPiece(m_newPosition.GetX(), m_newPosition.GetY(), null);
+            else
+                boardState.SetPiece(m_newPosition.GetX(), m_newPosition.GetY(), m_takenPiece);
+            if (!m_selectedPieceHasMoved)
+                m_selectedPiece.UnsetHasMoved();
+        } else if(m_lastMoveWasCastleLeft){
+            boardState.UnCastle(m_color, true);
+        } else if(m_lastMoveWasCastleRight){
+            boardState.UnCastle(m_color, false);
+        }
+            m_lastMoveWasCastleRight = false;
+            m_lastMoveWasCastleLeft = false;
+            m_hasMoved = false;
+            m_selectedPiece = null;
+            m_newPosition = null;
+            m_oldPosition = null;
+            m_takenPiece = null;
+            m_selectedPieceHasMoved = false;
+            UpdateImagesFromBoardState();
 	}
     /**
      * Handles the case where we lost
@@ -126,23 +160,37 @@ public class GameBoardController implements Initializable {
 	public void handleSubmitMoveClick(){
 		if(!m_ourTurn)
 			return;
-		if(!m_hasMoved)
-			return;
 		try{
 			if(m_hasMoved) {
-				Move move = new Move(m_oldPosition, m_newPosition);
-				synchronized (lock) {
-					//Send the move object to the Server here
-					out.writeObject(new Packet(OpCode.UpdateBoard, id, move));
-				}
+                if(!m_lastMoveWasCastleLeft && !m_lastMoveWasCastleRight) {
+                    Move move = new Move(m_oldPosition, m_newPosition);
+                    synchronized (lock) {
+                        //Send the move object to the Server here
+                        out.writeObject(new Packet(OpCode.UpdateBoard, id, move));
+                    }
+
+                }else if(m_lastMoveWasCastleLeft){
+                    synchronized (lock) {
+                        //Send the move object to the Server here
+                        out.writeObject(new CastlePacket( id ,m_color, true));
+                    }
+                }else if(m_lastMoveWasCastleRight){
+                    synchronized (lock) {
+                        //Send the move object to the Server here
+                        out.writeObject(new CastlePacket(id, m_color, false));
+                    }
+                }
+                m_lastMoveWasCastleLeft = false;
+                m_lastMoveWasCastleRight = false;
+                m_castleMoves = null;
                 m_selectedPiece = null;
                 m_selectedPieceHasMoved = false;
-				m_hasMoved = false;
-				m_oldPosition = null;
-				m_newPosition = null;
-				m_ourTurn = false;
+                m_hasMoved = false;
+                m_oldPosition = null;
+                m_newPosition = null;
+                m_ourTurn = false;
                 m_takenPiece = null;
-				turnIndicator.setText("Opponents turn");
+                turnIndicator.setText("Opponents turn");
                 checkIndicator.setText("");
 			}
 
@@ -197,6 +245,13 @@ public class GameBoardController implements Initializable {
                     otherPlayerQuit = true;
                     Platform.runLater(this::HandleOtherPlayerQuit);
 					break;
+                case Castle:
+                    CastlePacket packet = (CastlePacket)p;
+                    boardState.Castle(packet.Col,packet.Left);
+                    Platform.runLater(() -> checkIndicator.setText(""));
+                    Platform.runLater(() -> setTurn(true));
+                    Platform.runLater(this::UpdateImagesFromBoardState);
+                    break;
 			}
 	}
 	private void HandleOtherPlayerQuit(){

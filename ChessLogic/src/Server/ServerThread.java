@@ -52,6 +52,21 @@ public class ServerThread extends Thread{
                     e.printStackTrace();
                 }
                 break;
+            case Castle:
+                System.out.println("Castleing!");
+                CastlePacket p = (CastlePacket)packet;
+                synchronized (lock){
+                    m_game.Castle(p.Col,p.Left);
+                    if(!m_game.IsOver()){
+                        Player other = m_game.getOtherPlayer(m_player.GetID());
+                        try {
+                            other.GetOut().writeObject(new CastlePacket(other.GetID(), p.Col, p.Left));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                break;
             default:
                 System.err.println("Unknown packet opcode");
                 break;

@@ -1,5 +1,7 @@
 package Game;
 
+import Pieces.Color;
+
 public class Game {
     private final Player m_player1;
     private int m_p1ID;
@@ -65,7 +67,9 @@ public class Game {
             return null;
     }
 
-
+    public void Castle(Color color, boolean left){
+        m_board.Castle(color, left);
+    }
     public Board getBoard()
     {
         return m_board;

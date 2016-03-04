@@ -3,6 +3,7 @@ package Game;
 import Pieces.*;
 
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.concurrent.SynchronousQueue;
 import java.util.stream.Collectors;
 
@@ -125,8 +126,8 @@ public class Board {
     public ArrayList<Position> GetCheckedValidMoves(int i, int j){
         ArrayList<Position> ret = GetValidMoves(i,j);
         Piece piece = m_boardState[i][j];
-        if(piece == null)
-            return null;
+        Color color = piece.PieceColor;
+        Position kp = GetKingPosition(color);
         //Remove moves that don't block the check
         if( m_whiteCheck||m_blackCheck) {
             ret.removeIf(p -> !MoveBlocksCheckmate(new Move(new Position(i,j),p), piece.PieceColor));
@@ -134,6 +135,79 @@ public class Board {
         //Remove moves that will put us in check.
         ret.removeIf(p -> MoveCausesCheck(new Move(new Position(i,j), p), piece.PieceColor));
         return ret;
+    }
+    public void Castle(Color color, boolean left){
+        //We assmue we only call this if we can castle
+        Position kp = GetKingPosition(color);
+        int rank = color == Color.Black ? 0 : 7;
+        int file = left ? 2 : 6;
+        Piece rook = left ? GetPiece(rank, 0) : GetPiece(rank, 7);
+        Piece king = GetPiece(kp.GetX(),kp.GetY());
+        SetPiece(rank, file, king);
+        if(left) {
+            SetPiece(rank, file + 1, rook);
+            m_boardState[rank][0] = null;
+        } else {
+            SetPiece(rank, file - 1, rook);
+            SetPiece(rank, 7, null);
+        }
+        SetPiece(kp.GetX(),kp.GetY(), null);
+    }
+    public void UnCastle(Color color, boolean left){
+        //This is implemented here so we can facilitate reset piece for castle
+        Position kp = GetKingPosition(color);
+        int rank = color == Color.Black ? 0 : 7;
+        Piece rook = left ? GetPiece(rank, 3) : GetPiece(rank, 5);
+        Piece king = GetPiece(kp.GetX(),kp.GetY());
+        SetPiece(rank, 4, king);
+
+        if(left) {
+            SetPiece(rank, 0, rook);
+            m_boardState[rank][3] = null;
+        } else {
+            SetPiece(rank, 7, rook);
+            SetPiece(rank, 5, null);
+        }
+        SetPiece(kp.GetX(),kp.GetY(), null);
+        rook.UnsetHasMoved();
+        king.UnsetHasMoved();
+
+    }
+    public boolean CanCastleLeft(Color color) {
+        Position rookPos;
+        Position kp = GetKingPosition(color);
+        if (color == Color.Black)
+            rookPos = new Position(0, 0);
+        else
+            rookPos = new Position(0, 7);
+        if (!KingHasMoved(color) && !GetPiece(rookPos.GetX(), rookPos.GetY()).HasMoved()){
+            for (int i = 1; i <= 2; i++) {
+                if (!(GetPiece(kp.GetX(), kp.GetY()-i) == null && !MoveCausesCheck(new Move(kp, new Position(kp.GetX(), kp.GetY()-i)), color)))
+                    return false;
+            }
+            return true;
+        }
+        return false;
+    }
+    public boolean CanCastleRight(Color color) {
+        Position rookPos;
+        Position kp = GetKingPosition(color);
+        if (color == Color.Black)
+            rookPos = new Position(7, 0);
+        else
+            rookPos = new Position(7, 7);
+        if (!KingHasMoved(color) && !GetPiece(rookPos.GetX(), rookPos.GetY()).HasMoved()){
+            for (int i = 1; i <= 2; i++) {
+                if (!(GetPiece(kp.GetX(), kp.GetY()+i) == null && !MoveCausesCheck(new Move(kp, new Position(kp.GetX() , kp.GetY()+i)), color)))
+                    return false;
+            }
+            return true;
+        }
+        return false;
+    }
+    private boolean KingHasMoved(Color color){
+        Position pos = GetKingPosition(color);
+        return GetPiece(pos.GetX(), pos.GetY()).HasMoved();
     }
     private boolean WithinBounds(int i){
         return i <= 7 && i >= 0;
