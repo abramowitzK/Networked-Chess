@@ -75,7 +75,7 @@ public class GameBoardController implements Initializable {
 			// We have a piece selected and we want to move it
             //Enpassant
             Position pos = boardState.GetPositionForEnPassant(m_color);
-            if(p == null && pos != null && pos.GetX() == i && pos.GetY() == j){
+            if(p == null && pos != null && pos.GetX() == i && pos.GetY() == j && m_selectedPiece.Type == PieceType.Pawn){
                 //We're moving to position to enpassant
                 m_newPosition = new Position(i,j);
                 boardState.SetPiece(i,j, m_selectedPiece);
@@ -210,7 +210,7 @@ public class GameBoardController implements Initializable {
                         out.writeObject(new CastlePacket(id, m_color, false));
                     }
                 }
-                m_lastMoveWasEnPassant = true;
+                m_lastMoveWasEnPassant = false;
                 m_lastMoveWasCastleLeft = false;
                 m_lastMoveWasCastleRight = false;
                 m_castleMoves = null;
