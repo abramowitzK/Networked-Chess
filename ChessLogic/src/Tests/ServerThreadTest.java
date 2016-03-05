@@ -4,7 +4,6 @@ package Tests;
 import Game.*;
 import Networking.OpCode;
 import Networking.Packet;
-import javafx.embed.swing.JFXPanel;
 import org.junit.*;
 import Server.*;
 

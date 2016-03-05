@@ -3,7 +3,6 @@ package Game;
 import Pieces.*;
 
 import java.util.*;
-import java.util.concurrent.SynchronousQueue;
 import java.util.stream.Collectors;
 
 public class Board {

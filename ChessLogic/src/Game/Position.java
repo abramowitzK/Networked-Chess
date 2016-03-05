@@ -35,10 +35,7 @@ public class Position implements Serializable {
     @Override
     public boolean equals(Object other)
     {
-        if( other instanceof Position && ((Integer) ((Position) other).GetX()).equals(this.GetX()) && ((Integer) ((Position) other).GetY()).equals(this.GetY()) ) {
-            return true;
-        }
-        return false;
+        return other instanceof Position && ((Integer) ((Position) other).GetX()).equals(this.GetX()) && ((Integer) ((Position) other).GetY()).equals(this.GetY());
     }
     @Override
     public int hashCode(){

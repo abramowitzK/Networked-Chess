@@ -248,6 +248,8 @@ public class GameBoardController implements Initializable {
 			turnIndicator.setText("Opponents turn");
 	}
 	private void processPacket(Packet p){
+        if(p== null)
+            return;
 			switch (p.GetOpCode()) {
 				case UpdateBoard:
 					//The other player made a move and we need to update our board.
@@ -372,16 +374,10 @@ public class GameBoardController implements Initializable {
                             }
                             try {
                                 Packet p = (Packet) in.readObject();
-                                if(p == null)
-                                    continue;
                                 processPacket(p);
                             } catch (SocketTimeoutException ex) {
                                 //This is okay. Makes it so we don't hang here forever
                                 log.log(Level.FINE, "Normal timeoutexception", ex);
-                            } catch (EOFException ex) {
-                                //Something bad happened
-                                log.log(Level.FINE, "EOF exception, server died", ex);
-                                return null;
                             } catch (IOException ex) {
                                 //Something bad happened
                                 log.log(Level.FINE, "General ioexception something bad happened", ex);
@@ -392,11 +388,9 @@ public class GameBoardController implements Initializable {
                 };
             }
         };
-		backgroundTask.setOnCancelled(event -> System.out.println("Exiting background thread"));
 		//Close the dialog box and transition to the Game board
 		backgroundTask.setOnSucceeded(event -> {
 				try {
-					System.out.println("Informing server that we quit");
 					out.writeObject(new Packet(OpCode.QuitGame, id, null));
 				} catch (IOException ex) {
                     log.log(Level.FINE, "Socket already closed", ex);
@@ -482,7 +476,6 @@ public class GameBoardController implements Initializable {
         while (!result.isPresent() || result.get() != okButton || selection == null) {
             result = a.showAndWait();
         }
-        System.out.println("You selected " + selection );
         a.close();
     }
 

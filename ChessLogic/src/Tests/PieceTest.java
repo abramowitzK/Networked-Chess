@@ -3,7 +3,6 @@ package Tests;
 import org.junit.*;
 import Pieces.*;
 import Game.*;
-import javafx.scene.image.Image;
 
 public class PieceTest {
 

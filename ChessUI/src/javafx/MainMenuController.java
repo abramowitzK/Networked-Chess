@@ -75,7 +75,7 @@ public class MainMenuController {
 							//Server should send a confirmation with our player id
 							Packet confirm = (Packet) in.readObject();
 							//Should be a joined queue packet. Let's check to make sure
-							assert (confirm.GetOpCode() == OpCode.JoinedQueue);
+							assert confirm.GetOpCode() == OpCode.JoinedQueue;
 							id = confirm.GetID();
 							//Set timeout for checking cancellation
 							socket.setSoTimeout(100);
@@ -97,7 +97,7 @@ public class MainMenuController {
 							socket.setSoTimeout(1000);
 							//Expecting the Server to tell us to join Game. We'll block until we do. This is a thread so it won't
 							//block the UI
-							assert (null != joinGame && joinGame.GetOpCode() == OpCode.JoinGame);
+							assert null != joinGame && joinGame.GetOpCode() == OpCode.JoinGame;
 							color = ((StartGamePacket) joinGame).GetColor();
 							//If we're here we joined the Game and need to continue.
 							return null;

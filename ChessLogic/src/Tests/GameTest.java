@@ -5,7 +5,6 @@ import javafx.embed.swing.JFXPanel;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.awt.*;
 import java.io.ByteArrayOutputStream;
 import Pieces.Color;
 import java.io.PrintStream;
