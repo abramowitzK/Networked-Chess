@@ -2,8 +2,7 @@ package Game;
 
 import Pieces.*;
 
-import java.util.ArrayList;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.SynchronousQueue;
 import java.util.stream.Collectors;
 
@@ -33,7 +32,6 @@ public class Board {
         }
         for(int i = 2; i < 6; i++){
             for(int j = 0; j < SIZE; j++){
-                //m_boardState[i][j] = new Piece(PieceType.Empty, Color.Empty);
                 m_boardState[i][j] = null;
             }
         }
@@ -114,12 +112,12 @@ public class Board {
         else
             return m_whiteCheck;
     }
-    public ArrayList<Position> GetValidMoves(int i, int j){
+    public List<Position> GetValidMoves(int i, int j){
 
         Piece p = m_boardState[i][j];
         if(p == null)
-            return null;
-        ArrayList<Position> ret = null;
+            return new ArrayList<Position>();
+        ArrayList<Position> ret;
         int dir = -1;
         if(p.PieceColor == Color.Black)
             dir = 1;
@@ -142,12 +140,16 @@ public class Board {
             case Queen:
                 ret = GetValidQueenMoves(p.PieceColor, i,j);
                 break;
+            default:
+                ret = new ArrayList<>();
         }
         return ret;
     }
-    public ArrayList<Position> GetCheckedValidMoves(int i, int j){
-        ArrayList<Position> ret = GetValidMoves(i,j);
+    public List<Position> GetCheckedValidMoves(int i, int j){
+        ArrayList<Position> ret = (ArrayList<Position>) GetValidMoves(i,j);
         Piece piece = m_boardState[i][j];
+        if(piece == null)
+            return ret;
         Color color = piece.PieceColor;
         Position kp = GetKingPosition(color);
         //Remove moves that don't block the check
@@ -243,7 +245,7 @@ public class Board {
     }
     private ArrayList<Position> GetValidBishopMoves(Color c, int i, int j){
         ArrayList<Position> ret = new ArrayList<>();
-        for(Position dir : Piece.BishopDirs){
+        for(Position dir : Piece.BishopDirs()){
             int k = 0;
             while(IsValidLandingPoint(c, dir.GetX() + i + dir.GetX()*k, dir.GetY()+j+dir.GetY()*k)){
                 ret.add(new Position(dir.GetX()+ i + dir.GetX()*k, dir.GetY()+j+dir.GetY()*k));
@@ -256,7 +258,7 @@ public class Board {
     }
     private ArrayList<Position> GetValidKnightMoves(Color c, int i, int j){
         ArrayList<Position> ret = new ArrayList<>();
-        for(Position direction : Piece.KnightDirs) {
+        for(Position direction : Piece.KnightDirs()) {
             if(IsValidLandingPoint(c, direction.GetX() + i, direction.GetY() + j))
                 ret.add(new Position(direction.GetX()+i, direction.GetY() +j));
         }
@@ -264,7 +266,7 @@ public class Board {
     }
     private ArrayList<Position> GetValidRookMoves(Color c, int i, int j){
         ArrayList<Position> ret = new ArrayList<>();
-        for(Position dir : Piece.RookDirs){
+        for(Position dir : Piece.RookDirs()){
             int k = 0;
             while(IsValidLandingPoint(c, dir.GetX() + i + dir.GetX()*k, dir.GetY()+j+dir.GetY()*k)){
                 ret.add(new Position(dir.GetX()+ i + dir.GetX()*k, dir.GetY()+j+dir.GetY()*k));
@@ -277,7 +279,7 @@ public class Board {
     }
     private ArrayList<Position> GetValidKingMoves(Color c, int i, int j){
         ArrayList<Position> ret = new ArrayList<>();
-        for(Position dir : Piece.QueenKingDirs){
+        for(Position dir : Piece.QueenKingDirs()){
             if(IsValidLandingPoint(c, dir.GetX() + i, dir.GetY()+j))
                 ret.add(new Position(dir.GetX()+ i, dir.GetY()+j));
         }
@@ -285,7 +287,7 @@ public class Board {
     }
     private ArrayList<Position> GetValidQueenMoves(Color c, int i, int j) {
         ArrayList<Position> ret = new ArrayList<>();
-        for(Position dir : Piece.QueenKingDirs){
+        for(Position dir : Piece.QueenKingDirs()){
             int k = 0;
             while(IsValidLandingPoint(c, dir.GetX() + i + dir.GetX()*k, dir.GetY()+j+dir.GetY()*k)){
                 ret.add(new Position(dir.GetX()+ i + dir.GetX()*k, dir.GetY()+j+dir.GetY()*k));
@@ -301,7 +303,9 @@ public class Board {
         assert kp != null;
         for(int i = 0; i < SIZE; i++){
             for(int j = 0; j < SIZE; j++){
-                if( m_boardState[i][j] != null && m_boardState[i][j].PieceColor != color && GetValidMoves(i,j) != null && GetValidMoves(i,j).stream().filter(p -> p.GetX() == kp.GetX() && p.GetY() == kp.GetY()).collect(Collectors.toList()).size() > 0 ){
+                if(m_boardState[i][j] == null)
+                    continue;
+                if(m_boardState[i][j].PieceColor != color && GetValidMoves(i,j) != null && GetValidMoves(i,j).stream().filter(p -> p.GetX() == kp.GetX() && p.GetY() == kp.GetY()).collect(Collectors.toList()).size() > 0 ){
                     return true;
                 }
             }

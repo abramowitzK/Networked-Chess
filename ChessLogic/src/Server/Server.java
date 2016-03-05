@@ -19,6 +19,7 @@ public class Server {
     private static final Logger log = Logger.getLogger(Server.class.getName());
     private int m_currentID;
     private ServerSocket m_serverSocket;
+    private int m_currentInQueue=0;
     /**
      * Queue representing players waiting to find match
      * */
@@ -60,6 +61,7 @@ public class Server {
                         out.writeObject(new Packet(OpCode.JoinedQueue, m_currentID, null ));
                         //Increment current ID. We don't reuse IDs
                         m_currentID++;
+                        m_currentInQueue++;
                     }
                     else{
                         //Client already in queue and assigned an ID
@@ -70,6 +72,7 @@ public class Server {
                     //Let player leave queue
                     System.out.println("Removing player with id: " + packet.GetID());
                     m_gameQueue.removeIf(p -> p.GetID() == packet.GetID());
+                    break;
                 default:
                     System.err.println("Unknown packet opcode. Can only join queue from main Server thread");
                     break;
@@ -102,6 +105,7 @@ public class Server {
                 ProcessPacket(receivedPacket, out, in, clientSocket);
                 Game();
             } catch (IOException | ClassNotFoundException ex){
+                log.log(Level.FINE, "IOException", ex);
                 ex.printStackTrace();
             }
         }
@@ -112,6 +116,7 @@ public class Server {
                 System.out.println("Starting new Game");
                 Player p1 = m_gameQueue.remove();
                 Player p2 = m_gameQueue.remove();
+                m_currentInQueue -=2;
                 p1.GetOut().writeObject(new StartGamePacket(p1.GetID(), Color.White));
                 p2.GetOut().writeObject(new StartGamePacket(p2.GetID(), Color.Black));
                 m_game = new Game(p1, p2);
@@ -123,7 +128,7 @@ public class Server {
                 m_game = null;
             }
         } catch (IOException ex){
-            ex.printStackTrace();
+            log.log(Level.FINE, "IOException in Game()", ex);
         }
         return false;
     }
@@ -140,7 +145,7 @@ public class Server {
                 other.GetOut().writeObject(new Packet(OpCode.QuitGame, other.GetID(), null));
                 other.GetSocket().close();
             } catch (IOException e) {
-                e.printStackTrace();
+                log.log(Level.FINE, "IOException in notify server of quit", e);
             }
             System.out.println("Setting Game to null");
             m_game = null;

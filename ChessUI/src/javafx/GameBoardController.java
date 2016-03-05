@@ -119,7 +119,7 @@ public class GameBoardController implements Initializable {
             }
 		}
 		if(null != p && p.PieceColor == m_color) {
-			m_validMoves = boardState.GetCheckedValidMoves(i, j);
+			m_validMoves = (ArrayList<Position>)boardState.GetCheckedValidMoves(i, j);
             m_castleMoves= new ArrayList<>();
             if(p.Type == PieceType.King) {
                 int rank = m_color == Color.Black ? 0 : 7;
@@ -167,7 +167,7 @@ public class GameBoardController implements Initializable {
             }
         } else if(m_lastMoveWasCastleLeft){
             boardState.UnCastle(m_color, true);
-        } else if(m_lastMoveWasCastleRight){
+        } else{
             boardState.UnCastle(m_color, false);
         }
             m_lastMoveWasEnPassant = false;
@@ -204,7 +204,7 @@ public class GameBoardController implements Initializable {
                         //Send the move object to the Server here
                         out.writeObject(new CastlePacket( id ,m_color, true));
                     }
-                }else if(m_lastMoveWasCastleRight){
+                }else{
                     synchronized (lock) {
                         //Send the move object to the Server here
                         out.writeObject(new CastlePacket(id, m_color, false));

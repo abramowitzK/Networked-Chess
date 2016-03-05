@@ -42,4 +42,8 @@ public class Position implements Serializable {
         }
         return false;
     }
+    @Override
+    public int hashCode(){
+        return 256*m_xPosition+300*m_yPosition;
+    }
 }

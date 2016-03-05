@@ -111,7 +111,7 @@ public class GameTest {
             {
                 if( b.GetPiece(i,j) != null ) {
                     if (b.GetPiece(i, j).PieceColor == currColor) {
-                        ArrayList<Position> moves = b.GetCheckedValidMoves(i, j);
+                        ArrayList<Position> moves = (ArrayList<Position>)b.GetCheckedValidMoves(i, j);
                         for (Position p : moves) {
                             Move m = new Move(new Position(i, j), new Position(p.GetX(), p.GetY()));
                             Method method = b.getClass().getDeclaredMethod("CheckApplyMove", Move.class);
