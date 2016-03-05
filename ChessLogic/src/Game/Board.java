@@ -201,7 +201,7 @@ public class Board {
         if (color == Color.Black)
             rookPos = new Position(0, 0);
         else
-            rookPos = new Position(0, 7);
+            rookPos = new Position(7, 0);
         if (!KingHasMoved(color) && !GetPiece(rookPos.GetX(), rookPos.GetY()).HasMoved()){
             for (int i = 1; i <= 2; i++) {
                 if (!(GetPiece(kp.GetX(), kp.GetY()-i) == null && !MoveCausesCheck(new Move(kp, new Position(kp.GetX(), kp.GetY()-i)), color)))
@@ -215,7 +215,7 @@ public class Board {
         Position rookPos;
         Position kp = GetKingPosition(color);
         if (color == Color.Black)
-            rookPos = new Position(7, 0);
+            rookPos = new Position(0, 7);
         else
             rookPos = new Position(7, 7);
         if (!KingHasMoved(color) && !GetPiece(rookPos.GetX(), rookPos.GetY()).HasMoved()){
