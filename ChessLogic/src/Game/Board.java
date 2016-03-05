@@ -202,8 +202,10 @@ public class Board {
             rookPos = new Position(0, 0);
         else
             rookPos = new Position(7, 0);
+        if(GetPiece(rookPos.GetX(), rookPos.GetY()) == null)
+            return false;
         if (!KingHasMoved(color) && !GetPiece(rookPos.GetX(), rookPos.GetY()).HasMoved()){
-            for (int i = 1; i <= 2; i++) {
+            for (int i = 1; i <= 3; i++) {
                 if (!(GetPiece(kp.GetX(), kp.GetY()-i) == null && !MoveCausesCheck(new Move(kp, new Position(kp.GetX(), kp.GetY()-i)), color)))
                     return false;
             }
@@ -218,6 +220,8 @@ public class Board {
             rookPos = new Position(0, 7);
         else
             rookPos = new Position(7, 7);
+        if(GetPiece(rookPos.GetX(), rookPos.GetY()) == null)
+            return false;
         if (!KingHasMoved(color) && !GetPiece(rookPos.GetX(), rookPos.GetY()).HasMoved()){
             for (int i = 1; i <= 2; i++) {
                 if (!(GetPiece(kp.GetX(), kp.GetY()+i) == null && !MoveCausesCheck(new Move(kp, new Position(kp.GetX() , kp.GetY()+i)), color)))
