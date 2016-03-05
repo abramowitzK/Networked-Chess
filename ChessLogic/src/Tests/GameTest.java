@@ -1,16 +1,18 @@
 package Tests;
 
 import Game.*;
+import Pieces.Piece;
+import Pieces.PieceType;
 import javafx.embed.swing.JFXPanel;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import Tests.BoardTest;
 import java.io.ByteArrayOutputStream;
 import Pieces.Color;
 import java.io.PrintStream;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
+
 
 import static org.junit.Assert.*;
 
@@ -23,6 +25,21 @@ public class GameTest {
         JFXPanel panel = new JFXPanel();
         originalOut = System.out;
     }
+
+
+
+    @Test
+    public void setBoardTest()
+    {
+        Board b = new BoardTest().clearBoard();
+        Player p1 = new Player(1, null, null, null);
+        Player p2 = new Player(2, null, null, null);
+        Game g = new Game(p1, p2);
+        g.setBoard(b);
+
+        Assert.assertEquals(b, g.getBoard());
+    }
+
 
     @Test
     public void quitTest() {
@@ -86,49 +103,13 @@ public class GameTest {
     }
 
 
-
-
-    /*
-        Implementation of the perft standardized chess test
-     */
-    public Integer perft(Board b, int depth) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        int result = 0;
-        int tempResult = 0;
-        Color currColor = Color.White;
-        if( depth % 2 == 0 )
-        {
-            currColor = Color.Black;
-        }
-
-        if( depth == 0 )
-        {
-            return 1;
-        }
-        for( int i=0; i < 8; i++ )
-        {
-            for(int j=0; j < 8; j++)
-            {
-                if( b.GetPiece(i,j) != null ) {
-                    if (b.GetPiece(i, j).PieceColor == currColor) {
-                        ArrayList<Position> moves = (ArrayList<Position>)b.GetCheckedValidMoves(i, j);
-                        for (Position p : moves) {
-                            Move m = new Move(new Position(i, j), new Position(p.GetX(), p.GetY()));
-                            Method method = b.getClass().getDeclaredMethod("CheckApplyMove", Move.class);
-                            method.setAccessible(true);
-                            method.invoke(b, m);
-
-                            result += perft(b, depth - 1);
-
-                            method = b.getClass().getDeclaredMethod("CheckUnApplyMove", Move.class);
-                            method.setAccessible(true);
-                            method.invoke(b, m);
-                        }
-
-                    }
-                }
-            }
-        }
-        return result;
+    @Test
+    public void gameCastleTest()
+    {
+        Player p1 = new Player(1, null, null, null);
+        Player p2 = new Player(2, null, null, null);
+        Game g = new Game(p1, p2);
+        g.Castle(Color.Black, true);
     }
 
 

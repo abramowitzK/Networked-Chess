@@ -10,4 +10,5 @@ public class CastlePacket extends Packet {
         Col = color;
         Left = left;
     }
+    public boolean isLeft() { return Left; }
 }

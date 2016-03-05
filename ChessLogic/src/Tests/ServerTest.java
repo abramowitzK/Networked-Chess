@@ -6,8 +6,10 @@ import Networking.*;
 import Server.*;
 import org.junit.*;
 import org.junit.contrib.java.lang.system.ExpectedSystemExit;
-
+import org.junit.rules.TestRule;
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import static org.junit.Assert.*;
 
@@ -43,20 +45,6 @@ public class ServerTest {
     }
 
     @Test
-    public void runTest() throws InterruptedException {
-        System.setOut(new PrintStream(outContent));
-        outContent.reset();
-        Thread t = new Thread(new Runnable() {
-            public void run() {
-                s.Start();
-            }
-        });
-        t.start();
-        t.join(250);
-        outContent.reset();
-    }
-
-    @Test
     public void processPacketJoinQuitTest() throws IOException
     {
         out = new FileOutputStream("outputTest.dat");
@@ -73,16 +61,12 @@ public class ServerTest {
         s.ProcessPacket(p, new ObjectOutputStream(out), null, null);
         assertEquals(1, s.getQueueSize());
 
+        Packet quitPacket = new Packet(OpCode.QuitGame, 0, null);
+        s.ProcessPacket(quitPacket, null, null, null);
+        assertEquals(1, s.getQueueSize());
     }
 
-    @Test
-    public void processPacketDefaultTest() throws IOException {
-        errContent.reset();
-        p = new Packet(OpCode.UpdateBoard, 1, null);
-        s.ProcessPacket(p, null,  null, null);
-    }
 
-    
     @AfterClass
     public static void tearDown() throws IOException {
         out.close();

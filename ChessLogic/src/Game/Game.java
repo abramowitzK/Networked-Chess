@@ -72,4 +72,8 @@ public class Game {
     {
         return m_board;
     }
+    public void setBoard(Board b)
+    {
+        m_board = b;
+    }
 }

@@ -8,6 +8,7 @@ import org.junit.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -62,7 +63,7 @@ public class BoardTest {
     {
         Board b = new Board();
         int expected;
-        ArrayList<Position> validMoves;
+        List<Position> validMoves;
         //Check all pieces in topmost and bottommost row which should have no moves
         for( int i=0; i < 8; i ++ )
         {
@@ -74,10 +75,10 @@ public class BoardTest {
             {
                 expected = 2;
             }
-            validMoves = (ArrayList<Position>) b.GetCheckedValidMoves(0,i);
+            validMoves = b.GetCheckedValidMoves(0,i);
             assertEquals(validMoves.size(), expected);
 
-            validMoves = (ArrayList<Position>) b.GetCheckedValidMoves(7,i);
+            validMoves = b.GetCheckedValidMoves(7,i);
             assertEquals(validMoves.size(), expected);
         }
     }
@@ -97,7 +98,7 @@ public class BoardTest {
             // Confirm that Pawn has two moves when it hasn't moved
             ArrayList<Position> expectedMoves = new ArrayList<>();
             expectedMoves.add(p);   expectedMoves.add(p2);
-            ArrayList<Position> validMoves = (ArrayList<Position>)b.GetCheckedValidMoves(x, y);
+            List<Position> validMoves = b.GetCheckedValidMoves(x, y);
             assertEquals(validMoves.toString(), expectedMoves.toString());
         }
     }
@@ -117,7 +118,7 @@ public class BoardTest {
             // Confirm that Pawn has two moves when it hasn't moved
             ArrayList<Position> expectedMoves = new ArrayList<>();
             expectedMoves.add(p);   expectedMoves.add(p2);
-            ArrayList<Position> validMoves = (ArrayList<Position>)b.GetCheckedValidMoves(x, y);
+            List<Position> validMoves = b.GetCheckedValidMoves(x, y);
             assertEquals(validMoves.toString(), expectedMoves.toString());
         }
     }
@@ -144,15 +145,15 @@ public class BoardTest {
             Position pBlack = new Position(xBlack+2, y);
             b.ApplyMove(new Move(new Position(xBlack,y), new Position(xBlack+1,y)));
 
-            ArrayList<Position> expectedMoves = new ArrayList<>();
+            List<Position> expectedMoves = new ArrayList<>();
             expectedMoves.add(pWhite);
-            ArrayList<Position> validMoves = (ArrayList<Position>)b.GetCheckedValidMoves(xWhite-1, y);
+            List<Position> validMoves = b.GetCheckedValidMoves(xWhite-1, y);
             assertEquals(validMoves.toString(), expectedMoves.toString());
 
             expectedMoves.clear();
             validMoves.clear();
             expectedMoves.add(pBlack);
-            validMoves = (ArrayList<Position>)b.GetCheckedValidMoves(xBlack+1, y);
+            validMoves = b.GetCheckedValidMoves(xBlack+1, y);
             assertEquals(validMoves.toString(), expectedMoves.toString());
         }
     }
@@ -163,7 +164,8 @@ public class BoardTest {
     {
         System.setOut(System.out);
         Board b = new Board();
-        assertEquals(0, b.GetCheckedValidMoves(4, 4).size());
+        List l = new ArrayList<>();
+        assertEquals(l, b.GetCheckedValidMoves(4, 4));
 
     }
 
@@ -244,7 +246,7 @@ public class BoardTest {
         return b;
     }
 
-    private boolean compareMoves(String[] expected, ArrayList<Position> positions)
+    private boolean compareMoves(String[] expected, List<Position> positions)
     {
         String[] splitString;
         String s, curr;
@@ -275,10 +277,10 @@ public class BoardTest {
         b.SetPiece(0, 5, new Piece(PieceType.Bishop, Color.Black));
 
 
-        ArrayList<Position> whiteLeft = (ArrayList<Position>)b.GetCheckedValidMoves(7, 2);
-        ArrayList<Position> whiteRight = (ArrayList<Position>)b.GetCheckedValidMoves(7, 5);
-        ArrayList<Position> blackLeft = (ArrayList<Position>)b.GetCheckedValidMoves(0, 2);
-        ArrayList<Position> blackRight = (ArrayList<Position>)b.GetCheckedValidMoves(0, 5);
+        List<Position> whiteLeft = b.GetCheckedValidMoves(7, 2);
+        List<Position> whiteRight = b.GetCheckedValidMoves(7, 5);
+        List<Position> blackLeft = b.GetCheckedValidMoves(0, 2);
+        List<Position> blackRight = b.GetCheckedValidMoves(0, 5);
 
         String[] expectedWhiteLeft = {"(2, 7)", "(6, 1)", "(6, 3)", "(3, 6)", "(4, 5)", "(5, 4)", "(5, 0)"};
         String[] expectedWhiteRight = {"(6, 4)", "(6, 6)", "(4, 2)", "(5, 3)", "(5, 7)", "(2, 0)", "(3, 1)"};
@@ -301,10 +303,10 @@ public class BoardTest {
         b.SetPiece(0, 1, new Piece(PieceType.Knight, Color.Black));
         b.SetPiece(0, 6, new Piece(PieceType.Knight, Color.Black));
 
-        ArrayList<Position> whiteLeft = (ArrayList<Position>)b.GetCheckedValidMoves(7, 1);
-        ArrayList<Position> whiteRight = (ArrayList<Position>)b.GetCheckedValidMoves(7, 6);
-        ArrayList<Position> blackLeft = (ArrayList<Position>)b.GetCheckedValidMoves(0, 1);
-        ArrayList<Position> blackRight = (ArrayList<Position>)b.GetCheckedValidMoves(0, 6);
+        List<Position> whiteLeft = b.GetCheckedValidMoves(7, 1);
+        List<Position> whiteRight = b.GetCheckedValidMoves(7, 6);
+        List<Position> blackLeft = b.GetCheckedValidMoves(0, 1);
+        List<Position> blackRight = b.GetCheckedValidMoves(0, 6);
 
         String[] expectedWhiteLeft = {"(5, 0)", "(6, 3)", "(5, 2)"};
         String[] expectedWhiteRight = {"(6, 4)", "(5, 7)", "(5, 5)"};
@@ -331,10 +333,10 @@ public class BoardTest {
 
 
         //Get valid rook moves
-        ArrayList<Position> whiteLeft = (ArrayList<Position>)b.GetCheckedValidMoves(7, 0);
-        ArrayList<Position> whiteRight = (ArrayList<Position>)b.GetCheckedValidMoves(7, 7);
-        ArrayList<Position> blackLeft = (ArrayList<Position>)b.GetCheckedValidMoves(0, 0);
-        ArrayList<Position> blackRight = (ArrayList<Position>)b.GetCheckedValidMoves(0, 7);
+        List<Position> whiteLeft = b.GetCheckedValidMoves(7, 0);
+        List<Position> whiteRight = b.GetCheckedValidMoves(7, 7);
+        List<Position> blackLeft = b.GetCheckedValidMoves(0, 0);
+        List<Position> blackRight = b.GetCheckedValidMoves(0, 7);
 
 
         //Set expected moves for the 4 rooks on the board
@@ -358,9 +360,9 @@ public class BoardTest {
     {
         Board b = clearBoard();
         b.SetPiece(3, 3, new Piece(PieceType.Queen, Color.White));
-        ArrayList<Position> whiteQueen = (ArrayList<Position>)b.GetCheckedValidMoves(3,3);
+        List<Position> whiteQueen = b.GetCheckedValidMoves(3,3);
         b.SetPiece(3, 3, new Piece(PieceType.Queen, Color.Black));
-        ArrayList<Position> blackQueen = (ArrayList<Position>)b.GetCheckedValidMoves(3,3);
+        List<Position> blackQueen = b.GetCheckedValidMoves(3,3);
         String[] expected = {"(0, 0)", "(1, 3)", "(3, 7)", "(5, 1)", "(5, 5)", "(3, 6)", "(3, 0)", "(3, 5)", "(3, 2)", "(0, 3)", "(6, 0)", "(4, 4)", "(2, 4)", "(4, 3)", "(0, 6)", "(4, 2)",
                 "(1, 5)", "(1, 1)", "(3, 4)", "(7, 3)", "(6, 3)", "(3, 1)", "(2, 3)", "(2, 2)", "(7, 7)", "(6, 6)", "(5, 3)"};
         assertEquals(compareMoves(expected, whiteQueen), true);
@@ -372,8 +374,8 @@ public class BoardTest {
     public void kingMovementTest()
     {
         Board b = clearBoard();
-        ArrayList<Position> whiteKing = (ArrayList<Position>)b.GetCheckedValidMoves(7, 4);
-        ArrayList<Position> blackKing = (ArrayList<Position>)b.GetCheckedValidMoves(0, 4);
+        List<Position> whiteKing = b.GetCheckedValidMoves(7, 4);
+        List<Position> blackKing = b.GetCheckedValidMoves(0, 4);
 
         String[] expectedWhite = {"(6, 3)", "(7, 3)", "(6, 5)", "(6, 4)", "(7, 5)"};
         String[] expectedBlack = {"(0, 3)", "(1, 5)", "(1, 4)", "(0, 5)", "(1, 3)"};
@@ -425,7 +427,7 @@ public class BoardTest {
         Board b = clearBoard();
         b.SetPiece(4,4, new Piece(PieceType.Rook, Color.White));
         assertTrue(b.GetCheck(Color.Black));
-        ArrayList<Position> positions = (ArrayList<Position>)b.GetCheckedValidMoves(0, 4);
+        List<Position> positions = b.GetCheckedValidMoves(0, 4);
         Position start = new Position(0, 4);
         Position end;
 
@@ -446,7 +448,7 @@ public class BoardTest {
         Board b = clearBoard();
         b.SetPiece(3,4, new Piece(PieceType.Rook, Color.Black));
         assertTrue(b.GetCheck(Color.White));
-        ArrayList<Position> positions =(ArrayList<Position>) b.GetCheckedValidMoves(7, 4);
+        List<Position> positions = b.GetCheckedValidMoves(7, 4);
         Position start = new Position(7, 4);
         Position end;
 
@@ -465,10 +467,10 @@ public class BoardTest {
     public void whiteCheckmateTest()
     {
         Board b = new Board();
-        b.ApplyMove(new Move(new Position(1,4), b.GetCheckedValidMoves(1, 4).get(1)));
         b.ApplyMove(new Move(new Position(6,5), b.GetCheckedValidMoves(6, 5).get(0)));
         b.ApplyMove(new Move(new Position(6,6), b.GetCheckedValidMoves(6, 6).get(1)));
         b.ApplyMove(new Move(new Position(0,3), new Position(4,7)));
+
         Assert.assertTrue(b.IsInCheckmate(Color.White));
 
         b.ApplyMove(new Move(new Position(0,5), new Position(4,7)));
@@ -492,13 +494,15 @@ public class BoardTest {
     public void blackCheckmateTest()
     {
         Board b = new Board();
-        b.ApplyMove(new Move(new Position(6,4), b.GetCheckedValidMoves(6, 4).get(1)));
         b.ApplyMove(new Move(new Position(1,5), b.GetCheckedValidMoves(1, 5).get(0)));
         b.ApplyMove(new Move(new Position(1,6), b.GetCheckedValidMoves(1, 6).get(1)));
         b.ApplyMove(new Move(new Position(7,3), new Position(3,7)));
         Assert.assertTrue(b.IsInCheckmate(Color.Black));
 
         b.ApplyMove(new Move(new Position(7,5), new Position(3,7)));
+        Assert.assertTrue(b.IsInCheckmate(Color.Black));
+
+        b.ApplyMove(new Move(new Position(6,4), new Position(1,5)));
         Assert.assertTrue(b.IsInCheckmate(Color.Black));
 
         b = clearBoard();
@@ -511,7 +515,66 @@ public class BoardTest {
         Assert.assertTrue(b.IsInCheckmate(Color.Black));
 
     }
-    
+
+    public Board castleBoard()
+    {
+        Board b = new Board();
+        Piece p;
+        for( int i=0; i < 8; i++)
+        {
+            for( int j=0; j < 8; j++)
+            {
+                p = b.GetPiece(i,j);
+                if( p != null )
+                {
+                    if( p.Type != PieceType.King && p.Type != PieceType.Rook )
+                    {
+                        b.SetPiece(i,j, null);
+                    }
+                }
+            }
+        }
+        return b;
+    }
+
+
+    @Test
+    public void castleTest()
+    {
+        Board b = castleBoard();
+
+        // Unblocked
+        assertTrue(b.CanCastleLeft(Color.White));
+        assertTrue(b.CanCastleLeft(Color.Black));
+
+        assertTrue(b.CanCastleRight(Color.White));
+        assertTrue(b.CanCastleRight(Color.Black));
+
+        // Blocked on Left
+        b.SetPiece(7, 5, new Piece(PieceType.Bishop, Color.White));
+        b.SetPiece(0, 5, new Piece(PieceType.Bishop, Color.Black));
+
+        assertTrue(b.CanCastleLeft(Color.White));
+        assertTrue(b.CanCastleLeft(Color.Black));
+
+        assertFalse(b.CanCastleRight(Color.White));
+        assertFalse(b.CanCastleRight(Color.Black));
+
+        b.SetPiece(7, 5, null);
+        b.SetPiece(0, 5, null);
+
+        // Blocked on Right
+        b.SetPiece(7, 3, new Piece(PieceType.Queen, Color.White));
+        b.SetPiece(0, 3, new Piece(PieceType.Queen, Color.Black));
+
+        assertFalse(b.CanCastleLeft(Color.White));
+        assertFalse(b.CanCastleLeft(Color.Black));
+
+        assertTrue(b.CanCastleRight(Color.White));
+        assertTrue(b.CanCastleRight(Color.Black));
+
+
+    }
 
 }
 
