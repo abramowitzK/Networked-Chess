@@ -265,9 +265,7 @@ public class GameBoardController implements Initializable {
 	}
     private void UpdateBoard(Packet p){
         //The other player made a move and we need to update our board.
-        synchronized (lock) {
-            boardState.ApplyMove(p.GetMove());
-        }
+
         Position pos = new Position(p.GetMove().GetEndX(), p.GetMove().GetEndY());
         Move m = p.GetMove();
         Position e = new Position(m.GetEndX(), m.GetEndY());
@@ -285,6 +283,9 @@ public class GameBoardController implements Initializable {
                     boardState.SetPiece(pos.GetX() + 1, pos.GetY(), null);
                 }
             }
+        }
+        synchronized (lock) {
+            boardState.ApplyMove(p.GetMove());
         }
         if(boardState.IsInCheckmate(m_color)) {
             Platform.runLater(() -> checkIndicator.setText("You are in checkmate!!!"));

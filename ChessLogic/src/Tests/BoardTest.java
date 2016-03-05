@@ -501,9 +501,6 @@ public class BoardTest {
         b.ApplyMove(new Move(new Position(7,5), new Position(3,7)));
         Assert.assertTrue(b.IsInCheckmate(Color.Black));
 
-        b.ApplyMove(new Move(new Position(1,5), new Position(6,5)));
-        Assert.assertTrue(b.IsInCheckmate(Color.Black));
-
         b = clearBoard();
         tempApplyMove(b, new Move(new Position(0,4), new Position(0,0)));
         tempApplyMove(b, new Move(new Position(7,4), new Position(2,0)));
