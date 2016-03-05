@@ -150,7 +150,6 @@ public class Board {
         Piece piece = m_boardState[i][j];
         if(piece == null)
             return ret;
-        Color color = piece.PieceColor;
         //Remove moves that don't block the check
         if( m_whiteCheck||m_blackCheck) {
             ret.removeIf(p -> !MoveBlocksCheckmate(new Move(new Position(i,j),p), piece.PieceColor));
@@ -203,9 +202,7 @@ public class Board {
             rookPos = new Position(0, 0);
         else
             rookPos = new Position(7, 0);
-        if(GetPiece(rookPos.GetX(), rookPos.GetY()) == null)
-            return false;
-        if (!KingHasMoved(color) && !GetPiece(rookPos.GetX(), rookPos.GetY()).HasMoved()){
+        if (GetPiece(rookPos.GetX(), rookPos.GetY()) != null && !KingHasMoved(color) && !GetPiece(rookPos.GetX(), rookPos.GetY()).HasMoved()){
             for (int i = 1; i <= 3; i++) {
                 if (!(GetPiece(kp.GetX(), kp.GetY()-i) == null && !MoveCausesCheck(new Move(kp, new Position(kp.GetX(), kp.GetY()-i)), color)))
                     return false;
@@ -221,9 +218,7 @@ public class Board {
             rookPos = new Position(0, 7);
         else
             rookPos = new Position(7, 7);
-        if(GetPiece(rookPos.GetX(), rookPos.GetY()) == null)
-            return false;
-        if (!KingHasMoved(color) && !GetPiece(rookPos.GetX(), rookPos.GetY()).HasMoved()){
+        if (GetPiece(rookPos.GetX(), rookPos.GetY()) != null && !KingHasMoved(color) && !GetPiece(rookPos.GetX(), rookPos.GetY()).HasMoved()){
             for (int i = 1; i <= 2; i++) {
                 if (!(GetPiece(kp.GetX(), kp.GetY()+i) == null && !MoveCausesCheck(new Move(kp, new Position(kp.GetX() , kp.GetY()+i)), color)))
                     return false;
@@ -360,7 +355,7 @@ public class Board {
     private List<Position> GetValidPawnMoves(int i, int j, int dir, Piece p){
         ArrayList<Position> ret = new ArrayList<>();
             //First check directly in front of us
-        if(i+dir <= 8 && m_boardState[i+dir][(j)] == null) {
+        if(i+dir <= 8 && m_boardState[i+dir][j] == null) {
             ret.add(new Position(i+dir, j));
             if (!p.HasMoved() && m_boardState[i+2*dir][j] == null)
                 ret.add(new Position(i+2*dir, j));
@@ -369,15 +364,11 @@ public class Board {
             ret.add(new Position(i+dir, j+dir));
         if(WithinBounds(i+dir) && WithinBounds(j-dir) && m_boardState[i+dir][j-dir]!= null && m_boardState[i+dir][j-dir].PieceColor != p.PieceColor)
             ret.add(new Position(i+dir, j-dir));
-        if(m_enpassantPossible){
-            if(i == m_enPassantPosition.GetX()){
-                if(j == m_enPassantPosition.GetY()+1 || j == m_enPassantPosition.GetY() - 1 ){
-                    if(p.PieceColor == Color.Black)
-                        ret.add(new Position(m_enPassantPosition.GetX()+1, m_enPassantPosition.GetY()));
-                    else
-                        ret.add(new Position(m_enPassantPosition.GetX()-1, m_enPassantPosition.GetY()));
-                }
-            }
+        if(m_enpassantPossible && i == m_enPassantPosition.GetX() && (j == m_enPassantPosition.GetY()+1 || j == m_enPassantPosition.GetY() - 1 )){
+            if(p.PieceColor == Color.Black)
+                ret.add(new Position(m_enPassantPosition.GetX()+1, m_enPassantPosition.GetY()));
+            else
+                ret.add(new Position(m_enPassantPosition.GetX()-1, m_enPassantPosition.GetY()));
         }
         return  ret;
     }
