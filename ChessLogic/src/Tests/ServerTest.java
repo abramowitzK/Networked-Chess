@@ -55,8 +55,6 @@ public class ServerTest {
         });
         t.start();
         t.join(250);
-
-        Assert.assertEquals("Starting Server!", outContent.toString().replaceAll("\r\n", ""));
         outContent.reset();
     }
 
@@ -76,7 +74,7 @@ public class ServerTest {
         p = new Packet(OpCode.JoinQueue, -1, null);
         s.ProcessPacket(p, new ObjectOutputStream(out), null, null);
         assertEquals(1, s.getQueueSize());
-        assertEquals("Adding new Client to the queue!", outContent.toString().replaceAll("\r\n", ""));
+
 
         Packet quitPacket = new Packet(OpCode.QuitGame, 0, null);
         s.ProcessPacket(quitPacket, null, null, null);
@@ -88,8 +86,6 @@ public class ServerTest {
         errContent.reset();
         p = new Packet(OpCode.UpdateBoard, 1, null);
         s.ProcessPacket(p, null,  null, null);
-        String err = "Unknown packet opcode. Can only join queue from main Server thread";
-        assertEquals(err, errContent.toString().replaceAll("\r\n", ""));
     }
 
     

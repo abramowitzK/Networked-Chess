@@ -11,14 +11,12 @@ public class ServerThread extends Thread{
     private final Object lock = new Object();
     private Server m_server;
     private Player m_player;
-    private ObjectOutputStream m_out;
     private ObjectInputStream m_in;
     private boolean m_quit;
     private Game m_game;
-    public ServerThread(Player player, Game game, ObjectOutputStream out, ObjectInputStream in, Server server){
+    public ServerThread(Player player, Game game,ObjectInputStream in, Server server){
         m_player = player;
         m_quit = false;
-        m_out = out;
         m_in = in;
         m_game = game;
         m_server = server;
@@ -27,14 +25,13 @@ public class ServerThread extends Thread{
      * Process a packet from a player. Logic in here decides what kind of packet it is and what to do with it.
      * @param packet packet to process
      */
-    public void ProcessPacket(Packet packet, ObjectOutputStream out)
+    public void ProcessPacket(Packet packet)
     {
         switch (packet.GetOpCode()) {
             case UpdateBoard:
                 //We are updating the board
                 //Apply the move to the Server board
                 //This needs to be synchronized since both threads work with this Game.
-                System.out.println("received an update board packet from: " + packet.GetID());
                 synchronized(lock) {
                     //This method should update the Game board on the Server and then send a packet to
                     //the other player updating the board.
@@ -53,7 +50,6 @@ public class ServerThread extends Thread{
                 }
                 break;
             case Castle:
-                System.out.println("Castleing!");
                 CastlePacket p = (CastlePacket)packet;
                 synchronized (lock){
                     m_game.Castle(p.Col,p.Left);
@@ -68,7 +64,6 @@ public class ServerThread extends Thread{
                 }
                 break;
             default:
-                System.err.println("Unknown packet opcode");
                 break;
         }
     }
@@ -80,7 +75,7 @@ public class ServerThread extends Thread{
     public void run(){
         try {
             while (!m_quit){
-                ProcessPacket((Packet)m_in.readObject(), m_out);
+                ProcessPacket((Packet)m_in.readObject());
             }
         } catch (SocketException ex){
             log.log(Level.FINE, "Client Disconnected from inside ServerThread",ex);
@@ -99,8 +94,6 @@ public class ServerThread extends Thread{
                 Player other = m_game.getOtherPlayer(m_player.GetID());
                 other.GetOut().writeObject(new Packet(OpCode.UpdateBoard, other.GetID(), move));
                 m_game.ApplyMove(move);
-            } else {
-                System.out.println("Game is over. Not forwarding packet");
             }
         } catch (IOException ex){
             log.log(Level.FINE, "Failed to apply move", ex);

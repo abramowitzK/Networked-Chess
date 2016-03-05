@@ -284,7 +284,6 @@ public class GameBoardController implements Initializable {
 					break;
 				case QuitGame:
 					//Other player quit Game
-					System.out.println("Other player quit the Game!");
                     try{
 						out.writeObject(new Packet(OpCode.QuitGame, id, null));
                     } catch(IOException ex){
@@ -299,6 +298,8 @@ public class GameBoardController implements Initializable {
                     Platform.runLater(() -> checkIndicator.setText(""));
                     Platform.runLater(() -> setTurn(true));
                     Platform.runLater(this::UpdateImagesFromBoardState);
+                    break;
+                default:
                     break;
 			}
 	}
@@ -343,7 +344,7 @@ public class GameBoardController implements Initializable {
 				Region r = GetRegion(i,j);
 				String color;
                 assert r != null;
-                if(r.getId().equals("light"))
+                if("light".equals(r.getId()))
 					color = "wheat";
 				else
 					color = "peru";
@@ -353,7 +354,6 @@ public class GameBoardController implements Initializable {
 	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		System.out.println("Initializing...");
 		boardState = new Board();
 		//Create background task to communicate with Server
 		UpdateImagesFromBoardState();
@@ -368,7 +368,6 @@ public class GameBoardController implements Initializable {
                         while (true) {
                             //TODO go back to main menu if other player quits. Also show win screen
                             if (isCancelled() || otherPlayerQuit || weQuit) {
-                                System.out.println("Quitting");
                                 return null;
                             }
                             try {
@@ -531,7 +530,6 @@ public class GameBoardController implements Initializable {
         // switch scene to main menu
         try{
             a.close();
-            System.out.println("You clicked Return to Main Menu");
 
             Stage getstage = (Stage) gameBoard.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));

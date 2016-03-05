@@ -83,7 +83,6 @@ public class MainMenuController {
 							Packet joinGame;
 							while (true) {
 								if (isCancelled()) {
-									System.out.println("Cancelling task...");
 									return null;
 								}
 								try {
@@ -108,7 +107,6 @@ public class MainMenuController {
 			};
             //Remove player from queue when Cancel button is pressed while searching
             backgroundTask.setOnCancelled(event -> {
-                System.out.println("Handled Cancel");
                 //TODO put disconnect code here. Have to implement that on Server first.
             });
 			//Close the dialog box and transition to the Game board
@@ -146,7 +144,6 @@ public class MainMenuController {
 			//show dialog box
 			Optional<ButtonType> result = a.showAndWait();
 			 if (result.isPresent()) {
-				 System.out.println("You clicked Cancel");
 				 backgroundTask.cancel();
 			 }
 		} catch (Exception e){

@@ -3,6 +3,9 @@ package Server;
 import java.util.logging.*;
 
 class Main {
+    private Main(){
+
+    }
     private static final Logger log = Logger.getLogger(Main.class.getName());
     /**
      * Server.Main entry point

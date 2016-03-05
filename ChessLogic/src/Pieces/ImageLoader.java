@@ -42,7 +42,8 @@ public class ImageLoader
                 return LoadKnight();
             case Pawn:
                 return LoadPawn();
+            default:
+                return LoadPawn();
         }
-        return null;
     }
 }

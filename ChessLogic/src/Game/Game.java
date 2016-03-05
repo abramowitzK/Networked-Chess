@@ -39,10 +39,8 @@ public class Game {
     public int Quit(int playerID){
         m_isOver = true;
         if (playerID == m_p1ID) {
-            System.out.println("Player 1 quit");
             return m_p2ID;
         } else {
-            System.out.println("Player 2 quit");
             return m_p1ID;
         }
     }

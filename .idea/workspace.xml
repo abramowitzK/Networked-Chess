@@ -9,7 +9,18 @@
   <component name="ChangeListManager">
     <list default="true" id="07e140e5-a4c5-4171-a50f-709e4d1d1de2" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChessLogic/src/Game/Board.java" afterPath="$PROJECT_DIR$/ChessLogic/src/Game/Board.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChessLogic/src/Game/Game.java" afterPath="$PROJECT_DIR$/ChessLogic/src/Game/Game.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChessLogic/src/Game/Position.java" afterPath="$PROJECT_DIR$/ChessLogic/src/Game/Position.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChessLogic/src/Pieces/ImageLoader.java" afterPath="$PROJECT_DIR$/ChessLogic/src/Pieces/ImageLoader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChessLogic/src/Server/Main.java" afterPath="$PROJECT_DIR$/ChessLogic/src/Server/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChessLogic/src/Server/Server.java" afterPath="$PROJECT_DIR$/ChessLogic/src/Server/Server.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChessLogic/src/Server/ServerThread.java" afterPath="$PROJECT_DIR$/ChessLogic/src/Server/ServerThread.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChessLogic/src/Tests/PieceTest.java" afterPath="$PROJECT_DIR$/ChessLogic/src/Tests/PieceTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChessLogic/src/Tests/ServerTest.java" afterPath="$PROJECT_DIR$/ChessLogic/src/Tests/ServerTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChessLogic/src/Tests/ServerThreadTest.java" afterPath="$PROJECT_DIR$/ChessLogic/src/Tests/ServerThreadTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChessUI/src/javafx/GameBoardController.java" afterPath="$PROJECT_DIR$/ChessUI/src/javafx/GameBoardController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChessUI/src/javafx/MainMenuController.java" afterPath="$PROJECT_DIR$/ChessUI/src/javafx/MainMenuController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChessUI/src/javafx/MatchedController.java" afterPath="$PROJECT_DIR$/ChessUI/src/javafx/MatchedController.java" />
     </list>
     <ignored path=".idea/dataSources.local.xml" />
     <manually-removed-from-ignored>
@@ -32,23 +43,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GameBoardController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GameBoardController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ChessUI/src/javafx/GameBoardController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="229" column="12" selection-start-line="229" selection-start-column="12" selection-end-line="229" selection-end-column="53" />
+            <state vertical-scroll-proportion="0.2512">
+              <caret line="346" column="44" selection-start-line="346" selection-start-column="44" selection-end-line="346" selection-end-column="44" />
               <folding>
-                <element signature="e#12079#12080#0" expanded="true" />
-                <element signature="e#12114#12115#0" expanded="true" />
-                <element signature="e#12161#12162#0" expanded="true" />
-                <element signature="e#12211#12212#0" expanded="true" />
                 <element signature="method#GetRegion#0;class#GameBoardController#0" expanded="false" />
                 <element signature="method#ColorRegion#0;class#GameBoardController#0" expanded="false" />
                 <element signature="method#UpdateImagesFromBoardState#0;class#GameBoardController#0" expanded="false" />
                 <element signature="method#ListContainsPosition#0;class#GameBoardController#0" expanded="false" />
-                <element signature="method#RemoveColoring#0;class#GameBoardController#0" expanded="false" />
                 <element signature="method#redeemPiece#0;class#GameBoardController#0" expanded="false" />
                 <element signature="docComment;method#returnToMainMenu#0;class#GameBoardController#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ChessLogic/src/Server/Server.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="117" column="45" selection-start-line="117" selection-start-column="45" selection-end-line="117" selection-end-column="45" />
+              <folding>
+                <element signature="e#2981#2982#0" expanded="true" />
+                <element signature="e#3002#3003#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -58,7 +77,7 @@
         <entry file="file://$PROJECT_DIR$/ChessUI/src/javafx/MainMenuController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="160" column="23" selection-start-line="160" selection-start-column="23" selection-end-line="160" selection-end-column="23" />
+              <caret line="84" column="52" selection-start-line="84" selection-start-column="52" selection-end-line="84" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -68,40 +87,17 @@
         <entry file="file://$PROJECT_DIR$/ChessUI/src/javafx/MatchedController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="45" column="47" selection-start-line="45" selection-start-column="47" selection-end-line="45" selection-end-column="47" />
+              <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ChessLogic/src/Server/Server.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="36" column="17" selection-start-line="36" selection-start-column="17" selection-end-line="36" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Board.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Board.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ChessLogic/src/Game/Board.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3379205">
-              <caret line="351" column="63" selection-start-line="351" selection-start-column="63" selection-end-line="351" selection-end-column="63" />
-              <folding>
-                <element signature="e#4369#4370#0" expanded="true" />
-                <element signature="e#4410#4411#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BoardTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ChessLogic/src/Tests/BoardTest.java">
-          <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="22" column="17" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
+              <caret line="351" column="63" selection-start-line="351" selection-start-column="63" selection-end-line="351" selection-end-column="63" />
               <folding />
             </state>
           </provider>
@@ -111,11 +107,51 @@
         <entry file="file://$PROJECT_DIR$/ChessLogic/src/Game/Position.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="21" column="21" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
+              <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
               <folding>
                 <element signature="e#496#497#0" expanded="true" />
                 <element signature="e#527#528#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ServerThread.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ChessLogic/src/Server/ServerThread.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="95" column="39" selection-start-line="95" selection-start-column="39" selection-end-line="95" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ImageLoader.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ChessLogic/src/Pieces/ImageLoader.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="5" column="31" selection-start-line="4" selection-start-column="1" selection-end-line="5" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ChessLogic/src/Server/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PieceTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ChessLogic/src/Tests/PieceTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="33" column="59" selection-start-line="33" selection-start-column="59" selection-end-line="33" selection-end-column="59" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -154,25 +190,28 @@
         <option value="$PROJECT_DIR$/ChessUI/src/javafx/Matched.fxml" />
         <option value="$PROJECT_DIR$/ChessLogic/src/Networking/Packet.java" />
         <option value="$PROJECT_DIR$/ChessLogic/src/Pieces/PieceType.java" />
-        <option value="$PROJECT_DIR$/ChessLogic/src/Server/Main.java" />
         <option value="$PROJECT_DIR$/ChessUI/src/javafx/GameBoard.fxml" />
-        <option value="$PROJECT_DIR$/ChessLogic/src/Pieces/ImageLoader.java" />
         <option value="$PROJECT_DIR$/ChessLogic/src/Networking/PromotionPacket.java" />
         <option value="$PROJECT_DIR$/ChessLogic/src/Networking/CastlePacket.java" />
-        <option value="$PROJECT_DIR$/ChessLogic/src/Game/Game.java" />
         <option value="$PROJECT_DIR$/ChessLogic/src/Networking/OpCode.java" />
-        <option value="$PROJECT_DIR$/ChessLogic/src/Game/Position.java" />
         <option value="$PROJECT_DIR$/ChessLogic/src/Tests/GameTest.java" />
         <option value="$PROJECT_DIR$/ChessLogic/src/Pieces/Piece.java" />
-        <option value="$PROJECT_DIR$/ChessLogic/src/Server/Server.java" />
         <option value="$PROJECT_DIR$/ChessLogic/src/Tests/BoardTest.java" />
-        <option value="$PROJECT_DIR$/ChessLogic/src/Server/ServerThread.java" />
         <option value="$PROJECT_DIR$/sonar-project.properties" />
-        <option value="$PROJECT_DIR$/ChessUI/src/javafx/GameBoardController.java" />
         <option value="$PROJECT_DIR$/ChessUI/src/javafx/Main.java" />
+        <option value="$PROJECT_DIR$/ChessLogic/src/Game/Board.java" />
+        <option value="$PROJECT_DIR$/ChessLogic/src/Game/Game.java" />
+        <option value="$PROJECT_DIR$/ChessLogic/src/Game/Position.java" />
+        <option value="$PROJECT_DIR$/ChessLogic/src/Pieces/ImageLoader.java" />
+        <option value="$PROJECT_DIR$/ChessLogic/src/Tests/PieceTest.java" />
+        <option value="$PROJECT_DIR$/ChessLogic/src/Server/Main.java" />
+        <option value="$PROJECT_DIR$/ChessLogic/src/Server/Server.java" />
+        <option value="$PROJECT_DIR$/ChessLogic/src/Tests/ServerThreadTest.java" />
+        <option value="$PROJECT_DIR$/ChessLogic/src/Tests/ServerTest.java" />
+        <option value="$PROJECT_DIR$/ChessLogic/src/Server/ServerThread.java" />
         <option value="$PROJECT_DIR$/ChessUI/src/javafx/MainMenuController.java" />
         <option value="$PROJECT_DIR$/ChessUI/src/javafx/MatchedController.java" />
-        <option value="$PROJECT_DIR$/ChessLogic/src/Game/Board.java" />
+        <option value="$PROJECT_DIR$/ChessUI/src/javafx/GameBoardController.java" />
       </list>
     </option>
   </component>
@@ -880,7 +919,7 @@
       <workItem from="1456973729174" duration="1477000" />
       <workItem from="1457029085805" duration="14463000" />
       <workItem from="1457135972286" duration="263000" />
-      <workItem from="1457136913804" duration="7758000" />
+      <workItem from="1457136913804" duration="9497000" />
     </task>
     <task id="LOCAL-00001" summary="Optimized imports">
       <created>1455944159923</created>
@@ -1002,43 +1041,49 @@
       <option name="project" value="LOCAL" />
       <updated>1457144274099</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Fixed more sonar issues">
+      <created>1457145322920</created>
+      <option name="number" value="00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1457145322920</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="jUnit_Tests - 2016.03.01 at 20h 20m 21s.xml">
+    <history-entry file="jUnit_Tests - 2016.03.04 at 21h 44m 16s.xml">
       <configuration name="jUnit Tests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="jUnit_Tests - 2016.03.01 at 20h 21m 13s.xml">
+    <history-entry file="jUnit_Tests - 2016.03.04 at 21h 45m 32s.xml">
       <configuration name="jUnit Tests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="jUnit_Tests - 2016.03.01 at 20h 21m 58s.xml">
+    <history-entry file="jUnit_Tests - 2016.03.04 at 21h 45m 49s.xml">
       <configuration name="jUnit Tests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="jUnit_Tests - 2016.03.01 at 20h 25m 22s.xml">
+    <history-entry file="jUnit_Tests - 2016.03.04 at 21h 47m 02s.xml">
       <configuration name="jUnit Tests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="jUnit_Tests - 2016.03.04 at 20h 49m 49s.xml">
+    <history-entry file="jUnit_Tests - 2016.03.04 at 21h 49m 37s.xml">
       <configuration name="jUnit Tests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="jUnit_Tests - 2016.03.04 at 20h 50m 52s.xml">
+    <history-entry file="jUnit_Tests - 2016.03.04 at 21h 49m 53s.xml">
       <configuration name="jUnit Tests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="jUnit_Tests - 2016.03.04 at 20h 51m 18s.xml">
+    <history-entry file="jUnit_Tests - 2016.03.04 at 21h 50m 37s.xml">
       <configuration name="jUnit Tests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="jUnit_Tests - 2016.03.04 at 20h 52m 04s.xml">
+    <history-entry file="jUnit_Tests - 2016.03.04 at 22h 00m 19s.xml">
       <configuration name="jUnit Tests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="jUnit_Tests - 2016.03.04 at 21h 09m 52s.xml">
+    <history-entry file="jUnit_Tests - 2016.03.04 at 22h 01m 05s.xml">
       <configuration name="jUnit Tests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="jUnit_Tests - 2016.03.04 at 21h 16m 27s.xml">
+    <history-entry file="jUnit_Tests - 2016.03.04 at 22h 02m 31s.xml">
       <configuration name="jUnit Tests" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57969000" />
+    <option name="totallyTimeSpent" value="59708000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -1112,7 +1157,8 @@
     <MESSAGE value="Fixed issue where m_lastMoveWasEnpassant was getting reset to true instead of false in the handler for submit move" />
     <MESSAGE value="Fixed a bunch of sonar cube criticals and also fixed some a unit test that was failing" />
     <MESSAGE value="FIxed all but 2 of the sonar qube critcals. Beginning to work on the major issues" />
-    <option name="LAST_COMMIT_MESSAGE" value="FIxed all but 2 of the sonar qube critcals. Beginning to work on the major issues" />
+    <MESSAGE value="Fixed more sonar issues" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed more sonar issues" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1133,24 +1179,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Server/ServerThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="66" column="21" selection-start-line="66" selection-start-column="21" selection-end-line="66" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Networking/OpCode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="14" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ChessLogic/src/Networking/StartGamePacket.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1208,8 +1236,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="41" column="10" selection-start-line="41" selection-start-column="10" selection-end-line="41" selection-end-column="10" />
           <folding>
-            <element signature="e#2276#2277#0" expanded="true" />
-            <element signature="e#2319#2320#0" expanded="true" />
+            <element signature="e#2178#2179#0" expanded="true" />
+            <element signature="e#2221#2222#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1219,15 +1247,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#12079#12080#0" expanded="true" />
-            <element signature="e#12114#12115#0" expanded="true" />
-            <element signature="e#12161#12162#0" expanded="true" />
-            <element signature="e#12211#12212#0" expanded="true" />
             <element signature="method#GetRegion#0;class#GameBoardController#0" expanded="false" />
             <element signature="method#ColorRegion#0;class#GameBoardController#0" expanded="false" />
             <element signature="method#UpdateImagesFromBoardState#0;class#GameBoardController#0" expanded="false" />
             <element signature="method#ListContainsPosition#0;class#GameBoardController#0" expanded="false" />
-            <element signature="method#RemoveColoring#0;class#GameBoardController#0" expanded="false" />
             <element signature="method#redeemPiece#0;class#GameBoardController#0" expanded="false" />
             <element signature="docComment;method#returnToMainMenu#0;class#GameBoardController#0" expanded="false" />
           </folding>
@@ -1240,8 +1263,8 @@
           <caret line="170" column="26" selection-start-line="170" selection-start-column="26" selection-end-line="170" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="false" />
-            <element signature="e#5317#5318#0" expanded="false" />
-            <element signature="e#5358#5359#0" expanded="false" />
+            <element signature="e#4831#4832#0" expanded="false" />
+            <element signature="e#4872#4873#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1250,10 +1273,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="66" column="12" selection-start-line="66" selection-start-column="12" selection-end-line="66" selection-end-column="12" />
-          <folding>
-            <element signature="e#4369#4370#0" expanded="true" />
-            <element signature="e#4410#4411#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1373,14 +1393,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Pieces/ImageLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.05482456">
-          <caret line="3" column="24" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ChessLogic/src/Networking/StartGamePacket.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1443,17 +1455,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Game/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="70" column="35" selection-start-line="70" selection-start-column="35" selection-end-line="70" selection-end-column="35" />
-          <folding>
-            <element signature="e#2276#2277#0" expanded="true" />
-            <element signature="e#2319#2320#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ChessLogic/src/Tests/GameTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1473,14 +1474,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Server/ServerThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="51" column="79" selection-start-line="51" selection-start-column="79" selection-end-line="51" selection-end-column="79" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sonar-project.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1489,75 +1482,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Server/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="26" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ChessUI/src/javafx/MainMenuController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="160" column="23" selection-start-line="160" selection-start-column="23" selection-end-line="160" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ChessUI/src/javafx/GameBoardController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="229" column="12" selection-start-line="229" selection-start-column="12" selection-end-line="229" selection-end-column="53" />
-          <folding>
-            <element signature="e#12079#12080#0" expanded="true" />
-            <element signature="e#12114#12115#0" expanded="true" />
-            <element signature="e#12161#12162#0" expanded="true" />
-            <element signature="e#12211#12212#0" expanded="true" />
-            <element signature="method#GetRegion#0;class#GameBoardController#0" expanded="false" />
-            <element signature="method#ColorRegion#0;class#GameBoardController#0" expanded="false" />
-            <element signature="method#UpdateImagesFromBoardState#0;class#GameBoardController#0" expanded="false" />
-            <element signature="method#ListContainsPosition#0;class#GameBoardController#0" expanded="false" />
-            <element signature="method#RemoveColoring#0;class#GameBoardController#0" expanded="false" />
-            <element signature="method#redeemPiece#0;class#GameBoardController#0" expanded="false" />
-            <element signature="docComment;method#returnToMainMenu#0;class#GameBoardController#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Game/Position.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="21" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
-          <folding>
-            <element signature="e#496#497#0" expanded="true" />
-            <element signature="e#527#528#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ChessLogic/src/Tests/BoardTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="22" column="17" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Tests/ServerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.0925926">
-          <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Server/Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="36" column="17" selection-start-line="36" selection-start-column="17" selection-end-line="36" selection-end-column="17" />
           <folding />
         </state>
       </provider>
@@ -1581,21 +1509,124 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ChessUI/src/javafx/MatchedController.java">
+    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Game/Game.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="45" column="47" selection-start-line="45" selection-start-column="47" selection-end-line="45" selection-end-column="47" />
+          <caret line="17" column="28" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
+          <folding>
+            <element signature="e#2178#2179#0" expanded="true" />
+            <element signature="e#2221#2222#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Game/Position.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+          <folding>
+            <element signature="e#496#497#0" expanded="true" />
+            <element signature="e#527#528#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Tests/PieceTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="33" column="59" selection-start-line="33" selection-start-column="59" selection-end-line="33" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Pieces/ImageLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="31" selection-start-line="4" selection-start-column="1" selection-end-line="5" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Server/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Tests/ServerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Tests/ServerThreadTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3088685">
+          <caret line="42" column="36" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Server/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="117" column="45" selection-start-line="117" selection-start-column="45" selection-end-line="117" selection-end-column="45" />
+          <folding>
+            <element signature="e#2981#2982#0" expanded="true" />
+            <element signature="e#3002#3003#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Server/ServerThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="95" column="39" selection-start-line="95" selection-start-column="39" selection-end-line="95" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ChessLogic/src/Game/Board.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3379205">
+        <state vertical-scroll-proportion="0.0">
           <caret line="351" column="63" selection-start-line="351" selection-start-column="63" selection-end-line="351" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChessUI/src/javafx/MainMenuController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="84" column="52" selection-start-line="84" selection-start-column="52" selection-end-line="84" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChessUI/src/javafx/MatchedController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChessUI/src/javafx/GameBoardController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2512">
+          <caret line="346" column="44" selection-start-line="346" selection-start-column="44" selection-end-line="346" selection-end-column="44" />
           <folding>
-            <element signature="e#4369#4370#0" expanded="true" />
-            <element signature="e#4410#4411#0" expanded="true" />
+            <element signature="method#GetRegion#0;class#GameBoardController#0" expanded="false" />
+            <element signature="method#ColorRegion#0;class#GameBoardController#0" expanded="false" />
+            <element signature="method#UpdateImagesFromBoardState#0;class#GameBoardController#0" expanded="false" />
+            <element signature="method#ListContainsPosition#0;class#GameBoardController#0" expanded="false" />
+            <element signature="method#redeemPiece#0;class#GameBoardController#0" expanded="false" />
+            <element signature="docComment;method#returnToMainMenu#0;class#GameBoardController#0" expanded="false" />
           </folding>
         </state>
       </provider>

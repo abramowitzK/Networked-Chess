@@ -55,26 +55,22 @@ public class Server {
                 case JoinQueue:
                     //Check if Client is sending a duplicate join queue packet.
                     if(packet.GetID() == -1) {
-                        System.out.println("Adding new Client to the queue!");
                         m_gameQueue.add(new Player(m_currentID, in, out, socket));
                         //Send confirmation that Client is in queue
                         out.writeObject(new Packet(OpCode.JoinedQueue, m_currentID, null ));
                         //Increment current ID. We don't reuse IDs
                         m_currentID++;
                         m_currentInQueue++;
-                    }
-                    else{
+                    } else{
                         //Client already in queue and assigned an ID
                         out.writeObject(new Packet(OpCode.JoinedQueue, packet.GetID(), null ));
                     }
                     break;
                 case QuitGame:
                     //Let player leave queue
-                    System.out.println("Removing player with id: " + packet.GetID());
                     m_gameQueue.removeIf(p -> p.GetID() == packet.GetID());
                     break;
                 default:
-                    System.err.println("Unknown packet opcode. Can only join queue from main Server thread");
                     break;
             }
         }
@@ -86,7 +82,6 @@ public class Server {
      * Start up the Server
      */
     public void Start(){
-        System.out.println("Starting Server!");
         Run();
     }
     /**
@@ -113,18 +108,16 @@ public class Server {
     private boolean Game(){
         try {
             if (m_gameQueue.size() >= 2 && (m_game == null)) {
-                System.out.println("Starting new Game");
                 Player p1 = m_gameQueue.remove();
                 Player p2 = m_gameQueue.remove();
                 m_currentInQueue -=2;
                 p1.GetOut().writeObject(new StartGamePacket(p1.GetID(), Color.White));
                 p2.GetOut().writeObject(new StartGamePacket(p2.GetID(), Color.Black));
                 m_game = new Game(p1, p2);
-                new ServerThread(p1, m_game, p1.GetOut(), p1.GetIn(), this).start();
-                new ServerThread(p2, m_game, p2.GetOut(), p2.GetIn(), this).start();
+                new ServerThread(p1, m_game, p1.GetIn(), this).start();
+                new ServerThread(p2, m_game, p2.GetIn(), this).start();
                 return true;
             } else if (null != m_game && m_game.IsOver()) {
-                System.out.println("Setting Game to null");
                 m_game = null;
             }
         } catch (IOException ex){
@@ -137,7 +130,6 @@ public class Server {
     }
     public void notifyServerOfQuit(int idOfPlayer){
         if(m_game != null) {
-            System.out.println("Player with ID: " + idOfPlayer + " quit. Notified by thread");
             m_game.Quit(idOfPlayer);
             Player other = m_game.getOtherPlayer(idOfPlayer);
             try {
@@ -147,7 +139,6 @@ public class Server {
             } catch (IOException e) {
                 log.log(Level.FINE, "IOException in notify server of quit", e);
             }
-            System.out.println("Setting Game to null");
             m_game = null;
             Game();
         }

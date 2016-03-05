@@ -32,8 +32,5 @@ public class PieceTest {
         Piece p2 = new Piece(PieceType.Empty, Color.Empty);
         Assert.assertEquals("Empty Empty ", p.toString());
         Assert.assertEquals("Empty Empty ", p2.toString());
-
-        Image img = new ImageLoader(Color.Empty).LoadPiece(p.Type);
-        Assert.assertNull(img);
     }
 }
