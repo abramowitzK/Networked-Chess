@@ -39,7 +39,7 @@ public class ServerThreadTest {
         p2 = new Player(2, null, oos2, p2Socket);
 
         g = new Game(p1, p2);
-        st = new ServerThread(p2, g, null, serv);
+        st = new ServerThread(p2, g, null, serv, 0);
 
         st.start();
     }

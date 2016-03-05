@@ -7,6 +7,7 @@ import javafx.embed.swing.JFXPanel;
 
 import java.io.*;
 import java.net.*;
+import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.logging.*;
 
@@ -20,14 +21,12 @@ public class Server {
     private int m_currentID;
     private ServerSocket m_serverSocket;
     private int m_currentInQueue=0;
+    private HashMap<Integer, Game> m_games;
+    private int m_gameID = 0;
     /**
      * Queue representing players waiting to find match
      * */
     private ConcurrentLinkedQueue<Player> m_gameQueue;
-    /**
-     * Represents the current Game being played (we allow only one at a time). Is null if no Game is being played
-     */
-    private Game m_game;
     /**
      * Constructor
      */
@@ -36,9 +35,9 @@ public class Server {
         // magic initialization...
         JFXPanel panel = new JFXPanel();
         panel.getHeight();
+        m_games = new HashMap<>();
         m_currentID = 0;
         m_gameQueue = new ConcurrentLinkedQueue<>();
-        m_game = null;
         try {
             m_serverSocket = new ServerSocket(port,0, InetAddress.getByName(ip));
         } catch (IOException ex) {
@@ -93,20 +92,21 @@ public class Server {
     }
     private boolean Game(){
         try {
-            if (m_gameQueue.size() >= 2 && (m_game == null)) {
+            if (m_gameQueue.size() >= 2) {
                 Player p1 = m_gameQueue.remove();
                 Player p2 = m_gameQueue.remove();
                 m_currentInQueue -=2;
+                p1.JoinGame();
+                p2.JoinGame();
                 p1.GetOut().writeObject(new StartGamePacket(p1.GetID(), Color.White));
                 p2.GetOut().writeObject(new StartGamePacket(p2.GetID(), Color.Black));
-                m_game = new Game(p1, p2);
-                new ServerThread(p1, m_game, p1.GetIn(), this).start();
-                new ServerThread(p2, m_game, p2.GetIn(), this).start();
+                m_games.put(m_gameID, new Game(p1,p2));
+                new ServerThread(p1, m_games.get(m_gameID), p1.GetIn(), this, m_gameID).start();
+                new ServerThread(p2, m_games.get(m_gameID), p2.GetIn(), this, m_gameID).start();
+                m_gameID++;
                 return true;
-            } else if (null != m_game && m_game.IsOver()) {
-                m_game = null;
             }
-        } catch (IOException ex){
+        } catch (IOException | InterruptedException ex){
             log.log(Level.FINE, "IOException in Game()", ex);
         }
         return false;
@@ -114,10 +114,11 @@ public class Server {
     public int getQueueSize(){
         return m_gameQueue.size();
     }
-    public void notifyServerOfQuit(int idOfPlayer){
-        if(m_game != null) {
-            m_game.Quit(idOfPlayer);
-            Player other = m_game.getOtherPlayer(idOfPlayer);
+    public void notifyServerOfQuit(int idOfPlayer, int gameID){
+        Game game = m_games.get(gameID);
+        if(game != null) {
+            game.Quit(idOfPlayer);
+            Player other = game.getOtherPlayer(idOfPlayer);
             try {
                 //Let other player know the Game is over
                 other.GetOut().writeObject(new Packet(OpCode.QuitGame, other.GetID(), null));
@@ -125,7 +126,7 @@ public class Server {
             } catch (IOException e) {
                 log.log(Level.FINE, "IOException in notify server of quit", e);
             }
-            m_game = null;
+            m_games.remove(gameID);
             Game();
         }
     }
@@ -139,22 +140,36 @@ public class Server {
             //Increment current ID. We don't reuse IDs
             m_currentID++;
             m_currentInQueue++;
-            new Thread(()->CheckForClientLeaving(p)).start();
+            Thread t = new Thread(()->CheckForClientLeaving(p));
+            p.SetThread(t);
+            t.start();
         } else{
             //Client already in queue and assigned an ID
             out.writeObject(new Packet(OpCode.JoinedQueue, packet.GetID(), null ));
         }
     }
     private void CheckForClientLeaving(Player p){
-        try {
-            Packet pack = (Packet)p.GetIn().readObject();
-            //Let player leave queue
-            if(pack.GetOpCode() == OpCode.QuitGame)
+
+        while(!p.HasJoinedGame())
+        {
+            try {
+                p.GetSocket().setSoTimeout(100);
+                Packet pack = (Packet) p.GetIn().readObject();
+                //Let player leave queue
+                if (pack.GetOpCode() == OpCode.QuitGame)
+                    m_gameQueue.removeIf(i -> i.GetID() == p.GetID());
+            } catch (SocketTimeoutException ex) {
+                log.log(Level.FINE, "Normal", ex);
+            } catch (IOException | ClassNotFoundException ex) {
+                //Let player leave queue
+                log.log(Level.FINE, "Exception while talking to player", ex);
                 m_gameQueue.removeIf(i -> i.GetID() == p.GetID());
-        }catch (IOException | ClassNotFoundException ex){
-            //Let player leave queue
-            log.log(Level.FINE, "Exception while talking to player", ex);
-            m_gameQueue.removeIf(i -> i.GetID() == p.GetID());
+            }
+        }
+        try {
+            p.GetSocket().setSoTimeout(1000000000);
+        } catch (SocketException e) {
+            log.log(Level.FINE, "Exception while talking to player", e);
         }
     }
 }

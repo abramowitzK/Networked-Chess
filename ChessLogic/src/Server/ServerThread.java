@@ -14,12 +14,14 @@ public class ServerThread extends Thread{
     private ObjectInputStream m_in;
     private boolean m_quit;
     private Game m_game;
-    public ServerThread(Player player, Game game,ObjectInputStream in, Server server){
+    private int m_gameId;
+    public ServerThread(Player player, Game game,ObjectInputStream in, Server server, int gameId){
         m_player = player;
         m_quit = false;
         m_in = in;
         m_game = game;
         m_server = server;
+        m_gameId = gameId;
     }
     /**
      * Process a packet from a player. Logic in here decides what kind of packet it is and what to do with it.
@@ -52,15 +54,16 @@ public class ServerThread extends Thread{
     public void run(){
         try {
             while (!m_quit){
-                ProcessPacket((Packet)m_in.readObject());
+                Packet p = (Packet)(m_in.readObject());
+                ProcessPacket(p);
             }
         } catch (SocketException ex){
             log.log(Level.FINE, "Client Disconnected from inside ServerThread",ex);
-            m_server.notifyServerOfQuit(m_player.GetID());
+            m_server.notifyServerOfQuit(m_player.GetID(), m_gameId);
         } catch (EOFException ex){
             log.log(Level.FINE, "Caught EOF, Client has disconnected from inside ServerThread",ex);
         } catch (IOException | ClassNotFoundException ex){
-            m_server.notifyServerOfQuit(m_player.GetID());
+            m_server.notifyServerOfQuit(m_player.GetID(), m_gameId);
             log.log(Level.FINE, "Caught unknown IOException",ex);
         }
     }
@@ -78,7 +81,7 @@ public class ServerThread extends Thread{
 
     }
     private void Quit(Packet packet){
-        m_server.notifyServerOfQuit(packet.GetID());
+        m_server.notifyServerOfQuit(packet.GetID(), m_gameId);
         try {
             m_quit = true;
             m_player.GetSocket().close();
