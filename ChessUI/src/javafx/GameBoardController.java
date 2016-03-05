@@ -269,17 +269,19 @@ public class GameBoardController implements Initializable {
             boardState.ApplyMove(p.GetMove());
         }
         Position pos = new Position(p.GetMove().GetEndX(), p.GetMove().GetEndY());
+        Move m = p.GetMove();
+        Position e = new Position(m.GetEndX(), m.GetEndY());
         if(m_color == Color.White){
             if(pos.GetX()-1 >= 0) {
                 Piece piece = boardState.GetPiece(pos.GetX() - 1, pos.GetY());
-                if (piece != null && piece.Type == PieceType.Pawn && piece.PieceColor == Color.White) {
+                if (boardState.GetPiece(e.GetX(),e.GetY()) == null && piece != null && piece.Type == PieceType.Pawn && piece.PieceColor == Color.White) {
                     boardState.SetPiece(pos.GetX() - 1, pos.GetY(), null);
                 }
             }
         }else{
             if(pos.GetX()+1 < 8) {
                 Piece piece = boardState.GetPiece(pos.GetX() + 1, pos.GetY());
-                if (piece != null && piece.Type == PieceType.Pawn && piece.PieceColor == Color.Black) {
+                if (boardState.GetPiece(e.GetX(),e.GetY()) == null && piece!= null && piece.Type == PieceType.Pawn && piece.PieceColor == Color.Black) {
                     boardState.SetPiece(pos.GetX() + 1, pos.GetY(), null);
                 }
             }

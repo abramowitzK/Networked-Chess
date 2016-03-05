@@ -38,8 +38,8 @@
       <file leaf-file-name="GameBoardController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ChessUI/src/javafx/GameBoardController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.45288754">
-              <caret line="86" column="54" selection-start-line="86" selection-start-column="54" selection-end-line="86" selection-end-column="54" />
+            <state vertical-scroll-proportion="0.34954408">
+              <caret line="207" column="79" selection-start-line="207" selection-start-column="79" selection-end-line="207" selection-end-column="79" />
               <folding>
                 <element signature="method#GetRegion#0;class#GameBoardController#0" expanded="false" />
                 <element signature="method#ColorRegion#0;class#GameBoardController#0" expanded="false" />
@@ -894,7 +894,7 @@
       <workItem from="1456973729174" duration="1477000" />
       <workItem from="1457029085805" duration="14463000" />
       <workItem from="1457135972286" duration="263000" />
-      <workItem from="1457136913804" duration="18790000" />
+      <workItem from="1457136913804" duration="19859000" />
     </task>
     <task id="LOCAL-00001" summary="Optimized imports">
       <created>1455944159923</created>
@@ -1058,7 +1058,13 @@
       <option name="project" value="LOCAL" />
       <updated>1457156075995</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Fixed a bug where you could perform en passant even though it would put you in check. Caused a crash of the game.">
+      <created>1457156518506</created>
+      <option name="number" value="00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1457156518506</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1094,7 +1100,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69001000" />
+    <option name="totallyTimeSpent" value="70070000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -1107,7 +1113,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32929516" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1117,7 +1123,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39957717" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32953736" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27484143" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27484143" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32929516" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1828125" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1147,7 +1153,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="All the pieces work now. No special moves or win conditions/checking. All pieces should move correctly for standard move commands" />
     <MESSAGE value="Optimized imports further" />
     <MESSAGE value="Fixed some more minor issues" />
     <MESSAGE value="More code cleanup" />
@@ -1172,20 +1177,21 @@
     <MESSAGE value="Implemented leaving the queue. Was actually easy. Hooray lambdas!" />
     <MESSAGE value="We are now capable of running more than one game concurrently!" />
     <MESSAGE value="Promotion works!!" />
-    <option name="LAST_COMMIT_MESSAGE" value="Promotion works!!" />
+    <MESSAGE value="Fixed a bug where you could perform en passant even though it would put you in check. Caused a crash of the game." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed a bug where you could perform en passant even though it would put you in check. Caused a crash of the game." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/ChessUI/src/javafx/GameBoardController.java</url>
-          <line>446</line>
+          <line>448</line>
           <properties />
           <option name="timeStamp" value="51" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/ChessUI/src/javafx/GameBoardController.java</url>
-          <line>423</line>
+          <line>425</line>
           <properties />
           <option name="timeStamp" value="52" />
         </line-breakpoint>
@@ -1634,8 +1640,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ChessUI/src/javafx/GameBoardController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45288754">
-          <caret line="86" column="54" selection-start-line="86" selection-start-column="54" selection-end-line="86" selection-end-column="54" />
+        <state vertical-scroll-proportion="0.34954408">
+          <caret line="207" column="79" selection-start-line="207" selection-start-column="79" selection-end-line="207" selection-end-column="79" />
           <folding>
             <element signature="method#GetRegion#0;class#GameBoardController#0" expanded="false" />
             <element signature="method#ColorRegion#0;class#GameBoardController#0" expanded="false" />
