@@ -116,29 +116,29 @@ public class Board {
 
         Piece p = m_boardState[i][j];
         if(p == null)
-            return new ArrayList<Position>();
+            return new ArrayList<>();
         ArrayList<Position> ret;
         int dir = -1;
         if(p.PieceColor == Color.Black)
             dir = 1;
         switch (p.Type){
             case Pawn:
-                ret = GetValidPawnMoves(i,j, dir, p);
+                ret = (ArrayList<Position>) GetValidPawnMoves(i,j, dir, p);
                 break;
             case Bishop:
-                ret = GetValidBishopMoves(p.PieceColor,i,j);
+                ret = (ArrayList<Position>)GetValidBishopMoves(p.PieceColor,i,j);
                 break;
             case Knight:
-                ret = GetValidKnightMoves(p.PieceColor,i,j);
+                ret = (ArrayList<Position>)GetValidKnightMoves(p.PieceColor,i,j);
                 break;
             case Rook:
-                ret = GetValidRookMoves(p.PieceColor, i,j);
+                ret = (ArrayList<Position>)GetValidRookMoves(p.PieceColor, i,j);
                 break;
             case King:
-                ret = GetValidKingMoves(p.PieceColor, i,j);
+                ret = (ArrayList<Position>)GetValidKingMoves(p.PieceColor, i,j);
                 break;
             case Queen:
-                ret = GetValidQueenMoves(p.PieceColor, i,j);
+                ret = (ArrayList<Position>)GetValidQueenMoves(p.PieceColor, i,j);
                 break;
             default:
                 ret = new ArrayList<>();
@@ -151,7 +151,6 @@ public class Board {
         if(piece == null)
             return ret;
         Color color = piece.PieceColor;
-        Position kp = GetKingPosition(color);
         //Remove moves that don't block the check
         if( m_whiteCheck||m_blackCheck) {
             ret.removeIf(p -> !MoveBlocksCheckmate(new Move(new Position(i,j),p), piece.PieceColor));
@@ -243,7 +242,7 @@ public class Board {
     private boolean IsValidLandingPoint(Color myColor, int i, int j) {
         return !(!WithinBounds(i) || !WithinBounds(j)) && !(m_boardState[i][j] != null && m_boardState[i][j].PieceColor == myColor);
     }
-    private ArrayList<Position> GetValidBishopMoves(Color c, int i, int j){
+    private List<Position> GetValidBishopMoves(Color c, int i, int j){
         ArrayList<Position> ret = new ArrayList<>();
         for(Position dir : Piece.BishopDirs()){
             int k = 0;
@@ -256,7 +255,7 @@ public class Board {
         }
         return ret;
     }
-    private ArrayList<Position> GetValidKnightMoves(Color c, int i, int j){
+    private List<Position> GetValidKnightMoves(Color c, int i, int j){
         ArrayList<Position> ret = new ArrayList<>();
         for(Position direction : Piece.KnightDirs()) {
             if(IsValidLandingPoint(c, direction.GetX() + i, direction.GetY() + j))
@@ -264,7 +263,7 @@ public class Board {
         }
         return ret;
     }
-    private ArrayList<Position> GetValidRookMoves(Color c, int i, int j){
+    private List<Position> GetValidRookMoves(Color c, int i, int j){
         ArrayList<Position> ret = new ArrayList<>();
         for(Position dir : Piece.RookDirs()){
             int k = 0;
@@ -277,7 +276,7 @@ public class Board {
         }
         return ret;
     }
-    private ArrayList<Position> GetValidKingMoves(Color c, int i, int j){
+    private List<Position> GetValidKingMoves(Color c, int i, int j){
         ArrayList<Position> ret = new ArrayList<>();
         for(Position dir : Piece.QueenKingDirs()){
             if(IsValidLandingPoint(c, dir.GetX() + i, dir.GetY()+j))
@@ -285,7 +284,7 @@ public class Board {
         }
         return ret;
     }
-    private ArrayList<Position> GetValidQueenMoves(Color c, int i, int j) {
+    private List<Position> GetValidQueenMoves(Color c, int i, int j) {
         ArrayList<Position> ret = new ArrayList<>();
         for(Position dir : Piece.QueenKingDirs()){
             int k = 0;
@@ -358,7 +357,7 @@ public class Board {
      * @param p reference to the piece to set the hasMoved flag
      * @return List of all valid moves
      */
-    private ArrayList<Position> GetValidPawnMoves(int i, int j, int dir, Piece p){
+    private List<Position> GetValidPawnMoves(int i, int j, int dir, Piece p){
         ArrayList<Position> ret = new ArrayList<>();
             //First check directly in front of us
         if(i+dir <= 8 && m_boardState[i+dir][(j)] == null) {

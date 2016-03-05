@@ -6,9 +6,10 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.logging.*;
 
 public class MatchedController {
-
+	private static final Logger log = Logger.getLogger(MatchedController.class.getName());
 	@FXML Button beginButton;
 	@FXML Button leaveButton;
 	
@@ -27,7 +28,7 @@ public class MatchedController {
 			System.out.println("Switch to game board");
 			// TODO Add background task to send to server and wait for other person to press begin
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.log(Level.FINE, "Error in begin", e);
 		}	
 	}
 	public void handleLeave(){
@@ -42,7 +43,7 @@ public class MatchedController {
 			System.out.print("Switch to Main Menu");
 			//TODO Remove player from queue and notify other user that they left
 		} catch (Exception e){
-			e.printStackTrace();
+			log.log(Level.FINE, "Error in leave", e);
 		}
 	}
 }

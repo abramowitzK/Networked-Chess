@@ -18,9 +18,10 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import java.util.logging.*;
 
 public class GameBoardController implements Initializable {
-
+    private static final Logger log = Logger.getLogger(GameBoardController.class.getName());
 	@FXML Button forfeitButton;
 	@FXML Button submitMoveButton;
 	@FXML Button resetButton;
@@ -226,9 +227,9 @@ public class GameBoardController implements Initializable {
 			}
 
 		} catch (SocketException ex){
-			System.out.println("Socket closed");
+            log.log(Level.FINE, "Socket closed", ex);
 		} catch (Exception e){
-			e.printStackTrace();
+            log.log(Level.FINE, "General exception caught.", e);
 		}
 	}
 	public void setIn(ObjectInputStream in){
@@ -287,7 +288,7 @@ public class GameBoardController implements Initializable {
                     try{
 						out.writeObject(new Packet(OpCode.QuitGame, id, null));
                     } catch(IOException ex){
-                        System.out.println("Caught a socket exception");
+                        log.log(Level.FINE, "Socket exception when writing.", ex);
                     }
                     otherPlayerQuit = true;
                     Platform.runLater(this::HandleOtherPlayerQuit);
@@ -377,11 +378,14 @@ public class GameBoardController implements Initializable {
                                 processPacket(p);
                             } catch (SocketTimeoutException ex) {
                                 //This is okay. Makes it so we don't hang here forever
+                                log.log(Level.FINE, "Normal timeoutexception", ex);
                             } catch (EOFException ex) {
                                 //Something bad happened
+                                log.log(Level.FINE, "EOF exception, server died", ex);
                                 return null;
                             } catch (IOException ex) {
                                 //Something bad happened
+                                log.log(Level.FINE, "General ioexception something bad happened", ex);
                                 return null;
                             }
                         }
@@ -396,7 +400,7 @@ public class GameBoardController implements Initializable {
 					System.out.println("Informing server that we quit");
 					out.writeObject(new Packet(OpCode.QuitGame, id, null));
 				} catch (IOException ex) {
-					System.out.println("Socket already closed");
+                    log.log(Level.FINE, "Socket already closed", ex);
 				}
 		});
 		backgroundTask.start();
@@ -542,7 +546,7 @@ public class GameBoardController implements Initializable {
             getstage.show();
         }
         catch (Exception e){
-            e.printStackTrace();
+            log.log(Level.FINE, "promotion error.", e);
         }
     }
 }

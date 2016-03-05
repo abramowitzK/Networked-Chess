@@ -49,7 +49,7 @@ public class ServerThread extends Thread{
                     m_quit = true;
                     m_player.GetSocket().close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    log.log(Level.FINE, "Failed to close socket. Already closed", e);
                 }
                 break;
             case Castle:
@@ -62,7 +62,7 @@ public class ServerThread extends Thread{
                         try {
                             other.GetOut().writeObject(new CastlePacket(other.GetID(), p.Col, p.Left));
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            log.log(Level.FINE, "IOexception on Castle Recieved in serverThread", e);
                         }
                     }
                 }
@@ -83,13 +83,13 @@ public class ServerThread extends Thread{
                 ProcessPacket((Packet)m_in.readObject(), m_out);
             }
         } catch (SocketException ex){
-            log.log(Level.FINE, "Client Disconnected from inside ServerThread");
+            log.log(Level.FINE, "Client Disconnected from inside ServerThread",ex);
             m_server.notifyServerOfQuit(m_player.GetID());
         } catch (EOFException ex){
-            log.log(Level.FINE, "Caught EOF, Client has disconnected from inside ServerThread");
+            log.log(Level.FINE, "Caught EOF, Client has disconnected from inside ServerThread",ex);
         } catch (IOException | ClassNotFoundException ex){
             m_server.notifyServerOfQuit(m_player.GetID());
-            log.log(Level.FINE, "Caught unknown IOException");
+            log.log(Level.FINE, "Caught unknown IOException",ex);
         }
     }
     private void ApplyMove(Move move){
@@ -103,7 +103,7 @@ public class ServerThread extends Thread{
                 System.out.println("Game is over. Not forwarding packet");
             }
         } catch (IOException ex){
-            ex.printStackTrace();
+            log.log(Level.FINE, "Failed to apply move", ex);
         }
 
     }

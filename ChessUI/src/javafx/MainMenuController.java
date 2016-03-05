@@ -2,6 +2,7 @@ package javafx;
 
 import Networking.*;
 import Pieces.Color;
+import javafx.application.Platform;
 import javafx.concurrent.*;
 import javafx.event.EventHandler;
 import javafx.fxml.*;
@@ -16,8 +17,10 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.net.*;
 import java.util.Optional;
+import java.util.logging.*;
 
 public class MainMenuController {
+	private static final Logger log = Logger.getLogger(MainMenuController.class.getName());
 	@FXML private Button playGameButton;
 	private Socket socket;
 	private ObjectInputStream in;
@@ -89,6 +92,7 @@ public class MainMenuController {
 									break;
 								} catch (SocketTimeoutException e) {
 									//Okay this is expected if we wait a while.
+									log.log(Level.FINE, "timeout. This is okay", e);
 								}
 							}
 							socket.setSoTimeout(1000);
@@ -134,7 +138,7 @@ public class MainMenuController {
 						getstage.setScene(scene);
 						getstage.show();
 					} catch (Exception e) {
-						e.printStackTrace();
+						log.log(Level.FINE, "Controller load exception", e);
 					}	
 				}
 			});
@@ -146,13 +150,14 @@ public class MainMenuController {
 				 backgroundTask.cancel();
 			 }
 		} catch (Exception e){
-			e.printStackTrace();
+			log.log(Level.FINE, "Main menu exception", e);
 		}
 	}
 	/**
 	 * Terminates the Game
 	 */
 	public void handleQuit(){
-		System.exit(0);
+
+        Platform.exit();
 	}
 }

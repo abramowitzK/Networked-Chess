@@ -7,8 +7,11 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.logging.*;
+
 
 public class Main extends Application {
+	private static final Logger log = Logger.getLogger(Main.class.getName());
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -29,7 +32,7 @@ public class Main extends Application {
 			primaryStage.show();
 			
 		} catch(Exception e) {
-			e.printStackTrace();
+			log.log(Level.FINE, "Failed to open main app", e);
 		}
 	}
 	
