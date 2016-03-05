@@ -73,10 +73,6 @@ public class ServerTest {
         s.ProcessPacket(p, new ObjectOutputStream(out), null, null);
         assertEquals(1, s.getQueueSize());
 
-
-        Packet quitPacket = new Packet(OpCode.QuitGame, 0, null);
-        s.ProcessPacket(quitPacket, null, null, null);
-        assertEquals(0, s.getQueueSize());
     }
 
     @Test

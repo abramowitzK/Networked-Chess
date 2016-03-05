@@ -1,6 +1,6 @@
 package Networking;
 
-import Game.Position;
+import Game.*;
 import Pieces.Color;
 import Pieces.PieceType;
 
@@ -8,8 +8,8 @@ public class PromotionPacket extends Packet{
     public final Color Col;
     public final Position Pos;
     public final PieceType NewPiece;
-    public PromotionPacket(int id, Color color, Position pos, PieceType newPiece){
-        super(OpCode.Promotion, id, null);
+    public PromotionPacket(int id, Color color, Position pos, PieceType newPiece, Move move){
+        super(OpCode.Promotion, id, move);
         Col = color;
         Pos = pos;
         NewPiece = newPiece;

@@ -54,6 +54,8 @@ public class GameBoardController implements Initializable {
     private boolean m_lastMoveWasCastleRight = false;
     private boolean m_lastMoveWasEnPassant = false;
 	private boolean m_hasMoved;
+    private Position m_promotionPosition = null;
+    private Piece m_promotedPiece = null;
 
     public void handleClick(MouseEvent e) {
 		if(!m_ourTurn)
@@ -100,6 +102,11 @@ public class GameBoardController implements Initializable {
                     m_takenPiece = p;
                 }
 				m_newPosition = new Position(i, j);
+                if(m_selectedPiece.Type == PieceType.Pawn &&(i == 0 || i == 7)){
+                    m_promotedPiece = redeemPiece();
+                    m_selectedPiece = m_promotedPiece;
+                    m_promotionPosition = new Position(i,j);
+                }
 				boardState.SetPiece(i, j, m_selectedPiece);
 				boardState.SetPiece(m_oldPosition.GetX(), m_oldPosition.GetY(), null);
 				UpdateImagesFromBoardState();
@@ -144,6 +151,8 @@ public class GameBoardController implements Initializable {
             returnToMainMenu(false);
 	}
 	public void handleReset(){
+        if(m_promotedPiece != null)
+            return;
         if(!m_ourTurn)
             return;
         if(!m_hasMoved)
@@ -193,7 +202,12 @@ public class GameBoardController implements Initializable {
 			return;
 		try{
 			if(m_hasMoved) {
-                if(!m_lastMoveWasCastleLeft && !m_lastMoveWasCastleRight) {
+                if(m_promotedPiece != null){
+                    Move move = new Move(m_oldPosition, m_newPosition);
+                    synchronized (lock){
+                        out.writeObject(new PromotionPacket(id, m_color, m_promotionPosition, m_promotedPiece.Type, move));
+                    }
+                }else if(!m_lastMoveWasCastleLeft && !m_lastMoveWasCastleRight) {
                     Move move = new Move(m_oldPosition, m_newPosition);
                     synchronized (lock) {
                         //Send the move object to the Server here
@@ -211,6 +225,8 @@ public class GameBoardController implements Initializable {
                         out.writeObject(new CastlePacket(id, m_color, false));
                     }
                 }
+                m_promotedPiece = null;
+                m_promotionPosition = null;
                 m_lastMoveWasEnPassant = false;
                 m_lastMoveWasCastleLeft = false;
                 m_lastMoveWasCastleRight = false;
@@ -293,7 +309,33 @@ public class GameBoardController implements Initializable {
     private void Castle(Packet p){
         CastlePacket packet = (CastlePacket)p;
         boardState.Castle(packet.Col,packet.Left);
-        Platform.runLater(() -> checkIndicator.setText(""));
+        if(boardState.IsInCheckmate(m_color)) {
+            Platform.runLater(() -> checkIndicator.setText("You are in checkmate!!!"));
+            Platform.runLater(this::HandleCheckmate);
+        }
+        if(boardState.IsInCheck(m_color))
+            Platform.runLater(() -> checkIndicator.setText("You are in check!"));
+        else
+            Platform.runLater(() -> checkIndicator.setText(""));
+        m_ourTurn = true;
+        Platform.runLater(() -> setTurn(true));
+        Platform.runLater(this::UpdateImagesFromBoardState);
+    }
+    private void Promotion(Packet p){
+        PromotionPacket packet = (PromotionPacket)p;
+        synchronized (lock){
+            boardState.ApplyMove(packet.GetMove());
+            boardState.SetPiece(packet.Pos.GetX(), packet.Pos.GetY(), new Piece(packet.NewPiece, packet.Col));
+        }
+        if(boardState.IsInCheckmate(m_color)) {
+            Platform.runLater(() -> checkIndicator.setText("You are in checkmate!!!"));
+            Platform.runLater(this::HandleCheckmate);
+        }
+        if(boardState.IsInCheck(m_color))
+            Platform.runLater(() -> checkIndicator.setText("You are in check!"));
+        else
+            Platform.runLater(() -> checkIndicator.setText(""));
+        m_ourTurn = true;
         Platform.runLater(() -> setTurn(true));
         Platform.runLater(this::UpdateImagesFromBoardState);
     }
@@ -309,6 +351,9 @@ public class GameBoardController implements Initializable {
 					break;
                 case Castle:
                     Castle(p);
+                    break;
+                case Promotion:
+                    Promotion(p);
                     break;
                 default:
                     break;
@@ -412,7 +457,7 @@ public class GameBoardController implements Initializable {
      * Called when a pawn moves to the opponent's side of the board
      * //TODO add an argument to the method so that depending on whose turn it is, the appropriate piece colors can be shown and replaced
      */
-    public void redeemPiece()
+    public Piece redeemPiece()
     {
         // Create ok button
         ButtonType okButton = new ButtonType("Ok");
@@ -428,33 +473,28 @@ public class GameBoardController implements Initializable {
 
         //Create GridPane to hold buttons
         GridPane redeemGrid = new GridPane();
-
+        String color = m_color == Color.Black ? "black" : "white";
         //Create buttons
-        Button pawnButton = new Button();
-        Button knightButton = new Button();
-        Button bishopButton = new Button();
-        Button queenButton = new Button();
-        Button rookButton = new Button();
+        Button pawnButton = new Button("Pawn", new ImageView(new Image("file:../images/"+ color + "_pawn.png")));
+        Button knightButton = new Button("Knight", new ImageView(new Image("file:../images/" + color+ "_knight.png")));
+        Button bishopButton = new Button("Bishop", new ImageView(new Image("file:../images/" + color+ "_bishop.png")));
+        Button queenButton = new Button("Queen", new ImageView(new Image("file:../images/" + color+ "_queen.png")));
+        Button rookButton = new Button("Rook", new ImageView(new Image("file:../images/" + color+ "_rook.png")));
 
         // Set piece graphic, ID, and event handler
-        pawnButton.setId("pawn");
-        pawnButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("../images/white_pawn.png")))); //TODO abstract this somehow
+        pawnButton.setId("Pawn");
         pawnButton.setOnAction(arg0 -> selection = pawnButton.getId());
 
-        knightButton.setId("knight");
-        knightButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("../images/white_knight.png"))));
+        knightButton.setId("Knight");
         knightButton.setOnAction(arg0 -> selection = knightButton.getId());
 
-        bishopButton.setId("bishop");
-        bishopButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("../images/white_bishop.png"))));
+        bishopButton.setId("Bishop");
         bishopButton.setOnAction(arg0 -> selection = bishopButton.getId());
 
-        queenButton.setId("queen");
-        queenButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("../images/white_queen.png"))));
+        queenButton.setId("Queen");
         queenButton.setOnAction(arg0 -> selection = queenButton.getId());
 
         rookButton.setId("rook");
-        rookButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("../images/white_rook.png"))));
         rookButton.setOnAction(arg0 -> selection = rookButton.getId());
 
         // add buttons to grid pane
@@ -486,6 +526,25 @@ public class GameBoardController implements Initializable {
             result = a.showAndWait();
         }
         a.close();
+       Piece p;
+        switch (selection){
+            case "Knight":
+                p = new Piece(PieceType.Knight, m_color);
+                break;
+            case "Bishop":
+                p = new Piece(PieceType.Bishop, m_color);
+                break;
+            case "Rook":
+                p = new Piece(PieceType.Rook, m_color);
+                break;
+            case "Queen":
+                p = new Piece(PieceType.Queen, m_color);
+                break;
+            default:
+                p = new Piece(PieceType.Pawn, m_color);
+                break;
+        }
+        return p;
     }
 
     /**

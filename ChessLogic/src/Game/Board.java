@@ -354,7 +354,7 @@ public class Board {
     private List<Position> GetValidPawnMoves(int i, int j, int dir, Piece p){
         ArrayList<Position> ret = new ArrayList<>();
             //First check directly in front of us
-        if(i+dir <= 8 && m_boardState[i+dir][j] == null) {
+        if(i+dir < 8 && i+dir >= 0 && m_boardState[i+dir][j] == null) {
             ret.add(new Position(i+dir, j));
             if (!p.HasMoved() && m_boardState[i+2*dir][j] == null)
                 ret.add(new Position(i+2*dir, j));

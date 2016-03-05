@@ -2,6 +2,7 @@ package Server;
 
 import Game.*;
 import Networking.*;
+import Pieces.Piece;
 
 import java.io.*;
 import java.net.SocketException;
@@ -41,6 +42,10 @@ public class ServerThread extends Thread{
             case Castle:
                 CastlePacket p = (CastlePacket)packet;
                 Castle(p);
+                break;
+            case Promotion:
+                PromotionPacket pack = (PromotionPacket)packet;
+                Promotion(pack);
                 break;
             default:
                 break;
@@ -98,6 +103,21 @@ public class ServerThread extends Thread{
                     other.GetOut().writeObject(new CastlePacket(other.GetID(), p.Col, p.Left));
                 } catch (IOException e) {
                     log.log(Level.FINE, "IOexception on Castle Recieved in serverThread", e);
+                }
+            }
+        }
+    }
+    private void Promotion(PromotionPacket prom) {
+        synchronized (lock) {
+            m_game.ApplyMove(prom.GetMove());
+            Board b = m_game.getBoard();
+            b.SetPiece(prom.Pos.GetX(), prom.Pos.GetY(), new Piece(prom.NewPiece, prom.Col));
+            if (!m_game.IsOver()) {
+                Player other = m_game.getOtherPlayer(m_player.GetID());
+                try {
+                    other.GetOut().writeObject(new PromotionPacket(other.GetID(), prom.Col, prom.Pos, prom.NewPiece, prom.GetMove()));
+                } catch (IOException e) {
+                    log.log(Level.FINE, "Promotion failed", e);
                 }
             }
         }
