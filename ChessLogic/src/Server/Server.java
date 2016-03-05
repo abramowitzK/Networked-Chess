@@ -35,6 +35,7 @@ public class Server {
         //Javafx won't allow us to load images without calling a javafx function first to do some
         // magic initialization...
         JFXPanel panel = new JFXPanel();
+        panel.getHeight();
         m_currentID = 0;
         m_gameQueue = new ConcurrentLinkedQueue<>();
         m_game = null;
@@ -53,18 +54,7 @@ public class Server {
         try {
             switch (packet.GetOpCode()) {
                 case JoinQueue:
-                    //Check if Client is sending a duplicate join queue packet.
-                    if(packet.GetID() == -1) {
-                        m_gameQueue.add(new Player(m_currentID, in, out, socket));
-                        //Send confirmation that Client is in queue
-                        out.writeObject(new Packet(OpCode.JoinedQueue, m_currentID, null ));
-                        //Increment current ID. We don't reuse IDs
-                        m_currentID++;
-                        m_currentInQueue++;
-                    } else{
-                        //Client already in queue and assigned an ID
-                        out.writeObject(new Packet(OpCode.JoinedQueue, packet.GetID(), null ));
-                    }
+                    JoinQueue(packet, out, in, socket);
                     break;
                 case QuitGame:
                     //Let player leave queue
@@ -141,6 +131,20 @@ public class Server {
             }
             m_game = null;
             Game();
+        }
+    }
+    private void JoinQueue(Packet packet,ObjectOutputStream out, ObjectInputStream in, Socket socket) throws IOException{
+        //Check if Client is sending a duplicate join queue packet.
+        if(packet.GetID() == -1) {
+            m_gameQueue.add(new Player(m_currentID, in, out, socket));
+            //Send confirmation that Client is in queue
+            out.writeObject(new Packet(OpCode.JoinedQueue, m_currentID, null ));
+            //Increment current ID. We don't reuse IDs
+            m_currentID++;
+            m_currentInQueue++;
+        } else{
+            //Client already in queue and assigned an ID
+            out.writeObject(new Packet(OpCode.JoinedQueue, packet.GetID(), null ));
         }
     }
 }

@@ -247,59 +247,68 @@ public class GameBoardController implements Initializable {
 		} else
 			turnIndicator.setText("Opponents turn");
 	}
+    private void UpdateBoard(Packet p){
+        //The other player made a move and we need to update our board.
+        synchronized (lock) {
+            boardState.ApplyMove(p.GetMove());
+        }
+        Position pos = new Position(p.GetMove().GetEndX(), p.GetMove().GetEndY());
+        if(m_color == Color.White){
+            if(pos.GetX()-1 >= 0) {
+                Piece piece = boardState.GetPiece(pos.GetX() - 1, pos.GetY());
+                if (piece != null && piece.Type == PieceType.Pawn && piece.PieceColor == Color.White) {
+                    boardState.SetPiece(pos.GetX() - 1, pos.GetY(), null);
+                }
+            }
+        }else{
+            if(pos.GetX()+1 < 8) {
+                Piece piece = boardState.GetPiece(pos.GetX() + 1, pos.GetY());
+                if (piece != null && piece.Type == PieceType.Pawn && piece.PieceColor == Color.Black) {
+                    boardState.SetPiece(pos.GetX() + 1, pos.GetY(), null);
+                }
+            }
+        }
+        if(boardState.IsInCheckmate(m_color)) {
+            Platform.runLater(() -> checkIndicator.setText("You are in checkmate!!!"));
+            Platform.runLater(this::HandleCheckmate);
+        }
+        if(boardState.IsInCheck(m_color))
+            Platform.runLater(() -> checkIndicator.setText("You are in check!"));
+        else
+            Platform.runLater(() -> checkIndicator.setText(""));
+        m_ourTurn = true;
+        Platform.runLater(() -> setTurn(true));
+        Platform.runLater(this::UpdateImagesFromBoardState);
+    }
+    private void QuitGame(){
+        //Other player quit Game
+        try{
+            out.writeObject(new Packet(OpCode.QuitGame, id, null));
+        } catch(IOException ex){
+            log.log(Level.FINE, "Socket exception when writing.", ex);
+        }
+        otherPlayerQuit = true;
+        Platform.runLater(this::HandleOtherPlayerQuit);
+    }
+    private void Castle(Packet p){
+        CastlePacket packet = (CastlePacket)p;
+        boardState.Castle(packet.Col,packet.Left);
+        Platform.runLater(() -> checkIndicator.setText(""));
+        Platform.runLater(() -> setTurn(true));
+        Platform.runLater(this::UpdateImagesFromBoardState);
+    }
 	private void processPacket(Packet p){
         if(p== null)
             return;
 			switch (p.GetOpCode()) {
 				case UpdateBoard:
-					//The other player made a move and we need to update our board.
-					synchronized (lock) {
-						boardState.ApplyMove(p.GetMove());
-					}
-                    Position pos = new Position(p.GetMove().GetEndX(), p.GetMove().GetEndY());
-                    if(m_color == Color.White){
-                        if(pos.GetX()-1 >= 0) {
-                            Piece piece = boardState.GetPiece(pos.GetX() - 1, pos.GetY());
-                            if (piece != null && piece.Type == PieceType.Pawn && piece.PieceColor == Color.White) {
-                                boardState.SetPiece(pos.GetX() - 1, pos.GetY(), null);
-                            }
-                        }
-                    }else{
-                        if(pos.GetX()+1 < 8) {
-                            Piece piece = boardState.GetPiece(pos.GetX() + 1, pos.GetY());
-                            if (piece != null && piece.Type == PieceType.Pawn && piece.PieceColor == Color.Black) {
-                                boardState.SetPiece(pos.GetX() + 1, pos.GetY(), null);
-                            }
-                        }
-                    }
-                    if(boardState.IsInCheckmate(m_color)) {
-                        Platform.runLater(() -> checkIndicator.setText("You are in checkmate!!!"));
-                        Platform.runLater(this::HandleCheckmate);
-                    }
-                    if(boardState.IsInCheck(m_color))
-                        Platform.runLater(() -> checkIndicator.setText("You are in check!"));
-                    else
-                        Platform.runLater(() -> checkIndicator.setText(""));
-					m_ourTurn = true;
-					Platform.runLater(() -> setTurn(true));
-					Platform.runLater(this::UpdateImagesFromBoardState);
+                    UpdateBoard(p);
 					break;
 				case QuitGame:
-					//Other player quit Game
-                    try{
-						out.writeObject(new Packet(OpCode.QuitGame, id, null));
-                    } catch(IOException ex){
-                        log.log(Level.FINE, "Socket exception when writing.", ex);
-                    }
-                    otherPlayerQuit = true;
-                    Platform.runLater(this::HandleOtherPlayerQuit);
+                    QuitGame();
 					break;
                 case Castle:
-                    CastlePacket packet = (CastlePacket)p;
-                    boardState.Castle(packet.Col,packet.Left);
-                    Platform.runLater(() -> checkIndicator.setText(""));
-                    Platform.runLater(() -> setTurn(true));
-                    Platform.runLater(this::UpdateImagesFromBoardState);
+                    Castle(p);
                     break;
                 default:
                     break;
