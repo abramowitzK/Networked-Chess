@@ -107,7 +107,11 @@ public class MainMenuController {
 			};
             //Remove player from queue when Cancel button is pressed while searching
             backgroundTask.setOnCancelled(event -> {
-                //TODO put disconnect code here. Have to implement that on Server first.
+                try {
+                    out.writeObject(new Packet(OpCode.QuitGame, id, null));
+                }catch(IOException ex){
+                    log.log(Level.FINE, "Server dead", ex);
+                }
             });
 			//Close the dialog box and transition to the Game board
 			backgroundTask.setOnSucceeded(new EventHandler<WorkerStateEvent>(){

@@ -56,10 +56,6 @@ public class Server {
                 case JoinQueue:
                     JoinQueue(packet, out, in, socket);
                     break;
-                case QuitGame:
-                    //Let player leave queue
-                    m_gameQueue.removeIf(p -> p.GetID() == packet.GetID());
-                    break;
                 default:
                     break;
             }
@@ -136,15 +132,29 @@ public class Server {
     private void JoinQueue(Packet packet,ObjectOutputStream out, ObjectInputStream in, Socket socket) throws IOException{
         //Check if Client is sending a duplicate join queue packet.
         if(packet.GetID() == -1) {
-            m_gameQueue.add(new Player(m_currentID, in, out, socket));
+            Player p = new Player(m_currentID, in,out, socket);
+            m_gameQueue.add(p);
             //Send confirmation that Client is in queue
             out.writeObject(new Packet(OpCode.JoinedQueue, m_currentID, null ));
             //Increment current ID. We don't reuse IDs
             m_currentID++;
             m_currentInQueue++;
+            new Thread(()->CheckForClientLeaving(p)).start();
         } else{
             //Client already in queue and assigned an ID
             out.writeObject(new Packet(OpCode.JoinedQueue, packet.GetID(), null ));
+        }
+    }
+    private void CheckForClientLeaving(Player p){
+        try {
+            Packet pack = (Packet)p.GetIn().readObject();
+            //Let player leave queue
+            if(pack.GetOpCode() == OpCode.QuitGame)
+                m_gameQueue.removeIf(i -> i.GetID() == p.GetID());
+        }catch (IOException | ClassNotFoundException ex){
+            //Let player leave queue
+            log.log(Level.FINE, "Exception while talking to player", ex);
+            m_gameQueue.removeIf(i -> i.GetID() == p.GetID());
         }
     }
 }
