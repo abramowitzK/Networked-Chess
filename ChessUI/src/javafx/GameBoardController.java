@@ -497,7 +497,7 @@ public class GameBoardController implements Initializable {
         queenButton.setId("Queen");
         queenButton.setOnAction(arg0 -> selection = queenButton.getId());
 
-        rookButton.setId("rook");
+        rookButton.setId("Rook");
         rookButton.setOnAction(arg0 -> selection = rookButton.getId());
 
         // add buttons to grid pane

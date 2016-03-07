@@ -12,15 +12,8 @@
   <component name="ChangeListManager">
     <list default="true" id="07e140e5-a4c5-4171-a50f-709e4d1d1de2" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChessLogic/src/Game/Game.java" afterPath="$PROJECT_DIR$/ChessLogic/src/Game/Game.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChessLogic/src/Networking/CastlePacket.java" afterPath="$PROJECT_DIR$/ChessLogic/src/Networking/CastlePacket.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChessLogic/src/Tests/BoardTest.java" afterPath="$PROJECT_DIR$/ChessLogic/src/Tests/BoardTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChessLogic/src/Tests/GameTest.java" afterPath="$PROJECT_DIR$/ChessLogic/src/Tests/GameTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChessLogic/src/Tests/PacketTest.java" afterPath="$PROJECT_DIR$/ChessLogic/src/Tests/PacketTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChessLogic/src/Tests/PieceTest.java" afterPath="$PROJECT_DIR$/ChessLogic/src/Tests/PieceTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChessLogic/src/Tests/ServerTest.java" afterPath="$PROJECT_DIR$/ChessLogic/src/Tests/ServerTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChessLogic/src/Tests/ServerThreadTest.java" afterPath="$PROJECT_DIR$/ChessLogic/src/Tests/ServerThreadTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChessLogic/src/Tests/TestRunner.java" afterPath="$PROJECT_DIR$/ChessLogic/src/Tests/TestRunner.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChessLogic/src/Game/Board.java" afterPath="$PROJECT_DIR$/ChessLogic/src/Game/Board.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChessUI/src/javafx/GameBoardController.java" afterPath="$PROJECT_DIR$/ChessUI/src/javafx/GameBoardController.java" />
     </list>
     <ignored path=".idea/dataSources.local.xml" />
     <manually-removed-from-ignored>
@@ -35,8 +28,11 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/CS451$BoardTest_emptyBoardCellMoveTest.coverage" NAME="BoardTest.emptyBoardCellMoveTest Coverage Results" MODIFIED="1457219115698" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>Tests.*</FILTER>
+    <SUITE FILE_PATH="coverage/CS451Chess$jUnit_Tests.coverage" NAME="jUnit Tests Coverage Results" MODIFIED="1457304600575" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>Pieces.*</FILTER>
+      <FILTER>Server.*</FILTER>
+      <FILTER>Game.*</FILTER>
+      <FILTER>Networking.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/CS451$jUnit_Tests.coverage" NAME="jUnit Tests Coverage Results" MODIFIED="1457219489101" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>Pieces.*</FILTER>
@@ -44,13 +40,10 @@
       <FILTER>Game.*</FILTER>
       <FILTER>Networking.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/CS451Chess$jUnit_Tests.coverage" NAME="jUnit Tests Coverage Results" MODIFIED="1457214661133" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>Pieces.*</FILTER>
-      <FILTER>Server.*</FILTER>
-      <FILTER>Game.*</FILTER>
-      <FILTER>Networking.*</FILTER>
-    </SUITE>
     <SUITE FILE_PATH="coverage/CS451Chess$Client.coverage" NAME="Client Coverage Results" MODIFIED="1457158405362" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/CS451$BoardTest_emptyBoardCellMoveTest.coverage" NAME="BoardTest.emptyBoardCellMoveTest Coverage Results" MODIFIED="1457219115698" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>Tests.*</FILTER>
+    </SUITE>
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -69,9 +62,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="165" column="30" selection-start-line="165" selection-start-column="30" selection-end-line="165" selection-end-column="30" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -81,7 +72,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -101,7 +94,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="37" column="9" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -119,12 +114,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ServerThreadTest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ServerThreadTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ChessLogic/src/Tests/ServerThreadTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4375963">
-              <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="98" column="68" selection-start-line="98" selection-start-column="68" selection-end-line="98" selection-end-column="68" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GameBoardController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ChessUI/src/javafx/GameBoardController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.6">
+              <caret line="499" column="27" selection-start-line="499" selection-start-column="27" selection-end-line="499" selection-end-column="27" />
+              <folding>
+                <element signature="method#GetRegion#0;class#GameBoardController#0" expanded="false" />
+                <element signature="method#ColorRegion#0;class#GameBoardController#0" expanded="false" />
+                <element signature="method#UpdateImagesFromBoardState#0;class#GameBoardController#0" expanded="false" />
+                <element signature="method#ListContainsPosition#0;class#GameBoardController#0" expanded="false" />
+                <element signature="docComment;method#returnToMainMenu#0;class#GameBoardController#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -134,7 +145,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="33" column="59" selection-start-line="33" selection-start-column="59" selection-end-line="33" selection-end-column="59" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -144,7 +157,15 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="87" column="41" selection-start-line="87" selection-start-column="41" selection-end-line="87" selection-end-column="41" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#599#600#0" expanded="false" />
+                <element signature="e#662#663#0" expanded="false" />
+                <element signature="e#703#704#0" expanded="false" />
+                <element signature="e#745#746#0" expanded="false" />
+                <element signature="e#792#793#0" expanded="false" />
+                <element signature="e#836#837#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -154,7 +175,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="18" column="97" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="97" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -208,7 +231,6 @@
         <option value="$PROJECT_DIR$/ChessLogic/src/Networking/PromotionPacket.java" />
         <option value="$PROJECT_DIR$/ChessUI/src/javafx/MainMenuController.java" />
         <option value="$PROJECT_DIR$/ChessUI/src/javafx/MatchedController.java" />
-        <option value="$PROJECT_DIR$/ChessUI/src/javafx/GameBoardController.java" />
         <option value="$PROJECT_DIR$/ChessLogic/src/Game/Game.java" />
         <option value="$PROJECT_DIR$/ChessLogic/src/Networking/CastlePacket.java" />
         <option value="$PROJECT_DIR$/ChessLogic/src/Tests/PacketTest.java" />
@@ -216,6 +238,7 @@
         <option value="$PROJECT_DIR$/ChessLogic/src/Tests/BoardTest.java" />
         <option value="$PROJECT_DIR$/ChessLogic/src/Tests/ServerTest.java" />
         <option value="$PROJECT_DIR$/ChessLogic/src/Tests/ServerThreadTest.java" />
+        <option value="$PROJECT_DIR$/ChessUI/src/javafx/GameBoardController.java" />
       </list>
     </option>
   </component>
@@ -225,9 +248,10 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="499" />
-    <option name="width" value="1421" />
-    <option name="height" value="1040" />
+    <option name="x" value="-2568" />
+    <option name="y" value="-360" />
+    <option name="width" value="2576" />
+    <option name="height" value="1416" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -258,63 +282,27 @@
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="CS451" />
+              <option name="myItemId" value="CS451Chess" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="CS451" />
+              <option name="myItemId" value="CS451Chess" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="ChessLogic" />
+              <option name="myItemId" value="ChessUI" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="CS451" />
+              <option name="myItemId" value="CS451Chess" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="ChessLogic" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Tests" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CS451" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ChessLogic" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CS451" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ChessLogic" />
+              <option name="myItemId" value="ChessUI" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -324,11 +312,11 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="CS451" />
+              <option name="myItemId" value="CS451Chess" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="ChessLogic" />
+              <option name="myItemId" value="ChessUI" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -336,25 +324,17 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Networking" />
+              <option name="myItemId" value="javafx" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="CS451" />
+              <option name="myItemId" value="CS451Chess" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="ChessLogic" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Game" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -375,7 +355,7 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../Coverage" />
   </component>
-  <component name="RunManager" selected="JUnit.jUnit Tests">
+  <component name="RunManager" selected="Application.Client">
     <configuration default="false" name="BoardTest.unmovedPawnMovementTestWhite" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -703,7 +683,7 @@
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="javafx.Main" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="4445 127.0.0.1" />
+      <option name="PROGRAM_PARAMETERS" value="25565 71.168.230.155" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -793,6 +773,8 @@
       <workItem from="1457029085805" duration="14463000" />
       <workItem from="1457135972286" duration="263000" />
       <workItem from="1457136913804" duration="26442000" />
+      <workItem from="1457220579453" duration="1208000" />
+      <workItem from="1457304514121" duration="2653000" />
     </task>
     <task id="LOCAL-00001" summary="Optimized imports">
       <created>1455944159923</created>
@@ -972,15 +954,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="BoardTest_emptyBoardCellMoveTest - 2016.03.05 at 18h 05m 13s.xml">
-      <configuration name="BoardTest.emptyBoardCellMoveTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="BoardTest_emptyBoardCellMoveTest - 2016.03.05 at 18h 05m 16s.xml">
-      <configuration name="BoardTest.emptyBoardCellMoveTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="jUnit_Tests - 2016.03.05 at 18h 03m 37s.xml">
-      <configuration name="jUnit Tests" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="jUnit_Tests - 2016.03.05 at 18h 05m 30s.xml">
       <configuration name="jUnit Tests" configurationId="JUnit" />
     </history-entry>
@@ -1002,9 +975,18 @@
     <history-entry file="jUnit_Tests - 2016.03.05 at 18h 11m 34s.xml">
       <configuration name="jUnit Tests" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="jUnit_Tests - 2016.03.05 at 18h 29m 55s.xml">
+      <configuration name="jUnit Tests" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="jUnit_Tests - 2016.03.06 at 17h 49m 39s.xml">
+      <configuration name="jUnit Tests" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="jUnit_Tests - 2016.03.06 at 17h 50m 05s.xml">
+      <configuration name="jUnit Tests" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="76653000" />
+    <option name="totallyTimeSpent" value="80514000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -1016,7 +998,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="499" y="0" width="1421" height="1040" extended-state="0" />
+    <frame x="-2568" y="-360" width="2576" height="1416" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1026,12 +1008,12 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32953736" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2728249" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Coverage" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26263344" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19754978" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19648437" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32929516" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24911033" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3340494" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18671875" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1042,8 +1024,8 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Duplicates" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980973" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39957717" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3340494" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -1116,6 +1098,42 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Tests/PieceTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="33" column="59" selection-start-line="33" selection-start-column="59" selection-end-line="33" selection-end-column="59" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Tests/PacketTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="87" column="41" selection-start-line="87" selection-start-column="41" selection-end-line="87" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#599#600#0" expanded="false" />
+            <element signature="e#662#663#0" expanded="false" />
+            <element signature="e#703#704#0" expanded="false" />
+            <element signature="e#745#746#0" expanded="false" />
+            <element signature="e#792#793#0" expanded="false" />
+            <element signature="e#836#837#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChessLogic/src/Server/ServerThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="97" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="97" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ChessUI/src/javafx/GameBoardController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1156,9 +1174,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="29" column="27" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1212,7 +1228,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1220,28 +1235,30 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="119" column="61" selection-start-line="119" selection-start-column="61" selection-end-line="119" selection-end-column="61" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ChessUI/src/javafx/MainMenu.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.4727273">
           <caret line="8" column="3" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="3" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ChessUI/src/javafx/Matched.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChessUI/src/javafx/Matched.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.7818182">
           <caret line="9" column="3" selection-start-line="9" selection-start-column="3" selection-end-line="9" selection-end-column="3" />
         </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ChessLogic/src/Pieces/PieceType.java">
@@ -1363,14 +1380,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ChessUI/src/javafx/GameBoard.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4484357">
           <caret line="383" column="34" selection-start-line="383" selection-start-column="34" selection-end-line="383" selection-end-column="34" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ChessLogic/src/Game/Position.java">
@@ -1389,8 +1406,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="29" column="37" selection-start-line="29" selection-start-column="37" selection-end-line="29" selection-end-column="37" />
           <folding>
-            <element signature="e#492#493#0" expanded="true" />
-            <element signature="e#520#521#0" expanded="true" />
+            <element signature="e#492#493#0" expanded="false" />
+            <element signature="e#520#521#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1399,7 +1416,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1407,7 +1423,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.10687023">
           <caret line="5" column="31" selection-start-line="4" selection-start-column="1" selection-end-line="5" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1442,7 +1457,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1456,20 +1470,6 @@
             <element signature="e#1004#1005#0" expanded="false" />
             <element signature="e#1035#1036#0" expanded="false" />
             <element signature="e#1060#1061#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ChessUI/src/javafx/GameBoardController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="287" column="0" selection-start-line="287" selection-start-column="0" selection-end-line="287" selection-end-column="0" />
-          <folding>
-            <element signature="method#GetRegion#0;class#GameBoardController#0" expanded="false" />
-            <element signature="method#ColorRegion#0;class#GameBoardController#0" expanded="false" />
-            <element signature="method#UpdateImagesFromBoardState#0;class#GameBoardController#0" expanded="false" />
-            <element signature="method#ListContainsPosition#0;class#GameBoardController#0" expanded="false" />
-            <element signature="docComment;method#returnToMainMenu#0;class#GameBoardController#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1497,7 +1497,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="18" column="97" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="97" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1505,7 +1507,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="87" column="41" selection-start-line="87" selection-start-column="41" selection-end-line="87" selection-end-column="41" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#599#600#0" expanded="false" />
+            <element signature="e#662#663#0" expanded="false" />
+            <element signature="e#703#704#0" expanded="false" />
+            <element signature="e#745#746#0" expanded="false" />
+            <element signature="e#792#793#0" expanded="false" />
+            <element signature="e#836#837#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1513,7 +1523,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="33" column="59" selection-start-line="33" selection-start-column="59" selection-end-line="33" selection-end-column="59" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1521,9 +1533,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="165" column="30" selection-start-line="165" selection-start-column="30" selection-end-line="165" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1539,7 +1549,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="37" column="9" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1548,8 +1560,8 @@
         <state vertical-scroll-proportion="1.5388514">
           <caret line="68" column="16" selection-start-line="68" selection-start-column="16" selection-end-line="68" selection-end-column="16" />
           <folding>
-            <element signature="e#2100#2101#0" expanded="true" />
-            <element signature="e#2121#2122#0" expanded="true" />
+            <element signature="e#2100#2101#0" expanded="false" />
+            <element signature="e#2121#2122#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1558,15 +1570,31 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ChessLogic/src/Tests/ServerThreadTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4375963">
-          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="98" column="68" selection-start-line="98" selection-start-column="68" selection-end-line="98" selection-end-column="68" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChessUI/src/javafx/GameBoardController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6">
+          <caret line="499" column="27" selection-start-line="499" selection-start-column="27" selection-end-line="499" selection-end-column="27" />
+          <folding>
+            <element signature="method#GetRegion#0;class#GameBoardController#0" expanded="false" />
+            <element signature="method#ColorRegion#0;class#GameBoardController#0" expanded="false" />
+            <element signature="method#UpdateImagesFromBoardState#0;class#GameBoardController#0" expanded="false" />
+            <element signature="method#ListContainsPosition#0;class#GameBoardController#0" expanded="false" />
+            <element signature="docComment;method#returnToMainMenu#0;class#GameBoardController#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
