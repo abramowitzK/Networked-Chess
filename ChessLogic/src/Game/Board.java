@@ -195,6 +195,8 @@ public class Board {
 
     }
     public boolean CanCastleLeft(Color color) {
+        if(m_blackCheck || m_whiteCheck)
+            return false;
         Position rookPos;
         Position kp = GetKingPosition(color);
         if (color == Color.Black)
@@ -211,6 +213,8 @@ public class Board {
         return false;
     }
     public boolean CanCastleRight(Color color) {
+        if(m_blackCheck || m_whiteCheck)
+            return false;
         Position rookPos;
         Position kp = GetKingPosition(color);
         if (color == Color.Black)
